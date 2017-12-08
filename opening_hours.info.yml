@@ -1,0 +1,5 @@
+name: 'Opening Hours'
+type: module
+description: 'Integrates the Opening Hours platform functionality.'
+package: 'Stad Gent'
+core: '8.x'
