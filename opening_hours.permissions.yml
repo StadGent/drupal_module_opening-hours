@@ -1,0 +1,4 @@
+configure opening hours:
+  title: 'Configure Opening Hours Service'
+  description: 'Give access to the Opening Hours service configuration page.'
+  restrict access: TRUE
