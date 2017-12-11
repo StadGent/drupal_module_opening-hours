@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Module hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function opening_hours_theme($existing, $type, $theme, $path) {
+  return [
+    'opening_hours_opennow' => [
+      'template' => 'opening-hours-opennow',
+      'path' => $path . '/templates',
+      'variables' => [
+        'serviceId' => NULL,
+        'channelId' => NULL,
+      ],
+    ],
+  ];
+}
