@@ -1,0 +1,7 @@
+opening_hours.admin_config:
+  path: admin/config/services/opening-hours
+  defaults:
+    _form: \Drupal\opening_hours\Form\ConfigForm
+    _title: 'Opening Hours'
+  requirements:
+    _permission: 'configure opening hours'

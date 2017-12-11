@@ -1,5 +1,6 @@
 name: 'Opening Hours'
 type: module
 description: 'Integrates the Opening Hours platform functionality.'
-package: 'Stad Gent'
+configure: opening_hours.admin_config
+package: 'Web services'
 core: '8.x'
