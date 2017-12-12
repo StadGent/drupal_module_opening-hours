@@ -130,12 +130,6 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $serviceState = sprintf(
-      ':input[name="%s[%d][opening_hours][service]"]',
-      $this->fieldDefinition->getName(),
-      $delta
-    );
-
     $item = $items[$delta];
     $formValues = $this->extractFormStateValues($delta, $form_state);
 
