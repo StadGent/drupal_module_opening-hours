@@ -111,6 +111,7 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
     /* @var $channelService \StadGent\Services\OpeningHours\Service\Channel\ChannelService */
     $channelService = $container->get('opening_hours.channel');
 
+    /* @var $logger \Psr\Log\LoggerInterface */
     $logger = $container->get('logger.factory')->get('opening_hours');
 
     return new static(
