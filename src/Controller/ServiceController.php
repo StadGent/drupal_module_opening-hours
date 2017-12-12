@@ -9,6 +9,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Controller to get AutoComplete functionality when searching for a Service.
+ *
+ * @package Drupal\opening_hours\Controller
+ */
 class ServiceController extends ControllerBase {
   /**
    * The Opening Hours Service service.

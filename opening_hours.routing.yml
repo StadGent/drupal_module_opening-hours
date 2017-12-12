@@ -5,3 +5,11 @@ opening_hours.admin_config:
     _title: 'Opening Hours'
   requirements:
     _permission: 'configure opening hours'
+
+opening_hours.service.autocomplete:
+  path: opening-hours/service/autocomplete
+  defaults:
+    _controller: Drupal\opening_hours\Controller\ServiceController::autocomplete
+    _title: 'Lookup services'
+  requirements:
+    _access: 'TRUE'
