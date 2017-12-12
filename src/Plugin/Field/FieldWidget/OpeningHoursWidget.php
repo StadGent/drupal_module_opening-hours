@@ -246,6 +246,11 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
     $channelElement = $element['channel'];
     $service = NULL;
 
+    // No errors if both values are empty.
+    if (empty($serviceElement['#value']) && empty($channelElement['#value'])) {
+      return;
+    }
+
     if (!empty($serviceElement['#value'])) {
       $service = $this->getServiceFromValueString($serviceElement['#value']);
       if (!$service) {
