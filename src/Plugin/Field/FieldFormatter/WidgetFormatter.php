@@ -9,14 +9,14 @@ use Drupal\Core\Field\FieldItemListInterface;
  * Open Now formatter for the opening_hours field item.
  *
  * @FieldFormatter(
- *   id = "opening_hours_opennow",
- *   label = @Translation("Open now"),
+ *   id = "opening_hours_widget",
+ *   label = @Translation("Widget"),
  *   field_types = {
  *     "opening_hours"
  *   }
  * )
  */
-class OpenNowFormatter extends FormatterBase {
+class WidgetFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
@@ -26,9 +26,9 @@ class OpenNowFormatter extends FormatterBase {
 
     foreach ($items as $delta => $item) {
       $element[$delta] = [
-        '#theme' => 'opening_hours_opennow',
-        '#serviceId' => $item->service,
-        '#channelId' => $item->channel,
+        '#theme' => 'opening_hours_widget',
+        '#service_id' => $item->service,
+        '#channel_id' => $item->channel,
       ];
     }
 

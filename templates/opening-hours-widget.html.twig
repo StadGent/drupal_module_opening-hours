@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Template for the Opening Hours : OpenNow formatter.
+ *
+ * Available variables:
+ * - service_id : The opening hours Service ID.
+ * - channel_id : The opening hours Channel ID.
+ *
+ * @see template_preprocess_vg_social_link()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="opening-hours--opennow" data-service="{{ service_id }}" data-channel="{{ channel_id }}">
+  {{ service_id }} : {{ channel_id }}
+</div>
