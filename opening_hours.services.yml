@@ -1,0 +1,20 @@
+services:
+  opening_hours.client:
+    class: Drupal\opening_hours\Services\ClientService
+    arguments: [ '@config.factory' ]
+  opening_hours.service:
+    class: StadGent\Services\OpeningHours\Service\Service\ServiceService
+    factory: Drupal\opening_hours\Services\ServiceFactory::createServiceService
+    arguments: [ '@opening_hours.client' ]
+  opening_hours.channel:
+    class: StadGent\Services\OpeningHours\Service\Channel\ChannelService
+    factory: Drupal\opening_hours\Services\ServiceFactory::createChannelService
+    arguments: [ '@opening_hours.client' ]
+  opening_hours.channel_opening_hours:
+    class: StadGent\Services\OpeningHours\Service\Channel\ChannelService
+    factory: Drupal\opening_hours\Services\ServiceFactory::createChannelOpeningHoursService
+    arguments: [ '@opening_hours.client' ]
+  opening_hours.channel_opening_hours_html:
+    class: StadGent\Services\OpeningHours\Service\Channel\ChannelService
+    factory: Drupal\opening_hours\Services\ServiceFactory::createChannelOpeningHoursHtmlService
+    arguments: [ '@opening_hours.client' ]
