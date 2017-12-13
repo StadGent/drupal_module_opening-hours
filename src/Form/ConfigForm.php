@@ -81,7 +81,7 @@ class ConfigForm extends ConfigFormBase {
     else {
       $form_state->setValue(
         'endpoint',
-        rtrim($form_state->getValue('endpoint'), '/')
+        rtrim($form_state->getValue('endpoint'), '/') . '/'
       );
     }
   }
