@@ -4,6 +4,7 @@
  * Template for the Opening Hours : OpenNow formatter.
  *
  * Available variables:
+ * - type : The widget type to show.
  * - service_id : The opening hours Service ID.
  * - channel_id : The opening hours Channel ID.
  *
@@ -12,6 +13,6 @@
  * @ingroup themeable
  */
 #}
-<div class="opening-hours--opennow" data-service="{{ service_id }}" data-channel="{{ channel_id }}">
+<div class="opening-hours opening-hours--{{ type }}" data-service="{{ service_id }}" data-channel="{{ channel_id }}" data-type="{{ week }}">
   {{ service_id }} : {{ channel_id }}
 </div>
