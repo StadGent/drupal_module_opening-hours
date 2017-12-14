@@ -1,0 +1,7 @@
+field.formatter.settings.opening_hours_widget:
+  type: mapping
+  label: 'Opening Hours Widget'
+  mapping:
+    widget_type:
+      type: string
+      label: 'Widget type'

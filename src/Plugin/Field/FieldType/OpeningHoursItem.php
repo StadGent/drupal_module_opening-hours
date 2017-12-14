@@ -15,7 +15,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   description = @Translation("Adds a field to select the Service and its Channel to show its opening hours for."),
  *   category = @Translation("Web services"),
  *   module = "opening_hours",
- *   default_formatter = "opening_hours_opennow",
+ *   default_formatter = "opening_hours_widget",
  *   default_widget = "opening_hours",
  *   column_groups = {
  *     "service" = {

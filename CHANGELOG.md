@@ -4,6 +4,10 @@ All Notable changes to `drupal/opening-hours` module.
 
 ## [Unreleased]
 
+### Added
+
+* DMOH-22: Added the opening hours widget formatter.
+
 ### Fixed
 
 * Fixed package name.
