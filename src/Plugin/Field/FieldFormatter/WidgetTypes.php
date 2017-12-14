@@ -13,7 +13,7 @@ class WidgetTypes {
    *
    * @var string
    */
-  const OPEN_NOW = 'opennow';
+  const OPEN_NOW = 'open-now';
 
   /**
    * Day type, will show the overview for a given single date.
@@ -23,7 +23,7 @@ class WidgetTypes {
   const DAY = 'day';
 
   /**
-   * Week type, this is for the week overview starting on monday.
+   * Week type, this is for the week overview starting on sunday.
    *
    * @var string
    */
@@ -34,7 +34,7 @@ class WidgetTypes {
    *
    * @var string
    */
-  const WEEK_FROM_NOW = 'week_from_now';
+  const WEEK_FROM_NOW = 'week-from-now';
 
   /**
    * Month overview type, will show the current month.
@@ -42,6 +42,13 @@ class WidgetTypes {
    * @var string
    */
   const MONTH = 'month';
+
+  /**
+   * Year overview type, will show the current year.
+   *
+   * @var string
+   */
+  const YEAR = 'year';
 
   /**
    * Get a list of available social link types.
@@ -56,6 +63,7 @@ class WidgetTypes {
       self::WEEK => new TranslatableMarkup('Week'),
       self::WEEK_FROM_NOW => new TranslatableMarkup('Week from now'),
       self::MONTH => new TranslatableMarkup('Month'),
+      self::YEAR => new TranslatableMarkup('Year'),
     ];
   }
 
