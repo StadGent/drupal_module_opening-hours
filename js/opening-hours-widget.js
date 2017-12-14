@@ -13,19 +13,19 @@
    */
   Drupal.behaviors.openingHoursWidget = {
     attach: function (context, settings) {
-      var $items = $('.opening-hours');
+      var items = document.querySelectorAll('.openinghours-widget');
       var options = {
         'endpoint': settings.openingHours.endpoint,
         'language': settings.openingHours.language
       };
-      new OpeningHours($items, options);
+      new OpeningHours(items, options);
     }
   };
 
   /**
    * Define the OpeningHours object.
    *
-   * @param $items
+   * @param items
    *   The items to add load the openinghours data for.
    * @param options
    *   The OpeningHours options.
@@ -35,18 +35,18 @@
    *
    * @constructor
    */
-  function OpeningHours($items, options) {
+  function OpeningHours(items, options) {
     var defaults = {
       endpoint: '',
       language: 'en'
     };
 
     this.s = Object.assign({}, defaults, options);
-    this.items = $items;
+    this.items = items;
 
-    for (var i = 0; i < $items.length; i++) {
-      this._current = $items[i];
-      this.init($items[i]);
+    for (var i = 0; i < items.length; i++) {
+      this._current = items[i];
+      this.init(items[i]);
     }
 
     return this;
