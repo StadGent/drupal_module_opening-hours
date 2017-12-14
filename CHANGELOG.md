@@ -2,7 +2,7 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
-## [Unreleased]
+## [8.x-1.0-aplha2]
 
 ### Added
 
@@ -20,5 +20,6 @@ All Notable changes to `drupal/opening-hours` module.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-aplha2]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-aplha1...8.x-1.0-aplha2
 [8.x-1.0-aplha1]: https://github.com/StadGent/drupal_module_opening-hours/releases/tag/8.x-1.0-aplha1
 [Unreleased]: https://github.com/StadGent/drupal_module_opening-hours/compare/master...develop
