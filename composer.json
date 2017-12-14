@@ -1,5 +1,5 @@
 {
-  "name": "drupal/opening-hours",
+  "name": "drupal/opening_hours",
   "type": "drupal-module",
   "description": "Integrates the Opening Hours platform functionality.",
   "keywords": ["Drupal", "gent", "services", "opening hours"],
