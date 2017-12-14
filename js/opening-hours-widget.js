@@ -67,7 +67,7 @@
     }
 
     if (typeof this._current.dataset.date === 'undefined') {
-      this._current.dataset.date = new Date().toUTCString();
+      this._current.dataset.date = new Date().toISOString().slice(0,10);
     }
 
     var url = this.constructRequest();
@@ -92,7 +92,7 @@
       date = new Date(d);
     }
 
-    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    return date.toISOString().slice(0,10);
   };
 
   /**
