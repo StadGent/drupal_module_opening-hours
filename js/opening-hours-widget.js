@@ -15,7 +15,8 @@
     attach: function (context, settings) {
       var items = $('.opening-hours');
       var options = {
-        'endpoint': settings.openingHours.endpoint
+        'endpoint': settings.openingHours.endpoint,
+        'language': settings.openingHours.language
       };
       new OpeningHours(items, options);
     }
@@ -36,7 +37,8 @@
    */
   function OpeningHours(items, options) {
     var defaults = {
-      endpoint: ''
+      endpoint: '',
+      language: 'en'
     };
 
     this.s = Object.assign({}, defaults, options);
@@ -68,6 +70,10 @@
 
     if (typeof this._current.dataset.date === 'undefined') {
       this._current.dataset.date = new Date().toISOString().slice(0,10);
+    }
+
+    if (typeof this._current.dataset.language === 'undefined') {
+      this._current.dataset.language = this.s.language;
     }
 
     var url = this.constructRequest();
@@ -151,6 +157,7 @@
     };
     xmlhttp.open('GET', url, true);
     xmlhttp.setRequestHeader('Accept', 'text/html');
+    xmlhttp.setRequestHeader('Accept-Language', this._current.dataset.language);
     xmlhttp.send();
   };
 

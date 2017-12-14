@@ -7,6 +7,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,6 +33,13 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
   protected $openingHoursConfig;
 
   /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
    * Constructs a EntranceFeeFormatter object.
    *
    * @param string $plugin_id
@@ -50,6 +58,8 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
    *   Any third party settings.
    * @param \Drupal\Core\Config\ImmutableConfig $opening_hours_config
    *   The Opening hours configuration.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager to get the current language from.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translation
    *   The String translation.
    */
@@ -62,6 +72,7 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     $view_mode,
     array $third_party_settings,
     ImmutableConfig $opening_hours_config,
+    LanguageManagerInterface $language_manager,
     TranslationInterface $translation
   ) {
     parent::__construct(
@@ -75,6 +86,7 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     );
 
     $this->openingHoursConfig = $opening_hours_config;
+    $this->languageManager = $language_manager;
     $this->setStringTranslation($translation);
   }
 
@@ -98,6 +110,9 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       ->get('config.factory')
       ->get('opening_hours.settings');
 
+    /* @var $languageManager \Drupal\Core\Language\LanguageManagerInterface */
+    $languageManager = $container->get('language_manager');
+
     /* @var $stringTranslation \Drupal\Core\StringTranslation\TranslationInterface */
     $stringTranslation = $container->get('string_translation');
 
@@ -110,6 +125,7 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       $configuration['view_mode'],
       $configuration['third_party_settings'],
       $openingHoursConfig,
+      $languageManager,
       $stringTranslation
     );
   }
@@ -126,12 +142,19 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
         '#type' => $this->getSetting('widget_type'),
         '#service_id' => $item->service,
         '#channel_id' => $item->channel,
+        '#language' => $this->languageManager->getCurrentLanguage()->getId(),
       ];
     }
 
     // Attach widget + endpoint configuration.
     $element['#attached']['library'][] = 'opening_hours/widget';
-    $element['#attached']['drupalSettings']['openingHours']['endpoint'] = $this->openingHoursConfig->get('endpoint');
+    $element['#attached']['drupalSettings']['openingHours']['endpoint'] = $this
+      ->openingHoursConfig
+      ->get('endpoint');
+    $element['#attached']['drupalSettings']['openingHours']['language'] = $this
+      ->languageManager
+      ->getCurrentLanguage()
+      ->getId();
 
     return $element;
   }
