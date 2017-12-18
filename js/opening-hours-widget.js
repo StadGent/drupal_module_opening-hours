@@ -41,7 +41,7 @@
       language: 'en'
     };
 
-    this.s = Object.assign({}, defaults, options);
+    this.settings = Object.assign({}, defaults, options);
     this.items = items;
 
     for (var i = 0; i < items.length; i++) {
@@ -58,7 +58,7 @@
    * @returns {boolean}
    */
   OpeningHours.prototype.init = function () {
-    if (!this.s.endpoint || 0 === this.s.endpoint.length) {
+    if (!this.settings.endpoint || 0 === this.settings.endpoint.length) {
       this.printError('Please provide an API endpoint.');
       return false;
     }
@@ -73,7 +73,7 @@
     }
 
     if (typeof this._current.dataset.language === 'undefined') {
-      this._current.dataset.language = this.s.language;
+      this._current.dataset.language = this.settings.language;
     }
 
     var url = this.constructRequest();
@@ -83,24 +83,24 @@
   /**
    * Create a proper date format (yyyy-mm-dd) from string.
    *
-   * @param {string} d
+   * @param {string} dateString
    *   The data string to parse.
    *
    * @returns {string}
    *   The date in the proper format.
    */
-  OpeningHours.prototype.formattedDate = function (d) {
-    if (d === 'today') {
+  OpeningHours.prototype.formattedDate = function (dateString) {
+    if (dateString === 'today') {
       var today = new Date();
-      d = today.toISOString().slice(0, 10);
+      dateString = today.toISOString().slice(0, 10);
     }
-    if (d === 'tomorrow') {
+    if (dateString === 'tomorrow') {
       var tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
-      d = tomorrow.toISOString().slice(0, 10);
+      dateString = tomorrow.toISOString().slice(0, 10);
     }
 
-    var date = !d ? new Date() : new Date(d);
+    var date = !dateString ? new Date() : new Date(dateString);
 
     return date.toISOString().slice(0, 10);
   };
@@ -112,7 +112,7 @@
    *   The request URI.
    */
   OpeningHours.prototype.constructRequest = function () {
-    var uri = this.s.endpoint
+    var uri = this.settings.endpoint
         + 'services/'
         + this._current.dataset.service
         + '/channels/'
