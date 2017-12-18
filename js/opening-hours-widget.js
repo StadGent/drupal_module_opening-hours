@@ -90,8 +90,19 @@
    *   The date in the proper format.
    */
   OpeningHours.prototype.formattedDate = function (d) {
+    if (d === 'today') {
+      var today = new Date();
+      d = today.toISOString().slice(0, 10);
+    }
+    if (d === 'tomorrow') {
+      var tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      d = tomorrow.toISOString().slice(0, 10);
+    }
+
     var date = !d ? new Date() : new Date(d);
-    return date.toISOString().slice(0,10);
+
+    return date.toISOString().slice(0, 10);
   };
 
   /**
