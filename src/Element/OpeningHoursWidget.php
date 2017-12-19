@@ -8,7 +8,7 @@ use Drupal\Core\Render\Element\RenderElement;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides an example element.
+ * Provides the opening_hours_widget element.
  *
  * @RenderElement("opening_hours_widget")
  */
