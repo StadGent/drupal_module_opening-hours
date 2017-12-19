@@ -4,7 +4,7 @@
  * Template for the Opening Hours : OpenNow formatter.
  *
  * Available variables:
- * - type : The widget type to show.
+ * - widget_type : The widget type to show.
  * - service_id : The opening hours Service ID.
  * - channel_id : The opening hours Channel ID.
  * - language : The language to get the output in.
@@ -19,7 +19,7 @@
   class="openinghours openinghours--{{ type }} openinghours-widget"
   data-service="{{ service_id }}"
   data-channel="{{ channel_id }}"
-  data-type="{{ type }}"
+  data-type="{{ widget_type }}"
   data-language="{{ language }}"
   {% if date %} data-date="{{ date }}"{% endif %}
 ></div>
