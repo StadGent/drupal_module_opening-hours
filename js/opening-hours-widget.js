@@ -38,7 +38,8 @@
   function OpeningHours(items, options) {
     var defaults = {
       endpoint: '',
-      language: 'en'
+      language: 'en',
+      requestDate: this.getRequestDateFromUrl()
     };
 
     // Merge options into default settings.
@@ -73,7 +74,10 @@
       return false;
     }
 
-    if (typeof this._current.dataset.date === 'undefined') {
+    if (this.settings.requestDate) {
+      this._current.dataset.date = this.settings.requestDate;
+    }
+    else if (typeof this._current.dataset.date === 'undefined') {
       this._current.dataset.date = new Date().toISOString().slice(0,10);
     }
 
@@ -168,6 +172,45 @@
     xmlhttp.setRequestHeader('Accept', 'text/html');
     xmlhttp.setRequestHeader('Accept-Language', this._current.dataset.language);
     xmlhttp.send();
+  };
+
+  /**
+   * Get the data-date value from the URL.
+   *
+   * @return {string|null}
+   *   The date in yyy-mm-dd format.
+   */
+  OpeningHours.prototype.getRequestDateFromUrl = function () {
+    var parameterDate = this.findGetParameter('oh_day');
+    if (!parameterDate) {
+      return null;
+    }
+
+    return this.formattedDate(parameterDate);
+  };
+
+  /**
+   * Get a GET parameter from the URL.
+   *
+   * @param {string} key
+   *   The GET parameter key
+   *
+   * @return {string|null}
+   *   The GET value (if any).
+   */
+  OpeningHours.prototype.findGetParameter = function (key) {
+    var result = null;
+    var tmp = [];
+    var items = location.search.substr(1).split("&");
+
+    for (var index = 0; index < items.length; index++) {
+      tmp = items[index].split("=");
+      if (tmp[0] === key) {
+        result = decodeURIComponent(tmp[1]);
+      }
+    }
+
+    return result;
   };
 
   /**
