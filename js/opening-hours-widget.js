@@ -193,7 +193,7 @@
    * Get a GET parameter from the URL.
    *
    * @param {string} key
-   *   The GET parameter key
+   *   The GET parameter key.
    *
    * @return {string|null}
    *   The GET value (if any).
