@@ -9,6 +9,10 @@ All Notable changes to `drupal/opening-hours` module.
 * DMOH-26: Added support to set widget tag data-date as "today" or "tomorrow".
 * DMOH-27: Added custom render element (opening_hours_widget) to limit the code
   required to render the widget tag.
+  
+### Fixed
+
+* DMOH-28: Fixed merging default settings with optional settings.
 
 ## [8.x-1.0-aplha2]
 

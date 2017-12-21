@@ -41,7 +41,12 @@
       language: 'en'
     };
 
-    this.settings = Object.assign({}, defaults, options);
+    // Merge options into default settings.
+    Object.keys(options).forEach(function (k) {
+      defaults[k] = options[k];
+    });
+
+    this.settings = defaults;
     this.items = items;
 
     for (var i = 0; i < items.length; i++) {
