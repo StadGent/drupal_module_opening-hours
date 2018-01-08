@@ -82,7 +82,6 @@ class OpeningHoursWidget extends RenderElement implements ContainerFactoryPlugin
       '#type' => NULL,
       '#service_id' => NULL,
       '#channel_id' => NULL,
-      '#language' => NULL,
       '#endpoint' => $this->openingHoursConfig->get('endpoint'),
       '#pre_render' => [
         [$class, 'preRenderMyElement'],
@@ -100,10 +99,6 @@ class OpeningHoursWidget extends RenderElement implements ContainerFactoryPlugin
     $element['#attached']['library'][] = 'opening_hours/widget';
     $element['#attached']['drupalSettings']['openingHours']['endpoint'] = $element['#endpoint'];
     $element['#attached']['drupalSettings']['openingHours']['language'] = $language;
-
-    if (empty($element['#language'])) {
-      $element['#language'] = $language;
-    }
 
     return $element;
   }
