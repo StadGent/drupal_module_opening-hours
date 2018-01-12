@@ -7,6 +7,40 @@
   'use strict';
 
   /**
+   * Get the closest matching element up the DOM tree.
+   * @private
+   * @param  {Element} elem     Starting element
+   * @param  {String}  selector Selector to match against
+   * @return {Boolean|Element}  Returns null if not match found
+   */
+  var getClosest = function ( elem, selector ) {
+
+    // Element.matches() polyfill
+    if (!Element.prototype.matches) {
+      Element.prototype.matches =
+        Element.prototype.matchesSelector ||
+        Element.prototype.mozMatchesSelector ||
+        Element.prototype.msMatchesSelector ||
+        Element.prototype.oMatchesSelector ||
+        Element.prototype.webkitMatchesSelector ||
+        function(s) {
+          var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+            i = matches.length;
+          while (--i >= 0 && matches.item(i) !== this) {}
+          return i > -1;
+        };
+    }
+
+    // Get closest match
+    for ( ; elem && elem !== document; elem = elem.parentNode ) {
+      if ( elem.matches( selector ) ) return elem;
+    }
+
+    return null;
+
+  };
+
+  /**
    * Attach the Drupal behaviour for the Opening Hours widget.
    *
    * @type {{attach: Drupal.behaviors.openingHoursWidget.attach}}
@@ -19,6 +53,29 @@
         'language': settings.openingHours.language
       };
       new OpeningHours(items, options);
+
+      var inactiveItems = document.querySelectorAll('.openinghours-widget:not(.openinghours-active)');
+      for (var i = 0; i < inactiveItems.length; i ++) {
+        inactiveItems[i].style.display = 'none';
+      }
+
+      var a = document.querySelectorAll('.openinghours-navigation a');
+      for (var y = 0; y < a.length; y++) {
+        a[y].addEventListener('click', function (e) {
+          e.preventDefault();
+
+          for (var x = 0; x < a.length; x++) {
+            a[x].classList.remove('openinghours-active')
+          }
+          this.classList.add('openinghours-active');
+
+          for (var i = 0; i < items.length; i ++) {
+            items[i].style.display = 'none';
+          }
+
+          getClosest(this, '.openinghours-wrapper').querySelector('.openinghours-widget[data-type="' + this.dataset.widget + '"]').style.display = '';
+        });
+      }
     }
   };
 
@@ -54,8 +111,6 @@
       this._current = items[i];
       this.init(items[i]);
     }
-
-    return this;
   }
 
   /**
@@ -163,9 +218,10 @@
     var xmlhttp;
     xmlhttp = new XMLHttpRequest();
     xmlhttp.element = this._current;
+    xmlhttp.settings = this.settings;
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-        callback(xmlhttp.element, xmlhttp.responseText);
+        callback(xmlhttp, xmlhttp.responseText);
       }
     };
     xmlhttp.open('GET', url, true);
@@ -221,8 +277,12 @@
    * @param {string} data
    *   The data to print in the element.
    */
-  OpeningHours.prototype.print = function (element, data) {
-    element.innerHTML = data;
+  OpeningHours.prototype.print = function (obj, data) {
+    obj.element.innerHTML = data;
+
+    if (obj.element.dataset.type === "month") {
+      OpeningHours.prototype.calendarEvents(obj);
+    }
   };
 
   /**
@@ -234,6 +294,34 @@
   OpeningHours.prototype.printError = function (message) {
     var error = '<span class="error">Error: ' + message + '</span>';
     this.print(this._current, error);
+  };
+
+  OpeningHours.prototype.calendarEvents = function (obj) {
+    var element = obj.element;
+    var self = this;
+
+    element.querySelector('.openinghours--month .openinghours--prev').addEventListener('click', function() {
+      var month = new Date(element.dataset.date);
+      month.setMonth(month.getMonth() - 1);
+      element.dataset.date = self.formattedDate(month);
+      new OpeningHours([element], obj.settings);
+    });
+    element.querySelector('.openinghours--month .openinghours--next').addEventListener('click', function() {
+      var month = new Date(element.dataset.date);
+      month.setMonth(month.getMonth() + 1);
+      element.dataset.date = self.formattedDate(month);
+      new OpeningHours([element], obj.settings);
+    });
+
+    var days = element.querySelectorAll('.openinghours--month .openinghours--day:not([aria-hidden])');
+    for (var i = 0; i < days.length; i++) {
+      days[i].addEventListener('focus', function (e) {
+        for (var x = 0; x < days.length; x++) {
+          days[x].setAttribute('tabindex', -1);
+        }
+        this.setAttribute('tabindex', 0);
+      });
+    }
   };
 
 })(jQuery, Drupal);

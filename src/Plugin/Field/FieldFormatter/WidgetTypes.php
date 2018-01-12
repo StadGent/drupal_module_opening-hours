@@ -83,4 +83,28 @@ class WidgetTypes {
       : NULL;
   }
 
+  /**
+   * Get the toggle label for a given type.
+   *
+   * @param string $type
+   *   The type to get the label for.
+   *
+   * @return string|null
+   *   The label (if type is known) or NULL.
+   */
+  public function getToggleLabelByType($type) {
+    $types = [
+      self::OPEN_NOW => new TranslatableMarkup('now'),
+      self::DAY => new TranslatableMarkup('this day'),
+      self::WEEK => new TranslatableMarkup('this week'),
+      self::WEEK_FROM_NOW => new TranslatableMarkup('this week'),
+      self::MONTH => new TranslatableMarkup('this month'),
+      self::YEAR => new TranslatableMarkup('this year'),
+    ];
+
+    return isset($types[$type])
+      ? $types[$type]
+      : NULL;
+  }
+
 }
