@@ -136,10 +136,6 @@
       this._current.dataset.date = new Date().toISOString().slice(0,10);
     }
 
-    if (typeof this._current.dataset.language === 'undefined') {
-      this._current.dataset.language = this.settings.language;
-    }
-
     var url = this.constructRequest();
     this.request(url, this.print);
   };
@@ -226,7 +222,7 @@
     };
     xmlhttp.open('GET', url, true);
     xmlhttp.setRequestHeader('Accept', 'text/html');
-    xmlhttp.setRequestHeader('Accept-Language', this._current.dataset.language);
+    xmlhttp.setRequestHeader('Accept-Language', this.settings.language);
     xmlhttp.send();
   };
 

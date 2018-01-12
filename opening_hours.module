@@ -17,7 +17,6 @@ function opening_hours_theme($existing, $type, $theme, $path) {
         'widgets' => NULL,
         'service_id' => NULL,
         'channel_id' => NULL,
-        'language' => NULL,
         'date' => NULL,
       ],
     ],

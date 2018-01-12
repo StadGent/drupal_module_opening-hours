@@ -7,7 +7,6 @@
  * - widgets : The widgets to show.
  * - service_id : The opening hours Service ID.
  * - channel_id : The opening hours Channel ID.
- * - language : The language to get the output in.
  * - date : The date to show the widget for.
  *
  * @see template_preprocess_vg_social_link()
@@ -29,7 +28,6 @@
       data-service="{{ service_id }}"
       data-channel="{{ channel_id }}"
       data-type="{{ widget.type }}"
-      data-language="{{ language }}"
       {% if date %} data-date="{{ date }}"{% endif %}
     ></div>
   {% endfor %}
