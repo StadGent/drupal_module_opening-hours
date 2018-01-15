@@ -22,13 +22,11 @@
     {% endfor %}
     </ul>
   {% endif %}
-  {% for widget in widgets %}
-    <div
-      class="openinghours openinghours--{{ widget.type }} openinghours-widget {% if loop.first %}openinghours-active{% endif %}"
-      data-service="{{ service_id }}"
-      data-channel="{{ channel_id }}"
-      data-type="{{ widget.type }}"
-      {% if date %} data-date="{{ date }}"{% endif %}
-    ></div>
-  {% endfor %}
+  <div
+    class="openinghours openinghours-widget"
+    data-service="{{ service_id }}"
+    data-channel="{{ channel_id }}"
+    data-type="{{ widgets[0].type }}"
+    {% if date %} data-date="{{ date }}"{% endif %}
+  ></div>
 </div>

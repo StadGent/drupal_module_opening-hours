@@ -51,7 +51,7 @@ class WidgetTypes {
   const YEAR = 'year';
 
   /**
-   * Get a list of available social link types.
+   * Get a list of available opening hours types.
    *
    * @return array
    *   Labels keyed by their type.
@@ -64,6 +64,23 @@ class WidgetTypes {
       self::WEEK_FROM_NOW => new TranslatableMarkup('Week from now'),
       self::MONTH => new TranslatableMarkup('Month'),
       self::YEAR => new TranslatableMarkup('Year'),
+    ];
+  }
+
+  /**
+   * Get a list of available opening hours types with there toggle labels.
+   *
+   * @return array
+   *   Labels keyed by their type.
+   */
+  public function getToggleList() {
+    return [
+      self::OPEN_NOW => new TranslatableMarkup('now'),
+      self::DAY => new TranslatableMarkup('this day'),
+      self::WEEK => new TranslatableMarkup('this week'),
+      self::WEEK_FROM_NOW => new TranslatableMarkup('this week'),
+      self::MONTH => new TranslatableMarkup('this month'),
+      self::YEAR => new TranslatableMarkup('this year'),
     ];
   }
 
@@ -93,15 +110,7 @@ class WidgetTypes {
    *   The label (if type is known) or NULL.
    */
   public function getToggleLabelByType($type) {
-    $types = [
-      self::OPEN_NOW => new TranslatableMarkup('now'),
-      self::DAY => new TranslatableMarkup('this day'),
-      self::WEEK => new TranslatableMarkup('this week'),
-      self::WEEK_FROM_NOW => new TranslatableMarkup('this week'),
-      self::MONTH => new TranslatableMarkup('this month'),
-      self::YEAR => new TranslatableMarkup('this year'),
-    ];
-
+    $types = $this->getToggleList();
     return isset($types[$type])
       ? $types[$type]
       : NULL;
