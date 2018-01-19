@@ -1,7 +1,8 @@
 widget:
   version: 1.x
   js:
-    js/opening-hours-widget.js: {}
+    js/opening-hours.functions.js: {}
+    js/opening-hours.binding.js: {}
   dependencies:
     - core/jquery
     - core/drupalSettings

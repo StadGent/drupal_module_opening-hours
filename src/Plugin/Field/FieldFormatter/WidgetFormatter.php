@@ -102,10 +102,18 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [];
 
+    $types = new WidgetTypes();
+    $widgets[0]['label'] = $types->getToggleLabelByType($this->getSetting('widget_type'));
+    $widgets[0]['type'] = $this->getSetting('widget_type');
+    if ($this->getSetting('alternative_widget_type')) {
+      $widgets[1]['label'] = $types->getToggleLabelByType($this->getSetting('alternative_widget_type'));
+      $widgets[1]['type'] = $this->getSetting('alternative_widget_type');
+    }
+
     foreach ($items as $delta => $item) {
       $element[$delta] = [
         '#type' => 'opening_hours_widget',
-        '#widget_type' => $this->getSetting('widget_type'),
+        '#widgets' => $widgets,
         '#service_id' => $item->service,
         '#channel_id' => $item->channel,
       ];
@@ -120,6 +128,7 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
   public static function defaultSettings() {
     $settings = [
       'widget_type' => 'week',
+      'alternative_widget_type' => NULL,
     ];
 
     return $settings + parent::defaultSettings();
@@ -138,6 +147,14 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       '#default_value' => $this->getSetting('widget_type'),
     ];
 
+    $element['alternative_widget_type'] = [
+      '#title' => $this->t('Alternative type'),
+      '#description' => $this->t('Provides an alternative widget type to the visitor.'),
+      '#type' => 'select',
+      '#options' => array_merge([NULL => $this->t('None')], $types->getList()),
+      '#default_value' => $this->getSetting('alternative_widget_type'),
+    ];
+
     return $element;
   }
 
@@ -152,6 +169,11 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     $label = $types->getLabelByType($settings['widget_type']);
 
     $summary[] = $this->t('Show as %type widget', ['%type' => $label]);
+
+    if ($settings['alternative_widget_type']) {
+      $label = $types->getLabelByType($settings['alternative_widget_type']);
+      $summary[] = $this->t('Alternative widget: %type', ['%type' => $label]);
+    }
 
     return $summary;
   }
