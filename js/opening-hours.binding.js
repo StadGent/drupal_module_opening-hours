@@ -13,7 +13,7 @@
    */
   Drupal.behaviors.openingHoursWidget = {
     attach: function (context, settings) {
-      $('.openinghours-widget').once('openingHoursWidget').each(function () {
+      $(document).once('openingHoursWidget').each(function () {
         var items = document.querySelectorAll('.openinghours-widget');
         var options = {
           'endpoint': settings.openingHours.endpoint,
