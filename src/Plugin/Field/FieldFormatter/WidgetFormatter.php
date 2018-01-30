@@ -2,12 +2,10 @@
 
 namespace Drupal\opening_hours\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -26,20 +24,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The opening hours configuration.
-   *
-   * @var \Drupal\Core\Config\ImmutableConfig
-   */
-  protected $openingHoursConfig;
-
-  /**
-   * The language manager.
-   *
-   * @var \Drupal\Core\Language\LanguageManagerInterface
-   */
-  protected $languageManager;
-
-  /**
    * Constructs a EntranceFeeFormatter object.
    *
    * @param string $plugin_id
@@ -56,10 +40,6 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
    *   The view mode.
    * @param array $third_party_settings
    *   Any third party settings.
-   * @param \Drupal\Core\Config\ImmutableConfig $opening_hours_config
-   *   The Opening hours configuration.
-   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
-   *   The language manager to get the current language from.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translation
    *   The String translation.
    */
@@ -71,8 +51,6 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     $label,
     $view_mode,
     array $third_party_settings,
-    ImmutableConfig $opening_hours_config,
-    LanguageManagerInterface $language_manager,
     TranslationInterface $translation
   ) {
     parent::__construct(
@@ -85,8 +63,6 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       $third_party_settings
     );
 
-    $this->openingHoursConfig = $opening_hours_config;
-    $this->languageManager = $language_manager;
     $this->setStringTranslation($translation);
   }
 
@@ -105,14 +81,6 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
    * @return static
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    /* @var $openingHoursConfig \Drupal\Core\Config\ImmutableConfig */
-    $openingHoursConfig = $container
-      ->get('config.factory')
-      ->get('opening_hours.settings');
-
-    /* @var $languageManager \Drupal\Core\Language\LanguageManagerInterface */
-    $languageManager = $container->get('language_manager');
-
     /* @var $stringTranslation \Drupal\Core\StringTranslation\TranslationInterface */
     $stringTranslation = $container->get('string_translation');
 
@@ -124,8 +92,6 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $openingHoursConfig,
-      $languageManager,
       $stringTranslation
     );
   }
@@ -136,25 +102,22 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [];
 
-    foreach ($items as $delta => $item) {
-      $element[$delta] = [
-        '#theme' => 'opening_hours_widget',
-        '#type' => $this->getSetting('widget_type'),
-        '#service_id' => $item->service,
-        '#channel_id' => $item->channel,
-        '#language' => $this->languageManager->getCurrentLanguage()->getId(),
-      ];
+    $types = new WidgetTypes();
+    $widgets[0]['label'] = $types->getToggleLabelByType($this->getSetting('widget_type'));
+    $widgets[0]['type'] = $this->getSetting('widget_type');
+    if ($this->getSetting('alternative_widget_type')) {
+      $widgets[1]['label'] = $types->getToggleLabelByType($this->getSetting('alternative_widget_type'));
+      $widgets[1]['type'] = $this->getSetting('alternative_widget_type');
     }
 
-    // Attach widget + endpoint configuration.
-    $element['#attached']['library'][] = 'opening_hours/widget';
-    $element['#attached']['drupalSettings']['openingHours']['endpoint'] = $this
-      ->openingHoursConfig
-      ->get('endpoint');
-    $element['#attached']['drupalSettings']['openingHours']['language'] = $this
-      ->languageManager
-      ->getCurrentLanguage()
-      ->getId();
+    foreach ($items as $delta => $item) {
+      $element[$delta] = [
+        '#type' => 'opening_hours_widget',
+        '#widgets' => $widgets,
+        '#service_id' => $item->service,
+        '#channel_id' => $item->channel,
+      ];
+    }
 
     return $element;
   }
@@ -165,6 +128,7 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
   public static function defaultSettings() {
     $settings = [
       'widget_type' => 'week',
+      'alternative_widget_type' => NULL,
     ];
 
     return $settings + parent::defaultSettings();
@@ -183,6 +147,14 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       '#default_value' => $this->getSetting('widget_type'),
     ];
 
+    $element['alternative_widget_type'] = [
+      '#title' => $this->t('Alternative type'),
+      '#description' => $this->t('Provides an alternative widget type to the visitor.'),
+      '#type' => 'select',
+      '#options' => array_merge([NULL => $this->t('None')], $types->getList()),
+      '#default_value' => $this->getSetting('alternative_widget_type'),
+    ];
+
     return $element;
   }
 
@@ -197,6 +169,11 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     $label = $types->getLabelByType($settings['widget_type']);
 
     $summary[] = $this->t('Show as %type widget', ['%type' => $label]);
+
+    if ($settings['alternative_widget_type']) {
+      $label = $types->getLabelByType($settings['alternative_widget_type']);
+      $summary[] = $this->t('Alternative widget: %type', ['%type' => $label]);
+    }
 
     return $summary;
   }
