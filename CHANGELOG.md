@@ -2,7 +2,7 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
-## [Unreleased]
+## [8.x-1.0-aplha3]
 
 ### Added
 
@@ -10,10 +10,16 @@ All Notable changes to `drupal/opening-hours` module.
 * DMOH-27: Added custom render element (opening_hours_widget) to limit the code
   required to render the widget tag.
 * DMOH-29: Added support to set the date to get the opening hours for.
+* DMOH-31: Added option to switch between 2 widget types.
   
 ### Fixed
 
-* DMOH-28: Fixed merging default settings with optional settings.
+* DMOH-32: Removed double .openinghours-widget loop to prevent multiple requests
+for the same widget.
+
+### Removed
+
+* DMOH-30: Removed language options from the element.
 
 ## [8.x-1.0-aplha2]
 
