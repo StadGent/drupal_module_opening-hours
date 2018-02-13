@@ -130,10 +130,10 @@ OpeningHours.prototype.formattedDate = function (dateString) {
  */
 OpeningHours.prototype.constructRequest = function () {
   var uri = this.settings.endpoint
-      + 'services/'
-      + this._current.dataset.service
-      + '/channels/'
-      + this._current.dataset.channel;
+    + 'services/'
+    + this._current.dataset.service
+    + '/channels/'
+    + this._current.dataset.channel;
 
   switch (this._current.dataset.type) {
     case 'open-now':
@@ -269,13 +269,13 @@ OpeningHours.prototype.calendarEvents = function (element, settings) {
 
   element.querySelector('.openinghours--prev').addEventListener('click', function() {
     var month = new Date(element.dataset.date);
-    month.setMonth(month.getMonth() - 1);
+    month.setMonth(month.getMonth() - 1, 5);
     element.dataset.date = self.formattedDate(month);
     new OpeningHours([element], settings);
   });
   element.querySelector('.openinghours--next').addEventListener('click', function() {
     var month = new Date(element.dataset.date);
-    month.setMonth(month.getMonth() + 1);
+    month.setMonth(month.getMonth() + 1, 5);
     element.dataset.date = self.formattedDate(month);
     new OpeningHours([element], settings);
   });
