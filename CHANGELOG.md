@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Fixed
+
+* DMOH-36: Fixed Javascript error if date is in an invalid format.
+
 ## [8.x-1.0-alpha4]
 
 ### Fixed
