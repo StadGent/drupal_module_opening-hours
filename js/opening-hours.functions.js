@@ -195,6 +195,9 @@ OpeningHours.prototype.request = function (url, callback) {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       callback(xmlhttp, xmlhttp.responseText);
     }
+    else if (typeof xmlhttp.settings.error === 'function') {
+      xmlhttp.settings.error(xmlhttp);
+    }
   };
   xmlhttp.open('GET', url, true);
   xmlhttp.setRequestHeader('Accept', 'text/html');

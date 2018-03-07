@@ -32,7 +32,10 @@
         var items = document.querySelectorAll('.openinghours-widget');
         var options = {
           'endpoint': settings.openingHours.endpoint,
-          'language': settings.openingHours.language
+          'language': settings.openingHours.language,
+          'error' : function (request) {
+            getClosest(request.element, '.field--type-opening-hours').style.display = "none";
+          }
         };
         new OpeningHours(items, options);
 
