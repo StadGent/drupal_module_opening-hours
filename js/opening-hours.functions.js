@@ -131,7 +131,14 @@ OpeningHours.prototype.formattedDate = function (dateString) {
 
   var date = !dateString ? new Date() : new Date(dateString);
 
-  return date.toISOString().slice(0, 10);
+  try {
+    var iso = date.toISOString();
+  } catch (err) {
+    date = new Date();
+    iso = date.toISOString();
+  }
+
+  return iso.slice(0, 10);
 };
 
 /**
