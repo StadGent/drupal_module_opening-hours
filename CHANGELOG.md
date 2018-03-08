@@ -2,6 +2,11 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Added
+* DMOH-38: Added optional error callback function to OpeningHours. 
+
 ## [8.x-1.0-alpha5]
 
 ### Fixed
