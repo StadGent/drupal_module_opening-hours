@@ -2,6 +2,11 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-alpha6]
+
+### Added
+* DMOH-38: Added optional error callback function to OpeningHours. 
+
 ## [8.x-1.0-alpha5]
 
 ### Fixed
@@ -52,6 +57,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-alpha6]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha5...8.x-1.0-alpha6
 [8.x-1.0-alpha5]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha4...8.x-1.0-alpha5
 [8.x-1.0-alpha4]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha3...8.x-1.0-alpha4
 [8.x-1.0-alpha3]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha2...8.x-1.0-alpha3
