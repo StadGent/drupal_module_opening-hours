@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Fixed
+
+* DMOH-40: Added language parameter to the url to avoid browser caching.
+
 ## [8.x-1.0-alpha6]
 
 ### Added
