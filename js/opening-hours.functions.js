@@ -156,26 +156,34 @@ OpeningHours.prototype.constructRequest = function () {
 
   switch (this._current.dataset.type) {
     case 'open-now':
-      return uri + '/open-now';
+      uri += '/open-now';
+      break;
 
     case 'day':
-      return uri + '/openinghours/day?date=' + this.formattedDate(this._current.dataset.date);
+      uri += '/openinghours/day?date=' + this.formattedDate(this._current.dataset.date);
+      break;
 
     case 'week':
-      return uri + '/openinghours/week?date=' + this.formattedDate(this._current.dataset.date);
+      uri += '/openinghours/week?date=' + this.formattedDate(this._current.dataset.date);
+      break;
 
     case 'month':
-      return uri + '/openinghours/month?date=' + this.formattedDate(this._current.dataset.date);
+      uri += '/openinghours/month?date=' + this.formattedDate(this._current.dataset.date);
+      break;
 
     case 'year':
-      return uri + '/openinghours/year?date=' + this.formattedDate(this._current.dataset.date);
+      uri += '/openinghours/year?date=' + this.formattedDate(this._current.dataset.date);
+      break;
 
     case 'week-from-now':
     default:
       var until = new Date(this._current.dataset.date);
       until.setDate(until.getDate() + 6);
-      return uri + '/openinghours?from=' + this.formattedDate(this._current.dataset.date) + '&until=' + this.formattedDate(until);
+      uri += '/openinghours?from=' + this.formattedDate(this._current.dataset.date) + '&until=' + this.formattedDate(until);
+      break;
   }
+
+  return uri + '&language=' + this.settings.language;
 };
 
 /**
