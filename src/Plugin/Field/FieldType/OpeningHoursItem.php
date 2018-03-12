@@ -7,7 +7,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
- * Provides a field type "Entrance Fee".
+ * Provides a field type "Opening Hours".
  *
  * @FieldType(
  *   id = "opening_hours",
@@ -61,6 +61,16 @@ class OpeningHoursItem extends FieldItemBase {
     $properties['service'] = DataDefinition::create('string');
     $properties['channel'] = DataDefinition::create('string');
     return $properties;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isEmpty() {
+    $service = $this->get('service')->getValue();
+    $channel = $this->get('channel')->getValue();
+
+    return $service === NULL || $service === '' || $channel == NULL || $channel == '';
   }
 
 }

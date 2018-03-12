@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Fixed
+
+* DMOH-41: Added isEmpty() function to Opening Hours field type.
+
 ## [8.x-1.0-alpha7]
 
 ### Fixed
