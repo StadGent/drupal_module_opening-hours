@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+[Unreleased]
+
+### Fixed
+
+* DMOH-42: Always forced switch to today on view mode switch.
+
 ## [8.x-1.0-alpha8]
 
 ### Fixed

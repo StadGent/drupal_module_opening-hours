@@ -23,9 +23,19 @@
           }
           this.classList.add('openinghours-active');
 
+          // Get new widget type and the widget itself.
           var type = this.getAttribute('data-widget');
           var widget = getClosest(this, '.openinghours-wrapper').querySelector('.openinghours-widget');
+
+          // Always forced switch to today on view mode switch.
+          var today = new Date();
+          today = today.toISOString().slice(0, 10);
+
+          // Set the new settings.
+          widget.setAttribute('data-date', today);
           widget.setAttribute('data-type', type);
+
+          // Load new opening hours.
           new OpeningHours([widget], options);
         };
 
