@@ -70,7 +70,7 @@ class OpeningHoursItem extends FieldItemBase {
     $service = $this->get('service')->getValue();
     $channel = $this->get('channel')->getValue();
 
-    return $service === NULL || $service === '' || $channel == NULL || $channel == '';
+    return empty($service) || empty($channel);
   }
 
 }
