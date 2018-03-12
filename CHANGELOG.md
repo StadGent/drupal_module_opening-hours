@@ -2,6 +2,13 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-alpha7]
+
+### Fixed
+
+* DMOH-38: Fixed removed opening hours issues.
+* DMOH-40: Added language parameter to the url to avoid browser caching.
+
 ## [8.x-1.0-alpha6]
 
 ### Added
@@ -57,6 +64,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-alpha7]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha6...8.x-1.0-alpha7
 [8.x-1.0-alpha6]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha5...8.x-1.0-alpha6
 [8.x-1.0-alpha5]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha4...8.x-1.0-alpha5
 [8.x-1.0-alpha4]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha3...8.x-1.0-alpha4
