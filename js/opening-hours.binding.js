@@ -34,7 +34,8 @@
           'endpoint': settings.openingHours.endpoint,
           'language': settings.openingHours.language,
           'error' : function (request) {
-            getClosest(request.element, '.field--type-opening-hours').style.display = "none";
+            var elem = getClosest(request.element, '.field');
+            elem.parentNode.removeChild(elem);
           }
         };
         new OpeningHours(items, options);
