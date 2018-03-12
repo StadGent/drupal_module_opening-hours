@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-alpha9]
+
+### Fixed
+
+* DMOH-42: Always forced switch to today on view mode switch.
+
 ## [8.x-1.0-alpha8]
 
 ### Fixed
@@ -70,6 +76,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-alpha9]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha8...8.x-1.0-alpha9
 [8.x-1.0-alpha8]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha7...8.x-1.0-alpha8
 [8.x-1.0-alpha7]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha6...8.x-1.0-alpha7
 [8.x-1.0-alpha6]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha5...8.x-1.0-alpha6
