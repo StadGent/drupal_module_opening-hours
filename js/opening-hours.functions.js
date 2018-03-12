@@ -195,7 +195,7 @@ OpeningHours.prototype.request = function (url, callback) {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       callback(xmlhttp, xmlhttp.responseText);
     }
-    else if (typeof xmlhttp.settings.error === 'function') {
+    else if (typeof xmlhttp.settings.error === 'function' && xmlhttp.readyState === 4 && xmlhttp.status !== 200) {
       xmlhttp.settings.error(xmlhttp);
     }
   };
