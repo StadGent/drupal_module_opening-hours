@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-alpha11]
+
+### Added
+
+* Added a preview date widget to the opening hours field formatter.
+
 ## [8.x-1.0-alpha10]
 
 ### Added
@@ -82,6 +88,8 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-alpha11]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha10...8.x-1.0-alpha11
+[8.x-1.0-alpha10]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha9...8.x-1.0-alpha10
 [8.x-1.0-alpha9]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha8...8.x-1.0-alpha9
 [8.x-1.0-alpha8]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha7...8.x-1.0-alpha8
 [8.x-1.0-alpha7]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha6...8.x-1.0-alpha7

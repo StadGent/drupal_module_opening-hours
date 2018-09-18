@@ -4,6 +4,7 @@
  * Template for the Opening Hours : OpenNow formatter.
  *
  * Available variables:
+ * - preview_widget : Contains the preview widget.
  * - widgets : The widgets to show.
  * - service_id : The opening hours Service ID.
  * - channel_id : The opening hours Channel ID.
@@ -15,6 +16,16 @@
  */
 #}
 <div class="openinghours-wrapper">
+  {% if preview_widget %}
+    <div
+      class="openinghours-widget"
+      data-service="{{ service_id }}"
+      data-channel="{{ channel_id }}"
+      data-type="{{ preview_widget.type }}"
+      {% if date %} data-date="{{ date }}"{% endif %}
+    ></div>
+  {% endif %}
+
   {% if widgets|length > 1 %}
     <ul class="openinghours-navigation">
     {% for widget in widgets %}
@@ -22,6 +33,7 @@
     {% endfor %}
     </ul>
   {% endif %}
+
   <div
     class="openinghours openinghours-widget"
     data-service="{{ service_id }}"

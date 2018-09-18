@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2018-01-19 09:58+0100\n"
+"POT-Creation-Date: 2018-01-20 09:58+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -94,6 +94,14 @@ msgstr "Alternatief type"
 #: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:152
 msgid "Provides an alternative widget type to the visitor."
 msgstr "Voorzie een alternatieve widget voor de bezoeker."
+
+#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:151
+msgid "Preview type"
+msgstr "Preview type"
+
+#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:152
+msgid "Provides a preview widget type to the visitor."
+msgstr "Voorzie een preview widget voor de bezoeker."
 
 #: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:154
 msgid "None"
