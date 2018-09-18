@@ -18,7 +18,7 @@
     "source": "https://github.com/StadGent/drupal_module_opening-hours"
   },
   "require": {
-    "stadgent/services-opening-hours": "^0.1.0"
+    "stadgent/services-opening-hours": "^1.0"
   },
   "require-dev": {
     "brainmaestro/composer-git-hooks": "^2.4",
