@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## To be released
+
+### Added
+
+* Updated package version to 1.0.0 or higher.
+
 ## [8.x-1.0-alpha9]
 
 ### Fixed
