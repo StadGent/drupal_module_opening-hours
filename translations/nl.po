@@ -100,7 +100,7 @@ msgid "Preview type"
 msgstr "Preview type"
 
 #: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:152
-msgid "PProvides a preview widget type to the visitor."
+msgid "Provides a preview widget type to the visitor."
 msgstr "Voorzie een preview widget voor de bezoeker."
 
 #: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:154
