@@ -25,7 +25,7 @@
 
           // Get new widget type and the widget itself.
           var type = this.getAttribute('data-widget');
-          var widget = getClosest(this, '.openinghours-wrapper').querySelector('.openinghours-widget');
+          var widget = getClosest(this, '.openinghours-wrapper').querySelector('.openinghours.openinghours-widget');
 
           // Always forced switch to today on view mode switch.
           var today = new Date();
