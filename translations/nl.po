@@ -25,7 +25,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: opening_hours.info.yml:0 opening_hours.links.menu.yml:0 opening_hours.routing.yml:0 src/Plugin/Field/FieldType/OpeningHoursItem.php:9 src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:20
 msgid "Opening Hours"
