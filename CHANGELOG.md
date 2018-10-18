@@ -2,6 +2,10 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## Unreleased
+
+* VG-1385: Added keyboard support for the month view.
+
 ## [8.x-1.0-alpha11]
 
 ### Added
