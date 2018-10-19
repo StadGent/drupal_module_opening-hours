@@ -24,7 +24,7 @@ root and add following lines in the `repositories section:
 Install the module using composer:
 
 ```bash
-composer require drupal/opening-hours
+composer require drupal/opening_hours
 ```
 
 ## Usage
