@@ -4,7 +4,15 @@ All Notable changes to `drupal/opening-hours` module.
 
 ## Unreleased
 
+### Added
+
 * VG-1385: Added keyboard support for the month view.
+
+## [8.x-1.0-alpha12]
+
+### Fixed
+
+* Fixed translation header.
 
 ## [8.x-1.0-alpha11]
 
@@ -92,6 +100,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-alpha12]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha11...8.x-1.0-alpha12
 [8.x-1.0-alpha11]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha10...8.x-1.0-alpha11
 [8.x-1.0-alpha10]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha9...8.x-1.0-alpha10
 [8.x-1.0-alpha9]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha8...8.x-1.0-alpha9
