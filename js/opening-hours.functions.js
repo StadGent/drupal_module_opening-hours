@@ -281,6 +281,10 @@ OpeningHours.prototype.constructWidget = function (xmlhttp, data) {
  */
 OpeningHours.prototype.print = function (element, data) {
   element.innerHTML = data;
+  if (!element.hasAttribute('tabindex')) {
+    element.setAttribute('tabindex', '-1');
+  }
+  element.focus();
 };
 
 /**
@@ -292,6 +296,85 @@ OpeningHours.prototype.print = function (element, data) {
 OpeningHours.prototype.printError = function (message) {
   var error = '<span class="error">Error: ' + message + '</span>';
   this.print(this._current, error);
+};
+
+/**
+ * Handle keyboard input to move to other dates.
+ *
+ * @param e
+ *   The keydown event.
+ * @param element
+ *   The openinghours DOM element.
+ */
+OpeningHours.prototype.handleKeyboardInput = function (e, element) {
+  var keyCode = e.keyCode || e.which;
+  var current = e.target;
+  var currentPosition = +current.getAttribute('aria-posinset');
+
+  var next = function () {
+    e.preventDefault();
+    var nextElem = element.querySelector('[aria-posinset="' + ++currentPosition + '"]')
+      || element.querySelector('[aria-posinset="' + 1 + '"]');
+    nextElem.focus();
+  };
+
+  var previous = function() {
+    e.preventDefault();
+    var nextElem = element.querySelector('[aria-posinset="' + --currentPosition + '"]')
+      || element.querySelector('[aria-posinset="' + 31 + '"]')
+      || element.querySelector('[aria-posinset="' + 30 + '"]');
+    nextElem.focus();
+  };
+
+  var up = function() {
+    e.preventDefault();
+    var nextElem = element.querySelector('[aria-posinset="' + (currentPosition - 7) + '"]')
+      || element.querySelector('[aria-posinset="' + (currentPosition + 4 * 7) + '"]')
+      || element.querySelector('[aria-posinset="' + (currentPosition + 3 * 7) + '"]');
+    nextElem.focus();
+  };
+
+  var down = function() {
+    e.preventDefault();
+    var nextElem = element.querySelector('[aria-posinset="' + (currentPosition + 7) + '"]')
+      || element.querySelector('[aria-posinset="' + (currentPosition - 4 * 7) + '"]')
+      || element.querySelector('[aria-posinset="' + (currentPosition - 3 * 7) + '"]');
+    nextElem.focus();
+  };
+
+  var home = function() {
+    e.preventDefault();
+    var nextElem = element.querySelector('[aria-posinset="1"]');
+    nextElem.focus();
+  };
+
+  var end = function() {
+    e.preventDefault();
+    var nextElem = element.querySelector('[aria-posinset="31"]')
+      || element.querySelector('[aria-posinset="31"]');
+    nextElem.focus();
+  };
+
+  switch (keyCode) {
+    case 37:
+      previous();
+      break;
+    case 38:
+      up();
+      break;
+    case 40:
+      down();
+      break;
+    case 39:
+      next();
+      break;
+    case 36:
+      home();
+      break;
+    case 35:
+      end();
+      break;
+  }
 };
 
 OpeningHours.prototype.calendarEvents = function (element, settings) {
@@ -312,6 +395,11 @@ OpeningHours.prototype.calendarEvents = function (element, settings) {
 
   var days = element.querySelectorAll('.openinghours--day:not([aria-hidden])');
   for (var i = 0; i < days.length; i++) {
+
+    days[i].addEventListener('keydown', function (e) {
+      self.handleKeyboardInput(e, element);
+    });
+
     days[i].addEventListener('focus', function (e) {
       for (var x = 0; x < days.length; x++) {
         days[x].setAttribute('tabindex', -1);
