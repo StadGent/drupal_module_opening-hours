@@ -94,6 +94,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-alpha12]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha11...8.x-1.0-alpha12
 [8.x-1.0-alpha11]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha10...8.x-1.0-alpha11
 [8.x-1.0-alpha10]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha9...8.x-1.0-alpha10
 [8.x-1.0-alpha9]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha8...8.x-1.0-alpha9
