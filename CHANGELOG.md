@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-alpha12]
+
+### Fixed
+
+* Fixed translation header.
+
 ## [8.x-1.0-alpha11]
 
 ### Added
