@@ -281,6 +281,10 @@ OpeningHours.prototype.constructWidget = function (xmlhttp, data) {
  */
 OpeningHours.prototype.print = function (element, data) {
   element.innerHTML = data;
+  if (!element.hasAttribute('tabindex')) {
+    element.setAttribute('tabindex', '-1');
+  }
+  element.focus();
 };
 
 /**
