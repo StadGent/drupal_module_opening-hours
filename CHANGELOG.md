@@ -2,6 +2,16 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-alpha14]
+
+### Fixed
+
+* VG-1385: Enabled placing the focus on days in IE.
+
+### Removed
+
+* VG-1385: Removed autofocus after init.
+
 ## [8.x-1.0-alpha13]
 
 ### Added

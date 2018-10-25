@@ -284,7 +284,6 @@ OpeningHours.prototype.print = function (element, data) {
   if (!element.hasAttribute('tabindex')) {
     element.setAttribute('tabindex', '-1');
   }
-  element.focus();
 };
 
 /**
@@ -316,6 +315,7 @@ OpeningHours.prototype.handleKeyboardInput = function (e, element) {
     var nextElem = element.querySelector('[aria-posinset="' + ++currentPosition + '"]')
       || element.querySelector('[aria-posinset="' + 1 + '"]');
     nextElem.focus();
+    nextElem.click();
   };
 
   var previous = function() {
@@ -324,6 +324,7 @@ OpeningHours.prototype.handleKeyboardInput = function (e, element) {
       || element.querySelector('[aria-posinset="' + 31 + '"]')
       || element.querySelector('[aria-posinset="' + 30 + '"]');
     nextElem.focus();
+    nextElem.click();
   };
 
   var up = function() {
@@ -332,6 +333,7 @@ OpeningHours.prototype.handleKeyboardInput = function (e, element) {
       || element.querySelector('[aria-posinset="' + (currentPosition + 4 * 7) + '"]')
       || element.querySelector('[aria-posinset="' + (currentPosition + 3 * 7) + '"]');
     nextElem.focus();
+    nextElem.click();
   };
 
   var down = function() {
@@ -340,12 +342,14 @@ OpeningHours.prototype.handleKeyboardInput = function (e, element) {
       || element.querySelector('[aria-posinset="' + (currentPosition - 4 * 7) + '"]')
       || element.querySelector('[aria-posinset="' + (currentPosition - 3 * 7) + '"]');
     nextElem.focus();
+    nextElem.click();
   };
 
   var home = function() {
     e.preventDefault();
     var nextElem = element.querySelector('[aria-posinset="1"]');
     nextElem.focus();
+    nextElem.click();
   };
 
   var end = function() {
@@ -353,6 +357,7 @@ OpeningHours.prototype.handleKeyboardInput = function (e, element) {
     var nextElem = element.querySelector('[aria-posinset="31"]')
       || element.querySelector('[aria-posinset="31"]');
     nextElem.focus();
+    nextElem.click();
   };
 
   switch (keyCode) {
@@ -400,7 +405,7 @@ OpeningHours.prototype.calendarEvents = function (element, settings) {
       self.handleKeyboardInput(e, element);
     });
 
-    days[i].addEventListener('focus', function (e) {
+    days[i].addEventListener('click', function (e) {
       for (var x = 0; x < days.length; x++) {
         days[x].setAttribute('tabindex', -1);
       }
