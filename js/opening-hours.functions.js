@@ -284,7 +284,6 @@ OpeningHours.prototype.print = function (element, data) {
   if (!element.hasAttribute('tabindex')) {
     element.setAttribute('tabindex', '-1');
   }
-  element.focus();
 };
 
 /**
