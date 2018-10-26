@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-alpha15]
+
+### Fixed
+
+* VG-1385: Forced IE to trigger a repaint after focus.
+
 ## [8.x-1.0-alpha14]
 
 ### Fixed
