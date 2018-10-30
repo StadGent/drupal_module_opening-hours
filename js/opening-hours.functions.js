@@ -154,6 +154,18 @@ OpeningHours.prototype.constructRequest = function () {
     + '/channels/'
     + this._current.dataset.channel;
 
+  var that = this;
+  var addDates = function (params) {
+    for (var i = params.length; i--;) {
+      var param = that._current.dataset[params[i]];
+      if (!param) {
+        continue;
+      }
+      uri += '&' + params[i] + '=' + that.formattedDate(param);
+    }
+    return uri;
+  };
+
   switch (this._current.dataset.type) {
     case 'open-now':
       uri += '/open-now';
@@ -165,14 +177,17 @@ OpeningHours.prototype.constructRequest = function () {
 
     case 'week':
       uri += '/openinghours/week?date=' + this.formattedDate(this._current.dataset.date);
+      uri = addDates(['until', 'from']);
       break;
 
     case 'month':
       uri += '/openinghours/month?date=' + this.formattedDate(this._current.dataset.date);
+      uri = addDates(['until', 'from']);
       break;
 
     case 'year':
       uri += '/openinghours/year?date=' + this.formattedDate(this._current.dataset.date);
+      uri = addDates(['until', 'from']);
       break;
 
     case 'week-from-now':
