@@ -1,0 +1,22 @@
+{
+  "name": "drupal_module_opening-hours",
+  "version": "1.0.0",
+  "description": "Integrates the Opening Hours platform functionality.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StadGent/drupal_module_opening-hours.git"
+  },
+  "author": "Helena Standaert <helena.standaert@digipolis.gent>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StadGent/drupal_module_opening-hours/issues"
+  },
+  "homepage": "https://github.com/StadGent/drupal_module_opening-hours#readme",
+  "dependencies": {
+    "@digipolis-gent/opening-hours-widget": "^0.0.2"
+  }
+}

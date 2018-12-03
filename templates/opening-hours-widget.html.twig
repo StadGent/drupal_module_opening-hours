@@ -16,6 +16,8 @@
  */
 #}
 <div class="openinghours-wrapper">
+  <h3 class="openinghours-channel-title" data-service="{{ service_id }}" data-channel="{{ channel_id }}"></h3>
+
   {% if preview_widget %}
     <div
       class="openinghours-widget"
@@ -34,11 +36,13 @@
     </ul>
   {% endif %}
 
-  <div
-    class="openinghours openinghours-widget"
-    data-service="{{ service_id }}"
-    data-channel="{{ channel_id }}"
-    data-type="{{ widgets[0].type }}"
-    {% if date %} data-date="{{ date }}"{% endif %}
-  ></div>
+  {% for widget in widgets %}
+    <div
+      class="openinghours openinghours-widget"
+      data-service="{{ service_id }}"
+      data-channel="{{ channel_id }}"
+      data-type="{{ widget.type }}"
+      {% if date %} data-date="{{ date }}"{% endif %}
+    ></div>
+  {% endfor %}
 </div>

@@ -1,6 +1,7 @@
 widget:
   version: 1.x
   js:
+    node_modules/@digipolis-gent/opening-hours-widget/dist/opening-hours-widget.min.js: {}
     js/opening-hours.functions.js: {}
     js/opening-hours.binding.js: {}
   dependencies:
