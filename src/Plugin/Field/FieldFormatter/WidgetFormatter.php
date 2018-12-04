@@ -126,13 +126,17 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     }
 
     foreach ($items as $delta => $item) {
-      $element[$delta] = [
-        '#type' => 'opening_hours_widget',
-        '#preview_widget' => $preview_widget,
-        '#widgets' => $widgets,
-        '#service_id' => $item->service,
-        '#channel_id' => $item->channel,
-      ];
+      if (!$this->getSetting('single_widget') || $delta === 0) {
+        $element[$delta] = [
+          '#type' => 'opening_hours_widget',
+          '#display_title' => $this->getSetting('display_title'),
+          '#single_widget' => $this->getSetting('single_widget'),
+          '#preview_widget' => $preview_widget,
+          '#widgets' => $widgets,
+          '#service_id' => $item->service,
+          '#channel_id' => $item->channel,
+        ];
+      }
     }
 
     return $element;
@@ -146,6 +150,8 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       'widget_type' => 'week',
       'alternative_widget_type' => NULL,
       'preview_widget_type' => NULL,
+      'display_title' => TRUE,
+      'single_widget' => FALSE,
     ];
 
     return $settings + parent::defaultSettings();
@@ -180,6 +186,19 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       '#options' => $types->getList(),
       '#empty_option' => $this->t('None'),
       '#default_value' => $this->getSetting('preview_widget_type'),
+    ];
+
+    $element['display_title'] = [
+      '#title' => $this->t('Display title'),
+      '#description' => $this->t('Displays the title of the channel when checked.'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->getSetting('display_title'),
+    ];
+
+    $element['single_widget'] = [
+      '#title' => $this->t('Display all channels in one widget.'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->getSetting('single_widget'),
     ];
 
     return $element;

@@ -14,200 +14,231 @@
 #  src/Plugin/Field/FieldFormatter/WidgetFormatter.php: n/a
 #  src/Plugin/Field/FieldFormatter/WidgetTypes.php: n/a
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2018-01-20 09:58+0100\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2018-12-04 11:58+0100\n"
+"PO-Revision-Date: 2018-12-04 12:52+0100\n"
+"Last-Translator: Helena Standaert <helena.standaert@digipolis.gent>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2\n"
 
-#: opening_hours.info.yml:0 opening_hours.links.menu.yml:0 opening_hours.routing.yml:0 src/Plugin/Field/FieldType/OpeningHoursItem.php:9 src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:20
+#: modules/contrib/opening_hours/opening_hours.info.yml:0
+#: modules/contrib/opening_hours/opening_hours.links.menu.yml:0
+#: modules/contrib/opening_hours/opening_hours.routing.yml:0
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:20
 msgid "Opening Hours"
 msgstr "Openingsuren"
 
-#: opening_hours.info.yml:0
+#: modules/contrib/opening_hours/opening_hours.info.yml:0
 msgid "Integrates the Opening Hours platform functionality."
 msgstr "Integreert het openingsuren platform."
 
-#: opening_hours.info.yml:0 src/Plugin/Field/FieldType/OpeningHoursItem.php:9
+#: modules/contrib/opening_hours/opening_hours.info.yml:0
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
 msgid "Web services"
 msgstr "Webservices"
 
-#: opening_hours.links.menu.yml:0
+#: modules/contrib/opening_hours/opening_hours.links.menu.yml:0
 msgid "Configure the Opening Hours service."
 msgstr "Configureer de openingsuren service."
 
-#: opening_hours.permissions.yml:0
+#: modules/contrib/opening_hours/opening_hours.permissions.yml:0
 msgid "Configure Opening Hours Service"
-msgstr "Configureer openingsuren service."
+msgstr "Configureer openingsuren service"
 
-#: opening_hours.permissions.yml:0
+#: modules/contrib/opening_hours/opening_hours.permissions.yml:0
 msgid "Give access to the Opening Hours service configuration page."
 msgstr "Geef toegang tot the openingsuren service configuratie pagina."
 
-#: opening_hours.routing.yml:0
+#: modules/contrib/opening_hours/opening_hours.routing.yml:0
 msgid "Lookup services"
 msgstr "Zoek services op"
 
-#: config/schema/opening_hours.schema.yml:0
+#: modules/contrib/opening_hours/config/schema/opening_hours.schema.yml:0
 msgid "Opening Hours Widget"
 msgstr "Openingsuren Widget"
 
-#: config/schema/opening_hours.schema.yml:0
+#: modules/contrib/opening_hours/config/schema/opening_hours.schema.yml:0
 msgid "Widget type"
 msgstr "Widget type"
 
-#: src/Form/ConfigForm.php:55
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:55
 msgid "Endpoint URL"
 msgstr "Endpoint URL"
 
-#: src/Form/ConfigForm.php:56
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:56
 msgid "Provide the endpoint URL including the API version number."
 msgstr "Voorzie de endpoint URL inclusief het API versie nummer."
 
-#: src/Form/ConfigForm.php:63
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:63
 msgid "Enable cache"
 msgstr "Caching inschakelen"
 
-#: src/Form/ConfigForm.php:64
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:64
 msgid "This will enable caching of the responses from the API."
 msgstr "Dit zal de caching inschakelen op de resultaten van de API."
 
-#: src/Form/ConfigForm.php:78
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:78
 msgid "Provide an absolute URL."
 msgstr "Voorzie een absolute URL."
 
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:144
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:167
 msgid "Type"
 msgstr "Type"
 
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:151
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:174
 msgid "Alternative type"
 msgstr "Alternatief type"
 
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:152
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:175
 msgid "Provides an alternative widget type to the visitor."
 msgstr "Voorzie een alternatieve widget voor de bezoeker."
 
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:151
-msgid "Preview type"
-msgstr "Preview type"
-
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:152
-msgid "Provides a preview widget type to the visitor."
-msgstr "Voorzie een preview widget voor de bezoeker."
-
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:154
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:178;187
 msgid "None"
 msgstr "Geen"
 
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:171
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:183
+msgid "Preview type"
+msgstr "Preview type"
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:184
+msgid "Provides a preview widget type to the visitor."
+msgstr "Voorzie een preview widget voor de bezoeker."
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:192
+msgid "Display title"
+msgstr "Toon titel"
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:193
+msgid "Displays the title of the channel when checked."
+msgstr "Toont de titel van het kanaal wanneer aangevinkt."
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:199
+msgid "Display all channels in one widget."
+msgstr "Toont alle kanalen in 1 widget."
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:217
 msgid "Show as %type widget"
 msgstr "Toon als %type widget"
 
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:175
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:221
 msgid "Alternative widget: %type"
 msgstr "Alternatieve widget: %type"
 
-#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:13
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:226
+msgid "Preview widget: %type"
+msgstr "Voorvertoning widget: %type"
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:13
 msgid "Widget"
 msgstr "Widget"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:61
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:61
 msgid "Open now"
 msgstr "Nu geopend"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:62
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:62
 msgid "Day"
 msgstr "Dag"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:63
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:63
 msgid "Week"
 msgstr "Week"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:64
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:64
 msgid "Week from now"
 msgstr "Week vanaf vandaag"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:65
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:65
 msgid "Month"
 msgstr "Maand"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:66
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:66
 msgid "Year"
 msgstr "Jaar"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:78
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:78
 msgid "now"
 msgstr "nu"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:79
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:79
 msgid "this day"
 msgstr "deze dag"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:80;81
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:80;81
 msgid "this week"
 msgstr "deze week"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:82
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:82
 msgid "this month"
 msgstr "deze maand"
 
-#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:83
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:83
 msgid "this year"
 msgstr "dit jaar"
 
-#: src/Plugin/Field/FieldType/OpeningHoursItem.php:9
-msgid "Adds a field to select the Service and its Channel to show its opening hours for."
-msgstr "Voegt een veld toe om de dienst en het kanaal te selecteren om de openingsuren hiervan te kunnen tonen."
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
+msgid ""
+"Adds a field to select the Service and its Channel to show its opening hours "
+"for."
+msgstr ""
+"Voegt een veld toe om de dienst en het kanaal te selecteren om de "
+"openingsuren hiervan te kunnen tonen."
 
-#: src/Plugin/Field/FieldType/OpeningHoursItem.php:9 src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:162
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:162
 msgid "Service"
 msgstr "Dienst"
 
-#: src/Plugin/Field/FieldType/OpeningHoursItem.php:9 src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:174
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:174
 msgid "Channel"
 msgstr "Kanaal"
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:152
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:152
 msgid "Opening hours"
 msgstr "Openingsuren"
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:153
-msgid "Select a Service and one of its Channels to link this item with Opening Hours."
-msgstr "Selecteer een dienst and één van zijn kanalen om deze te verbinden met zijn openingsuren."
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:153
+msgid ""
+"Select a Service and one of its Channels to link this item with Opening "
+"Hours."
+msgstr ""
+"Selecteer een dienst and één van zijn kanalen om deze te verbinden met zijn "
+"openingsuren."
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:177
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:177
 msgid "Select first a Service"
-msgstr "Selecteer eerst een Dienst."
+msgstr "Selecteer eerst een Dienst"
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:183
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:183
 msgid "- Select -"
 msgstr "- Selecteer -"
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:254
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:254
 msgid "Service does not exists."
 msgstr "Dienst bestaat niet."
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:263
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:263
 msgid "Service is required when Channel is set."
 msgstr "Dienst is verplicht om een kanaal te selecteren."
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:271
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:271
 msgid "Channel is required when Service is set."
 msgstr "Kanaal is verplicht wanneer een Dienst is geselecteerd."
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:280
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:280
 msgid "Channel does not exists for this Service."
 msgstr "Kanaal bastaat niet voor deze Dienst."
 
-#: src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:387;414
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:387;414
 msgid "API returned : @message"
 msgstr "API retourneerde ; @message"
-

@@ -77,7 +77,6 @@ function OpeningHours(items, options) {
   });
 
 
-  this.getTitle(items[0].dataset.service, items[0].dataset.channel);
   for (var i = 0; i < items.length; i++) {
     this._current = items[i];
     this.init();
@@ -108,6 +107,8 @@ OpeningHours.prototype.init = function () {
   else if (typeof this._current.dataset.date === 'undefined') {
     this._current.dataset.date = new Date().toISOString().slice(0,10);
   }
+
+  this.getTitle(this._current.dataset.service, this._current.dataset.channel);
   this.constructRequest(
     this.constructWidget(this._current, this.settings)
   );
@@ -154,7 +155,8 @@ OpeningHours.prototype.formattedDate = function (dateString) {
 OpeningHours.prototype.constructRequest = function (cb) {
   var requestOptions = {
     parameters: {
-      date: this._current.dataset.date
+      date: this._current.dataset.date,
+      language: this.settings.language
     }
   };
 
