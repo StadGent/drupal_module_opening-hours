@@ -295,6 +295,10 @@ OpeningHours.prototype.print = function (element, data) {
   if (!element.hasAttribute('tabindex')) {
     element.setAttribute('tabindex', '-1');
   }
+
+  var evt = document.createEvent('CustomEvent');
+  evt.initCustomEvent('change', true, false, { });
+  element.dispatchEvent(evt);
 };
 
 /**
