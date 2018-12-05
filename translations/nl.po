@@ -23,7 +23,7 @@ msgstr ""
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2\n"
@@ -173,13 +173,13 @@ msgstr "nu"
 msgid "this day"
 msgstr "deze dag"
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:80;81
-msgid "this week"
-msgstr "deze week"
+#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:80;81
+msgid "week overview"
+msgstr "weekoverzicht"
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:82
-msgid "this month"
-msgstr "deze maand"
+#: src/Plugin/Field/FieldFormatter/WidgetTypes.php:82
+msgid "month overview"
+msgstr "maandoverzicht"
 
 #: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php:83
 msgid "this year"
