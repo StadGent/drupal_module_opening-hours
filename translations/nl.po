@@ -18,14 +18,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2018-01-19 09:58+0100\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2018-01-20 09:58+0100\n"
+"PO-Revision-Date: 2018-12-05 09:47+0100\n"
+"Last-Translator: Peter Decuyper <peter.decuyper@digipolis.gent>\n"
+"Language-Team: Digipolis <tbweb@gent.be>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.5\n"
 
 #: opening_hours.info.yml:0 opening_hours.links.menu.yml:0 opening_hours.routing.yml:0 src/Plugin/Field/FieldType/OpeningHoursItem.php:9 src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:20
 msgid "Opening Hours"
@@ -95,6 +97,14 @@ msgstr "Alternatief type"
 msgid "Provides an alternative widget type to the visitor."
 msgstr "Voorzie een alternatieve widget voor de bezoeker."
 
+#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:151
+msgid "Preview type"
+msgstr "Preview type"
+
+#: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:152
+msgid "Provides a preview widget type to the visitor."
+msgstr "Voorzie een preview widget voor de bezoeker."
+
 #: src/Plugin/Field/FieldFormatter/WidgetFormatter.php:154
 msgid "None"
 msgstr "Geen"
@@ -144,12 +154,12 @@ msgid "this day"
 msgstr "deze dag"
 
 #: src/Plugin/Field/FieldFormatter/WidgetTypes.php:80;81
-msgid "this week"
-msgstr "deze week"
+msgid "week overview"
+msgstr "weekoverzicht"
 
 #: src/Plugin/Field/FieldFormatter/WidgetTypes.php:82
-msgid "this month"
-msgstr "deze maand"
+msgid "month overview"
+msgstr "maandoverzicht"
 
 #: src/Plugin/Field/FieldFormatter/WidgetTypes.php:83
 msgid "this year"

@@ -2,6 +2,52 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-alpha16]
+
+### Changed
+
+* DMOH-48: Changed the week/month view swith links to more generic labels.
+
+## [8.x-1.0-alpha15]
+
+### Fixed
+
+* VG-1385: Forced IE to trigger a repaint after focus.
+
+## [8.x-1.0-alpha14]
+
+### Fixed
+
+* VG-1385: Enabled placing the focus on days in IE.
+
+### Removed
+
+* VG-1385: Removed autofocus after init.
+
+## [8.x-1.0-alpha13]
+
+### Added
+
+* VG-1385: Added keyboard support for the month view.
+
+## [8.x-1.0-alpha12]
+
+### Fixed
+
+* Fixed translation header.
+
+## [8.x-1.0-alpha11]
+
+### Added
+
+* Added a preview date widget to the opening hours field formatter.
+
+## [8.x-1.0-alpha10]
+
+### Added
+
+* Added opening hours package version to 1.0 or higher.
+
 ## [8.x-1.0-alpha9]
 
 ### Fixed
@@ -76,6 +122,13 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-alpha16]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha15...8.x-1.0-alpha16
+[8.x-1.0-alpha15]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha14...8.x-1.0-alpha15
+[8.x-1.0-alpha14]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha13...8.x-1.0-alpha14
+[8.x-1.0-alpha13]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha12...8.x-1.0-alpha13
+[8.x-1.0-alpha12]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha11...8.x-1.0-alpha12
+[8.x-1.0-alpha11]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha10...8.x-1.0-alpha11
+[8.x-1.0-alpha10]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha9...8.x-1.0-alpha10
 [8.x-1.0-alpha9]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha8...8.x-1.0-alpha9
 [8.x-1.0-alpha8]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha7...8.x-1.0-alpha8
 [8.x-1.0-alpha7]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha6...8.x-1.0-alpha7

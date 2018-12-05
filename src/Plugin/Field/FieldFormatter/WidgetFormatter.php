@@ -103,16 +103,32 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     $element = [];
 
     $types = new WidgetTypes();
-    $widgets[0]['label'] = $types->getToggleLabelByType($this->getSetting('widget_type'));
-    $widgets[0]['type'] = $this->getSetting('widget_type');
+
+    $preview_widget = FALSE;
+
+    if ($this->getSetting('preview_widget_type')) {
+      $preview_widget = [
+        'label' => $types->getToggleLabelByType($this->getSetting('preview_widget_type')),
+        'type' => $this->getSetting('preview_widget_type'),
+      ];
+    }
+
+    $widgets[] = [
+      'label' => $types->getToggleLabelByType($this->getSetting('widget_type')),
+      'type' => $this->getSetting('widget_type'),
+    ];
+
     if ($this->getSetting('alternative_widget_type')) {
-      $widgets[1]['label'] = $types->getToggleLabelByType($this->getSetting('alternative_widget_type'));
-      $widgets[1]['type'] = $this->getSetting('alternative_widget_type');
+      $widgets[] = [
+        'label' => $types->getToggleLabelByType($this->getSetting('alternative_widget_type')),
+        'type' => $this->getSetting('alternative_widget_type'),
+      ];
     }
 
     foreach ($items as $delta => $item) {
       $element[$delta] = [
         '#type' => 'opening_hours_widget',
+        '#preview_widget' => $preview_widget,
         '#widgets' => $widgets,
         '#service_id' => $item->service,
         '#channel_id' => $item->channel,
@@ -129,6 +145,7 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     $settings = [
       'widget_type' => 'week',
       'alternative_widget_type' => NULL,
+      'preview_widget_type' => NULL,
     ];
 
     return $settings + parent::defaultSettings();
@@ -151,8 +168,18 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
       '#title' => $this->t('Alternative type'),
       '#description' => $this->t('Provides an alternative widget type to the visitor.'),
       '#type' => 'select',
-      '#options' => array_merge([NULL => $this->t('None')], $types->getList()),
+      '#options' => $types->getList(),
+      '#empty_option' => $this->t('None'),
       '#default_value' => $this->getSetting('alternative_widget_type'),
+    ];
+
+    $element['preview_widget_type'] = [
+      '#title' => $this->t('Preview type'),
+      '#description' => $this->t('Provides a preview widget type to the visitor.'),
+      '#type' => 'select',
+      '#options' => $types->getList(),
+      '#empty_option' => $this->t('None'),
+      '#default_value' => $this->getSetting('preview_widget_type'),
     ];
 
     return $element;
@@ -173,6 +200,11 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
     if ($settings['alternative_widget_type']) {
       $label = $types->getLabelByType($settings['alternative_widget_type']);
       $summary[] = $this->t('Alternative widget: %type', ['%type' => $label]);
+    }
+
+    if ($settings['preview_widget_type']) {
+      $label = $types->getLabelByType($settings['preview_widget_type']);
+      $summary[] = $this->t('Preview widget: %type', ['%type' => $label]);
     }
 
     return $summary;
