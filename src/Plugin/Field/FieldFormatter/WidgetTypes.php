@@ -77,9 +77,9 @@ class WidgetTypes {
     return [
       self::OPEN_NOW => new TranslatableMarkup('now'),
       self::DAY => new TranslatableMarkup('this day'),
-      self::WEEK => new TranslatableMarkup('this week'),
-      self::WEEK_FROM_NOW => new TranslatableMarkup('this week'),
-      self::MONTH => new TranslatableMarkup('this month'),
+      self::WEEK => new TranslatableMarkup('week overview'),
+      self::WEEK_FROM_NOW => new TranslatableMarkup('week overview'),
+      self::MONTH => new TranslatableMarkup('month overview'),
       self::YEAR => new TranslatableMarkup('this year'),
     ];
   }

@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Changed
+
+* DMOH-48: Changed the week/month view swith links to more generic labels.
+
 ## [8.x-1.0-alpha15]
 
 ### Fixed
