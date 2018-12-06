@@ -29,17 +29,7 @@
       "vendor/bin/phpcs"
     ],
     "post-install-cmd": [
-      "bash -c 'cd ./scripts; ./install.sh;'",
       "vendor/bin/cghooks update"
-    ],
-    "post-update-cmd": [
-      "bash -c 'cd ./scripts; ./install.sh;'"
-    ],
-    "post-package-install": [
-      "bash -c 'cd ./scripts; ./install.sh;'"
-    ],
-    "post-package-update": [
-      "bash -c 'cd ./scripts; ./install.sh;'"
     ]
   },
   "hooks": {
