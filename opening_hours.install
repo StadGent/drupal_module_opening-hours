@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Installation file for Opening Hours module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function opening_hours_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'runtime') {
+    $requirements['opening_hours']['title'] = 'Light Gallery';
+    $requirements['opening_hours']['value'] = t('Installed');
+
+    if (file_exists(DRUPAL_ROOT . '/libraries/opening-hours-widget/dist/opening-hours-widget.min.js')) {
+      $requirements['opening_hours']['severity'] = REQUIREMENT_OK;
+    }
+    else {
+      // Required opening_hours library wasn't found; abort installation.
+      $requirements['opening_hours']['value'] = t('Not found');
+
+      // Provide a download link to the opening_hours jQuery plugin.
+      $requirements['opening_hours']['description'] = t('The <a href="@opening_hours" target="_blank">opening hours widget</a> plugin is missing. See <a href="@readme">README.md</a> for instructions on how to download and extract it.', [
+        '@opening_hours' => 'https://github.com/StadGent/npm_package_opening-hours-widget',
+        '@readme' => '/' . drupal_get_path('module', 'opening_hours') . '/README.md',
+      ]);
+      $requirements['opening_hours']['severity'] = REQUIREMENT_ERROR;
+    }
+  }
+
+  return $requirements;
+}

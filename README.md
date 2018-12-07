@@ -16,20 +16,20 @@ root and add following lines in the `repositories section:
 
 ```json
         {
-            "type": "vcs",
-            "url": "git@github.com:StadGent/drupal_module_opening-hours.git"
-        },
-        {
             "type": "package",
             "package": {
                 "name": "drupal/opening-hours-widget",
-                "version": "0.0.2",
+                "version": "0.0.3",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "https://github.com/StadGent/npm_package_opening-hours-widget/releases/download/v0.0.2/opening-hours-widget.zip",
+                    "url": "https://github.com/StadGent/npm_package_opening-hours-widget/releases/download/v0.0.3/opening-hours-widget.zip",
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:StadGent/drupal_module_opening-hours.git"
         }
 ```
 
