@@ -72,11 +72,14 @@ function OpeningHours(items, options) {
   });
 
   this.settings = defaults;
-  this.items = items;
+  this.ohw = new OpeningHoursWidget({
+      endpoint: this.settings.endpoint
+  });
+
 
   for (var i = 0; i < items.length; i++) {
     this._current = items[i];
-    this.init(items[i]);
+    this.init();
   }
 }
 
@@ -86,15 +89,13 @@ function OpeningHours(items, options) {
  * @returns {boolean}
  */
 OpeningHours.prototype.init = function () {
-  this.print(this._current, '');
-
   if (!this.settings.endpoint || 0 === this.settings.endpoint.length) {
     this.printError('Please provide an API endpoint.');
     return false;
   }
 
-  if (isNaN(this._current.dataset.service) || isNaN(this._current.dataset.channel)) {
-    this.printError('Please provide a service and channel.');
+  if (isNaN(this._current.dataset.service)) {
+    this.printError('Please provide a service.');
     return false;
   }
 
@@ -105,8 +106,10 @@ OpeningHours.prototype.init = function () {
     this._current.dataset.date = new Date().toISOString().slice(0,10);
   }
 
-  var url = this.constructRequest();
-  this.request(url, this.constructWidget);
+  this.getTitle(this._current.dataset.service, this._current.dataset.channel);
+  this.constructRequest(
+    this.constructWidget(this._current, this.settings)
+  );
 };
 
 /**
@@ -147,70 +150,75 @@ OpeningHours.prototype.formattedDate = function (dateString) {
  * @returns {string}
  *   The request URI.
  */
-OpeningHours.prototype.constructRequest = function () {
-  var uri = this.settings.endpoint
-    + 'services/'
-    + this._current.dataset.service
-    + '/channels/'
-    + this._current.dataset.channel;
+OpeningHours.prototype.constructRequest = function (cb) {
+  var requestOptions = {
+    parameters: {
+      date: this._current.dataset.date,
+      language: this.settings.language
+    }
+  };
 
   switch (this._current.dataset.type) {
     case 'open-now':
-      uri += '/open-now';
+      this.ohw.fetchStatus(
+          this._current.dataset.service,
+          this._current.dataset.channel,
+          'html',
+          requestOptions
+      ).then(cb);
       break;
 
     case 'day':
-      uri += '/openinghours/day?date=' + this.formattedDate(this._current.dataset.date);
+      this.ohw.fetchOpeningHoursForDate(
+          this._current.dataset.service,
+          this._current.dataset.channel,
+          'html',
+          requestOptions
+      ).then(cb);
       break;
 
     case 'week':
-      uri += '/openinghours/week?date=' + this.formattedDate(this._current.dataset.date);
+        this.ohw.fetchOpeningHoursForWeek(
+            this._current.dataset.service,
+            this._current.dataset.channel,
+            'html',
+            requestOptions
+        ).then(cb);
       break;
 
     case 'month':
-      uri += '/openinghours/month?date=' + this.formattedDate(this._current.dataset.date);
+        this.ohw.fetchOpeningHoursForMonth(
+            this._current.dataset.service,
+            this._current.dataset.channel,
+            'html',
+            requestOptions
+        ).then(cb);
       break;
 
     case 'year':
-      uri += '/openinghours/year?date=' + this.formattedDate(this._current.dataset.date);
+        this.ohw.fetchOpeningHoursForYear(
+            this._current.dataset.service,
+            this._current.dataset.channel,
+            'html',
+            requestOptions
+        ).then(cb);
       break;
 
     case 'week-from-now':
     default:
-      var until = new Date(this._current.dataset.date);
-      until.setDate(until.getDate() + 6);
-      uri += '/openinghours?from=' + this.formattedDate(this._current.dataset.date) + '&until=' + this.formattedDate(until);
+        var until = new Date(this._current.dataset.date);
+        until.setDate(until.getDate() + 6);
+
+        this.ohw.fetchOpeningHoursByRange(
+            this._current.dataset.date,
+            until,
+            this._current.dataset.service,
+            this._current.dataset.channel,
+            'html',
+            requestOptions
+        ).then(cb);
       break;
   }
-
-  return uri + '&language=' + this.settings.language;
-};
-
-/**
- * Send out the request to the Opening Hours API.
- *
- * @param {string} url
- *   The request URI.
- * @param callback
- *   The callback to pass the response to.
- */
-OpeningHours.prototype.request = function (url, callback) {
-  var xmlhttp;
-  xmlhttp = new XMLHttpRequest();
-  xmlhttp.element = this._current;
-  xmlhttp.settings = this.settings;
-  xmlhttp.onreadystatechange = function () {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      callback(xmlhttp, xmlhttp.responseText);
-    }
-    else if (typeof xmlhttp.settings.error === 'function' && xmlhttp.readyState === 4 && xmlhttp.status !== 200) {
-      xmlhttp.settings.error(xmlhttp);
-    }
-  };
-  xmlhttp.open('GET', url, true);
-  xmlhttp.setRequestHeader('Accept', 'text/html');
-  xmlhttp.setRequestHeader('Accept-Language', this.settings.language);
-  xmlhttp.send();
 };
 
 /**
@@ -255,19 +263,20 @@ OpeningHours.prototype.findGetParameter = function (key) {
 /**
  * Construct openinghours widget.
  *
- * @param xmlhttp
- *   The original xmlhttp request.
- * @param {string} data
- *   The data to print in the element.
+ * @param {HTMLElement} element
+ *   The DOM element in which the data should be printed
+ * @param {HTMLElement} settings
+ *   The DOM element in which the data should be printed
+ * @return {function}
+ *   Callback function for the ajax request. The function receives the data returned from the API
  */
-OpeningHours.prototype.constructWidget = function (xmlhttp, data) {
-  var element = xmlhttp.element;
-  var settings = xmlhttp.settings;
+OpeningHours.prototype.constructWidget = function (element, settings) {
+  return function(data) {
+      OpeningHours.prototype.print(element, data);
 
-  OpeningHours.prototype.print(element, data);
-
-  if (element.dataset.type === "month") {
-    OpeningHours.prototype.calendarEvents(element, settings);
+      if (element.dataset.type === "month") {
+          OpeningHours.prototype.calendarEvents(element, settings);
+      }
   }
 };
 
@@ -284,6 +293,11 @@ OpeningHours.prototype.print = function (element, data) {
   if (!element.hasAttribute('tabindex')) {
     element.setAttribute('tabindex', '-1');
   }
+
+  // Dispatch change event
+  var evt = document.createEvent('CustomEvent');
+  evt.initCustomEvent('change', true, false, { });
+  element.dispatchEvent(evt);
 };
 
 /**
@@ -297,86 +311,6 @@ OpeningHours.prototype.printError = function (message) {
   this.print(this._current, error);
 };
 
-/**
- * Handle keyboard input to move to other dates.
- *
- * @param e
- *   The keydown event.
- * @param element
- *   The openinghours DOM element.
- */
-OpeningHours.prototype.handleKeyboardInput = function (e, element) {
-  var keyCode = e.keyCode || e.which;
-  var current = e.target;
-  var currentPosition = +current.getAttribute('aria-posinset');
-
-  var changeFocus = function(e, nextElem) {
-    e.preventDefault();
-    nextElem.click();
-  };
-
-  var next = function () {
-    var nextElem = element.querySelector('[aria-posinset="' + ++currentPosition + '"]')
-      || element.querySelector('[aria-posinset="' + 1 + '"]');
-    changeFocus(e, nextElem);
-  };
-
-  var previous = function() {
-    var nextElem = element.querySelector('[aria-posinset="' + --currentPosition + '"]')
-      || element.querySelector('[aria-posinset="' + 31 + '"]')
-      || element.querySelector('[aria-posinset="' + 30 + '"]');
-    changeFocus(e, nextElem);
-  };
-
-  var up = function() {
-    var nextElem = element.querySelector('[aria-posinset="' + (currentPosition - 7) + '"]')
-      || element.querySelector('[aria-posinset="' + (currentPosition + 4 * 7) + '"]')
-      || element.querySelector('[aria-posinset="' + (currentPosition + 3 * 7) + '"]');
-    changeFocus(e, nextElem);
-  };
-
-  var down = function() {
-    var nextElem = element.querySelector('[aria-posinset="' + (currentPosition + 7) + '"]')
-      || element.querySelector('[aria-posinset="' + (currentPosition - 4 * 7) + '"]')
-      || element.querySelector('[aria-posinset="' + (currentPosition - 3 * 7) + '"]');
-    changeFocus(e, nextElem);
-  };
-
-  var home = function() {
-    var nextElem = element.querySelector('[aria-posinset="1"]');
-    changeFocus(e, nextElem);
-  };
-
-  var end = function() {
-    var nextElem = element.querySelector('[aria-posinset="31"]')
-      || element.querySelector('[aria-posinset="30"]')
-      || element.querySelector('[aria-posinset="29"]')
-      || element.querySelector('[aria-posinset="28"]');
-    changeFocus(e, nextElem);
-  };
-
-  switch (keyCode) {
-    case 37:
-      previous();
-      break;
-    case 38:
-      up();
-      break;
-    case 40:
-      down();
-      break;
-    case 39:
-      next();
-      break;
-    case 36:
-      home();
-      break;
-    case 35:
-      end();
-      break;
-  }
-};
-
 OpeningHours.prototype.calendarEvents = function (element, settings) {
   var self = this;
 
@@ -384,32 +318,94 @@ OpeningHours.prototype.calendarEvents = function (element, settings) {
     var month = new Date(element.dataset.date);
     month.setMonth(month.getMonth() - 1, 5);
     element.dataset.date = self.formattedDate(month);
+
     new OpeningHours([element], settings);
   });
+
   element.querySelector('.openinghours--next').addEventListener('click', function () {
     var month = new Date(element.dataset.date);
     month.setMonth(month.getMonth() + 1, 5);
     element.dataset.date = self.formattedDate(month);
+
     new OpeningHours([element], settings);
   });
 
   var days = element.querySelectorAll('.openinghours--day:not([aria-hidden])');
-  for (var i = 0; i < days.length; i++) {
-
-    days[i].addEventListener('keydown', function (e) {
+  for (let i = 0; i < days.length; i++) {
+    days[i].addEventListener('keydown', function(e) {
       self.handleKeyboardInput(e, element);
     });
 
     days[i].addEventListener('click', function (e) {
-      for (var x = 0; x < days.length; x++) {
+      for (let x = 0; x < days.length; x++) {
         days[x].setAttribute('tabindex', -1);
         // IE fix: trigger repaint
-        days[x].classList.add("inactive");
+        days[x].classList.add('inactive');
       }
       this.setAttribute('tabindex', 0);
       // IE fix: trigger repaint
-      this.classList.remove("inactive");
+      this.classList.remove('inactive');
       this.focus();
     });
+  }
+};
+
+/**
+ * Handle keyboard input to move to other dates.
+ *
+ * @param {Event} e
+ *   The keydown event.
+ * @param {HTMLElement} elem
+ *   Wrapper element which contains the days.
+ */
+OpeningHours.prototype.handleKeyboardInput = function (e, elem) {
+  let keyCode = e.keyCode || e.which;
+  let current = e.target;
+  let currentPosition = +current.getAttribute('aria-posinset');
+
+  const changeFocus = function () {
+    let nextElem;
+    let i = 0;
+
+    while (!nextElem && i < arguments.length) {
+      nextElem = elem.querySelector('[aria-posinset="' + arguments[i] + '"]');
+      i++;
+    }
+
+    if (nextElem) {
+      e.preventDefault();
+      nextElem.click();
+    }
+  };
+
+  switch (keyCode) {
+    case 37: // previous (left arrow)
+      changeFocus(--currentPosition, 31, 30, 29, 28);
+      break;
+    case 38: // up (up arrow)
+      changeFocus(currentPosition - 7, currentPosition + 4 * 7, currentPosition + 3 * 7);
+      break;
+    case 40: // down (down arrow)
+      changeFocus(currentPosition + 7, currentPosition - 4 * 7, currentPosition - 3 * 7);
+      break;
+    case 39: // next (right arrow)
+      changeFocus(++currentPosition, 1);
+      break;
+    case 36: // home
+      changeFocus(1);
+      break;
+    case 35: // end
+      changeFocus(31, 30, 29, 28);
+      break;
+  }
+};
+
+OpeningHours.prototype.getTitle = function (service, channel) {
+  var titleElem = document.querySelector('.openinghours-channel-title[data-service="' + service + '"][data-channel="' + channel + '"]');
+  if (titleElem && titleElem.innerHTML === '') {
+    this.ohw.fetchChannel(service, channel, 'json')
+        .then(function(data) {
+          titleElem.innerHTML = data.label
+        })
   }
 };
