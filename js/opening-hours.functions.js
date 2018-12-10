@@ -89,8 +89,6 @@ function OpeningHours(items, options) {
  * @returns {boolean}
  */
 OpeningHours.prototype.init = function () {
-  // this.print(this._current, '');
-
   if (!this.settings.endpoint || 0 === this.settings.endpoint.length) {
     this.printError('Please provide an API endpoint.');
     return false;
