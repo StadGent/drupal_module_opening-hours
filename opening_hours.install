@@ -12,7 +12,7 @@ function opening_hours_requirements($phase) {
   $requirements = [];
 
   if ($phase == 'runtime') {
-    $requirements['opening_hours']['title'] = 'Light Gallery';
+    $requirements['opening_hours']['title'] = 'Opening Hours';
     $requirements['opening_hours']['value'] = t('Installed');
 
     if (file_exists(DRUPAL_ROOT . '/libraries/opening-hours-widget/dist/opening-hours-widget.min.js')) {
