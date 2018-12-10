@@ -323,6 +323,7 @@ OpeningHours.prototype.calendarEvents = function (element, settings) {
 
     new OpeningHours([element], settings);
   });
+
   element.querySelector('.openinghours--next').addEventListener('click', function () {
     var month = new Date(element.dataset.date);
     month.setMonth(month.getMonth() + 1, 5);
@@ -330,6 +331,75 @@ OpeningHours.prototype.calendarEvents = function (element, settings) {
 
     new OpeningHours([element], settings);
   });
+
+  var days = element.querySelectorAll('.openinghours--day:not([aria-hidden])');
+  for (let i = 0; i < days.length; i++) {
+    days[i].addEventListener('keydown', function(e) {
+      self.handleKeyboardInput(e, element);
+    });
+
+    days[i].addEventListener('click', function (e) {
+      for (let x = 0; x < days.length; x++) {
+        days[x].setAttribute('tabindex', -1);
+        // IE fix: trigger repaint
+        days[x].classList.add('inactive');
+      }
+      this.setAttribute('tabindex', 0);
+      // IE fix: trigger repaint
+      this.classList.remove('inactive');
+      this.focus();
+    });
+  }
+};
+
+/**
+ * Handle keyboard input to move to other dates.
+ *
+ * @param {Event} e
+ *   The keydown event.
+ * @param {HTMLElement} elem
+ *   Wrapper element which contains the days.
+ */
+OpeningHours.prototype.handleKeyboardInput = function (e, elem) {
+  let keyCode = e.keyCode || e.which;
+  let current = e.target;
+  let currentPosition = +current.getAttribute('aria-posinset');
+
+  const changeFocus = function () {
+    let nextElem;
+    let i = 0;
+
+    while (!nextElem && i < arguments.length) {
+      nextElem = elem.querySelector('[aria-posinset="' + arguments[i] + '"]');
+      i++;
+    }
+
+    if (nextElem) {
+      e.preventDefault();
+      nextElem.click();
+    }
+  };
+
+  switch (keyCode) {
+    case 37: // previous (left arrow)
+      changeFocus(--currentPosition, 31, 30, 29, 28);
+      break;
+    case 38: // up (up arrow)
+      changeFocus(currentPosition - 7, currentPosition + 4 * 7, currentPosition + 3 * 7);
+      break;
+    case 40: // down (down arrow)
+      changeFocus(currentPosition + 7, currentPosition - 4 * 7, currentPosition - 3 * 7);
+      break;
+    case 39: // next (right arrow)
+      changeFocus(++currentPosition, 1);
+      break;
+    case 36: // home
+      changeFocus(1);
+      break;
+    case 35: // end
+      changeFocus(31, 30, 29, 28);
+      break;
+  }
 };
 
 OpeningHours.prototype.getTitle = function (service, channel) {
