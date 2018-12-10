@@ -296,6 +296,7 @@ OpeningHours.prototype.print = function (element, data) {
     element.setAttribute('tabindex', '-1');
   }
 
+  // Dispatch change event
   var evt = document.createEvent('CustomEvent');
   evt.initCustomEvent('change', true, false, { });
   element.dispatchEvent(evt);

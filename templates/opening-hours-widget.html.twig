@@ -38,13 +38,11 @@
     </ul>
   {% endif %}
 
-  {% for widget in widgets %}
-    <div
-      class="openinghours openinghours-widget"
-      data-service="{{ service_id }}"
-      {% if not single_widget %}data-channel="{{ channel_id }}"{% endif %}
-      data-type="{{ widget.type }}"
-      {% if date %} data-date="{{ date }}"{% endif %}
-    ></div>
-  {% endfor %}
+  <div
+    class="openinghours openinghours-widget"
+    data-service="{{ service_id }}"
+    {% if not single_widget %}data-channel="{{ channel_id }}"{% endif %}
+    data-type="{{ widgets[0].type }}"
+    {% if date %} data-date="{{ date }}"{% endif %}
+  ></div>
 </div>
