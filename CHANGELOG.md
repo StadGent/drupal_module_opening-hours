@@ -2,6 +2,18 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Added
+
+* VG-1476: Added support to limit fetching the opening hours with an optional
+  from-until period.
+
+### Changed
+
+* SGD8-709: Moved generic javascript code to the 
+  '@digipolis-gent/opening-hours-widget' npm package.
+
 ## [8.x-1.0-alpha16]
 
 ### Changed

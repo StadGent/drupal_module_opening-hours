@@ -43,8 +43,337 @@ var getClosest = function (elem, selector) {
   }
 
   return null;
-
 };
+
+
+/**
+ * OpeningHours period containing optional from-until dates.
+ *
+ * @param {null|Date} from
+ *   The from date.
+ * @param {null|Date} until
+ *   The until date.
+ *
+ * @returns {OpeningHoursPeriod}
+ *   The opening hours period object.
+ */
+function OpeningHoursPeriod(from, until) {
+  this.from = from;
+  this.until = until;
+}
+
+/**
+ * Has the OpeningHoursPeriod a from date.
+ *
+ * @returns {boolean}
+ *   Has a from date.
+ */
+OpeningHoursPeriod.prototype.hasFrom = function () {
+  return this.from !== null;
+};
+
+/**
+ * Has the OpeningHoursPeriod an until date.
+ *
+ * @returns {boolean}
+ *   Has an until date.
+ */
+OpeningHoursPeriod.prototype.hasUntil = function () {
+  return this.until !== null;
+};
+
+/**
+ * Has the OpeningHoursPeriod a period.
+ *
+ * @returns {boolean}
+ *   Has a period.
+ */
+OpeningHoursPeriod.prototype.hasPeriod = function () {
+  return this.hasFrom() && this.hasUntil();
+};
+
+/**
+ * Get the period from.
+ *
+ * @returns {null|Date}
+ *   The period from date (if any).
+ */
+OpeningHoursPeriod.prototype.getFrom = function () {
+  return this.from;
+};
+
+/**
+ * Get the period until.
+ *
+ * @returns {null|Date}
+ *   The period until (if any).
+ */
+OpeningHoursPeriod.prototype.getUntil = function () {
+  return this.until;
+};
+
+
+/**
+ * The date to create the OpeningHours widget for.
+ *
+ * The current date is used to generate the widget for (day, week, month)...
+ * This object allows manipulating the widget date without losing the original
+ * value. It allows to reset the date if necessary.
+ *
+ * @param {Date} date
+ *   The date to create the widget date for.
+ *
+ * @return {OpeningHoursWidgetDate}
+ *   The Openinghours widget date.
+ */
+function OpeningHoursWidgetDate(date) {
+  this.originalDate = date;
+  this.date = date;
+}
+
+/**
+ * Get the orginal date.
+ *
+ * @returns {Date}
+ *   The original date.
+ */
+OpeningHoursWidgetDate.prototype.getOriginalDate = function () {
+  return this.originalDate;
+};
+
+/**
+ * Get the date to generate the widget for.
+ *
+ * @return {Date}
+ *   The date.
+ */
+OpeningHoursWidgetDate.prototype.getDate = function () {
+  return this.date;
+};
+
+/**
+ * Reset the widget date to the original value.
+ */
+OpeningHoursWidgetDate.prototype.reset = function () {
+  this.date = this.getOriginalDate();
+};
+
+/**
+ * Set the widget to the previous week.
+ */
+OpeningHoursWidgetDate.prototype.previousWeek = function () {
+  this.date.setDate(this.date.getDate() - 7);
+};
+
+/**
+ * Set the widget to the next week.
+ */
+OpeningHoursWidgetDate.prototype.nextWeek = function () {
+  this.date.setDate(this.date.getDate() + 7);
+};
+
+/**
+ * Set the widget to the previous month.
+ */
+OpeningHoursWidgetDate.prototype.previousMonth = function () {
+  this.date.setMonth(this.date.getMonth() - 1, 1);
+};
+
+/**
+ * Set the widget date to next month.
+ */
+OpeningHoursWidgetDate.prototype.nextMonth = function () {
+  this.date.setMonth(this.date.getMonth() + 1, 1);
+};
+
+
+/**
+ * OpeningHours item, is a wrapper around the opening hours widget HTML Element.
+ *
+ * @param {HTMLElement} element
+ *   The dom element to create the item for.
+ * @param {object} options
+ *   The OpeningHours options.
+ *
+ * @returns {OpeningHoursItem}
+ *   The opening hours item.
+ */
+function OpeningHoursItem(element, options) {
+  this.element = element;
+  this.options = options;
+
+  // The widget type.
+  this.type = null;
+
+  // The OpeningHours Service & Channel.
+  this.service = null;
+  this.channel = null;
+
+  // The date the item want's to show the widget for.
+  this.date = null;
+
+  // Optional period to limit the opening hours request by.
+  this.period = null;
+}
+
+/**
+ * Get the item widget type.
+ *
+ * @return {false|string}
+ *   The widget type.
+ */
+OpeningHoursItem.prototype.getType = function () {
+  if (this.type !== null) {
+    return this.type;
+  }
+
+  if (typeof this.element.dataset.type === 'undefined') {
+    this.printError('Please provide a widget type.');
+    this.type = false;
+  }
+  else {
+    this.type = this.element.dataset.type;
+  }
+
+  return this.type;
+};
+
+/**
+ * Get the item Service ID.
+ *
+ * @return {false|integer}
+ *   The Service id (if any).
+ */
+OpeningHoursItem.prototype.getService = function () {
+  if (this.service !== null) {
+    return this.service;
+  }
+
+  if (isNaN(this.element.dataset.service)) {
+    this.printError('Please provide a service id.');
+    this.service = false;
+  }
+  else {
+    this.service = parseInt(this.element.dataset.service);
+  }
+
+  return this.service;
+};
+
+/**
+ * Get the item Channel ID.
+ *
+ * @return {false|integer}
+ *   The channel (if any).
+ */
+OpeningHoursItem.prototype.getChannel = function () {
+  if (this.channel !== null) {
+    return this.channel;
+  }
+
+  if (isNaN(this.element.dataset.channel)) {
+    this.printError('Please provide a channel id.');
+    this.channel = false;
+  }
+  else {
+    this.channel = parseInt(this.element.dataset.channel);
+  }
+
+  return this.channel;
+};
+
+/**
+ * Get the date the item wants to show the widget for.
+ *
+ * @return {OpeningHoursWidgetDate}
+ *   The Opening Hours widget date object.
+ */
+OpeningHoursItem.prototype.getDate = function () {
+  if (this.date !== null) {
+    return this.date;
+  }
+
+  // If the options request date is set, use that one (oh_date request param).
+  if (this.options.requestDate) {
+    this.date = new OpeningHoursWidgetDate(new Date(this.options.requestDate));
+    return this.date;
+  }
+
+  // Fallback to current date if no date is set in the widget data (data-date).
+  if (typeof this.element.dataset.date === 'undefined') {
+    this.date = new OpeningHoursWidgetDate(new Date());
+    return this.date;
+  }
+
+  // Date from the data-date property.
+  this.date = new OpeningHoursWidgetDate(new Date(this.element.dataset.date));
+  return this.date;
+};
+
+/**
+ * Get the period filter the item wants to limit the opening hours by.
+ *
+ * @returns {OpeningHoursPeriod}
+ *   The period object.
+ */
+OpeningHoursItem.prototype.getPeriod = function () {
+  if (this.period !== null) {
+    return this.period;
+  }
+
+  var from = typeof this.element.dataset.from !== 'undefined'
+    ? new Date(this.element.dataset.from)
+    : null;
+  var until = typeof this.element.dataset.until !== 'undefined'
+    ? new Date(this.element.dataset.until)
+    : null;
+
+  this.period = new OpeningHoursPeriod(from, until);
+  return this.period;
+};
+
+/**
+ * Has the widget everything to create a widget of it.
+ *
+ * @return {boolean}
+ *   Everything in place to create a widget out of it.
+ */
+OpeningHoursItem.prototype.isWidgetable = function () {
+  return this.getType() !== false
+    && this.getService() !== false
+    && this.getChannel() !== false;
+};
+
+/**
+ * Print HTML to the page on the location of the item.
+ *
+ * @param {string} data
+ *   The data to print in the element.
+ */
+OpeningHoursItem.prototype.print = function (data) {
+  this.element.innerHTML = data;
+  if (!this.element.hasAttribute('tabindex')) {
+    this.element.setAttribute('tabindex', '-1');
+  }
+
+  // Dispatch change event.
+  var evt = document.createEvent('CustomEvent');
+  evt.initCustomEvent('change', true, false, {});
+  this.element.dispatchEvent(evt);
+};
+
+/**
+ * Print an error to the page.
+ *
+ * @param {string} message
+ *   The error message to print.
+ */
+OpeningHoursItem.prototype.printError = function (message) {
+  console.error(message);
+  var error = '<span class="error">Error: ' + message + '</span>';
+  this.print(this.element, error);
+};
+
 
 /**
  * Define the OpeningHours object.
@@ -73,43 +402,33 @@ function OpeningHours(items, options) {
 
   this.settings = defaults;
   this.ohw = new OpeningHoursWidget({
-      endpoint: this.settings.endpoint
+    endpoint: this.settings.endpoint
   });
 
+  if (!this.settings.endpoint || 0 === this.settings.endpoint.length) {
+    console.error('OpeningHours : Please provide an API endpoint.');
+    return this;
+  }
 
+  // Render the widgets for all found items.
   for (var i = 0; i < items.length; i++) {
-    this._current = items[i];
-    this.init();
+    this.renderItemWidget(
+      new OpeningHoursItem(items[i], this.settings)
+    );
   }
 }
 
 /**
- * Initiate the OpeningHours object.
+ * Format a given date object into the yyyy-mm-dd format.
  *
- * @returns {boolean}
+ * @param {Date} date
+ *   The date to format.
+ *
+ * @returns {string}
+ *   The date in the proper format.
  */
-OpeningHours.prototype.init = function () {
-  if (!this.settings.endpoint || 0 === this.settings.endpoint.length) {
-    this.printError('Please provide an API endpoint.');
-    return false;
-  }
-
-  if (isNaN(this._current.dataset.service)) {
-    this.printError('Please provide a service.');
-    return false;
-  }
-
-  if (this.settings.requestDate) {
-    this._current.dataset.date = this.settings.requestDate;
-  }
-  else if (typeof this._current.dataset.date === 'undefined') {
-    this._current.dataset.date = new Date().toISOString().slice(0,10);
-  }
-
-  this.getTitle(this._current.dataset.service, this._current.dataset.channel);
-  this.constructRequest(
-    this.constructWidget(this._current, this.settings)
-  );
+OpeningHours.prototype.formatDate = function (date) {
+  return date.toISOString().slice(0,10);
 };
 
 /**
@@ -124,100 +443,194 @@ OpeningHours.prototype.init = function () {
 OpeningHours.prototype.formattedDate = function (dateString) {
   if (dateString === 'today') {
     var today = new Date();
-    dateString = today.toISOString().slice(0, 10);
+    return this.formatDate(today);
   }
+
   if (dateString === 'tomorrow') {
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    dateString = tomorrow.toISOString().slice(0, 10);
+    return this.formatDate(tomorrow);
   }
 
   var date = !dateString ? new Date() : new Date(dateString);
 
   try {
-    var iso = date.toISOString();
-  } catch (err) {
+    return this.formatDate(date);
+  }
+  catch (err) {
     date = new Date();
-    iso = date.toISOString();
+    return this.formatDate(date);
+  }
+};
+
+/**
+ * Render the widget for the given item.
+ *
+ * @param {OpeningHoursItem} item
+ *   The item to render.
+ */
+OpeningHours.prototype.renderItemWidget = function (item) {
+  if (!item.isWidgetable()) {
+    return false;
   }
 
-  return iso.slice(0, 10);
+  this.getTitle(item);
+  this.constructRequest(
+    this.constructWidget(item, this),
+    item
+  );
 };
 
 /**
  * Create the proper API request URI.
  *
+ * @param {function} callback
+ *   The callback when the request is processed.
+ * @param {OpeningHoursItem} item
+ *   The opening hours item to render the widget for.
+ *
  * @returns {string}
  *   The request URI.
  */
-OpeningHours.prototype.constructRequest = function (cb) {
-  var requestOptions = {
-    parameters: {
-      date: this._current.dataset.date,
-      language: this.settings.language
-    }
-  };
-
-  switch (this._current.dataset.type) {
+OpeningHours.prototype.constructRequest = function (callback, item) {
+  switch (item.getType()) {
     case 'open-now':
       this.ohw.fetchStatus(
-          this._current.dataset.service,
-          this._current.dataset.channel,
-          'html',
-          requestOptions
-      ).then(cb);
+        item.getService(),
+        item.getChannel(),
+        'html',
+        this.constructRequestOptions(item)
+      ).then(callback);
       break;
 
     case 'day':
       this.ohw.fetchOpeningHoursForDate(
-          this._current.dataset.service,
-          this._current.dataset.channel,
-          'html',
-          requestOptions
-      ).then(cb);
+        item.getService(),
+        item.getChannel(),
+        'html',
+        this.constructRequestOptions(item)
+      ).then(callback);
       break;
 
     case 'week':
-        this.ohw.fetchOpeningHoursForWeek(
-            this._current.dataset.service,
-            this._current.dataset.channel,
-            'html',
-            requestOptions
-        ).then(cb);
+      this.ohw.fetchOpeningHoursForWeek(
+        item.getService(),
+        item.getChannel(),
+        'html',
+        this.constructRequestPeriodOptions(item)
+      ).then(callback);
       break;
 
     case 'month':
-        this.ohw.fetchOpeningHoursForMonth(
-            this._current.dataset.service,
-            this._current.dataset.channel,
-            'html',
-            requestOptions
-        ).then(cb);
+      this.ohw.fetchOpeningHoursForMonth(
+        item.getService(),
+        item.getChannel(),
+        'html',
+        this.constructRequestPeriodOptions(item)
+      ).then(callback);
       break;
 
     case 'year':
-        this.ohw.fetchOpeningHoursForYear(
-            this._current.dataset.service,
-            this._current.dataset.channel,
-            'html',
-            requestOptions
-        ).then(cb);
+      this.ohw.fetchOpeningHoursForYear(
+        item.getService(),
+        item.getChannel(),
+        'html',
+        this.constructRequestPeriodOptions(item)
+      ).then(callback);
       break;
 
     case 'week-from-now':
     default:
-        var until = new Date(this._current.dataset.date);
-        until.setDate(until.getDate() + 6);
+      item.getDate().reset();
 
-        this.ohw.fetchOpeningHoursByRange(
-            this._current.dataset.date,
-            until,
-            this._current.dataset.service,
-            this._current.dataset.channel,
-            'html',
-            requestOptions
-        ).then(cb);
+      // Alter the period start if the data-from is after the data-date.
+      var from = item.getDate().getOriginalDate();
+      if (item.getPeriod().hasFrom() && item.getPeriod().getFrom() > from) {
+        from = item.getPeriod().getFrom();
+      }
+
+      // Alter the period end if the data-until is before the end of the week.
+      var until = new Date(from.valueOf());
+      until.setDate(until.getDate() + 6);
+      if (item.getPeriod().hasUntil() && item.getPeriod().getUntil() < until) {
+        until = item.getPeriod().getUntil();
+      }
+
+      this.ohw.fetchOpeningHoursByRange(
+        from,
+        until,
+        item.getService(),
+        item.getChannel(),
+        'html',
+        this.constructRequestOptions(item)
+      ).then(callback);
       break;
+  }
+};
+
+/**
+ * Get the request options for the given item.
+ *
+ * @param {OpeningHoursItem} item
+ *   The opening hours item to get the request options for.
+ *
+ * @returns {object}
+ *   The request options object.
+ */
+OpeningHours.prototype.constructRequestOptions = function (item) {
+  return {
+    parameters: {
+      date: this.formatDate(item.getDate().getDate()),
+      language: this.settings.language
+    }
+  };
+};
+
+/**
+ * Get the request options with optional period for the given item.
+ *
+ * @param {OpeningHoursItem} item
+ *   The opening hours item to get the request options for.
+ *
+ * @returns {object}
+ *   The request options object.
+ */
+OpeningHours.prototype.constructRequestPeriodOptions = function (item) {
+  var requestOptions = this.constructRequestOptions(item);
+
+  if (item.getPeriod().hasFrom()) {
+    requestOptions.parameters.from = this.formatDate(
+      item.getPeriod().getFrom()
+    );
+  }
+
+  if (item.getPeriod().hasUntil()) {
+    requestOptions.parameters.until = this.formatDate(
+      item.getPeriod().getUntil()
+    );
+  }
+
+  return requestOptions;
+};
+
+/**
+ * Construct openinghours widget.
+ *
+ * @param {OpeningHoursItem} item
+ *   The opening hours item to get the opening hours for.
+ * @param {OpeningHours} openingHours
+ *   The opening hours object.
+ *
+ * @returns {function}
+ *   Callback function for the ajax request. The function receives the data returned from the API
+ */
+OpeningHours.prototype.constructWidget = function (item, openingHours) {
+  return function (data) {
+    item.print(data);
+
+    if (item.getType() === 'month') {
+      openingHours.calendarEvents(item);
+    }
   }
 };
 
@@ -261,89 +674,41 @@ OpeningHours.prototype.findGetParameter = function (key) {
 };
 
 /**
- * Construct openinghours widget.
+ * Bind the calendar events.
  *
- * @param {HTMLElement} element
- *   The DOM element in which the data should be printed
- * @param {HTMLElement} settings
- *   The DOM element in which the data should be printed
- * @return {function}
- *   Callback function for the ajax request. The function receives the data returned from the API
+ * @param {OpeningHoursItem} item
+ *   The Opening Hours item.
  */
-OpeningHours.prototype.constructWidget = function (element, settings) {
-  return function(data) {
-      OpeningHours.prototype.print(element, data);
-
-      if (element.dataset.type === "month") {
-          OpeningHours.prototype.calendarEvents(element, settings);
-      }
-  }
-};
-
-/**
- * Print the HTML response to the page.
- *
- * @param element
- *   The DOM element to print the data to.
- * @param {string} data
- *   The data to print in the element.
- */
-OpeningHours.prototype.print = function (element, data) {
-  element.innerHTML = data;
-  if (!element.hasAttribute('tabindex')) {
-    element.setAttribute('tabindex', '-1');
-  }
-
-  // Dispatch change event
-  var evt = document.createEvent('CustomEvent');
-  evt.initCustomEvent('change', true, false, { });
-  element.dispatchEvent(evt);
-};
-
-/**
- * Print an error to the page.
- *
- * @param {string} message
- *   The error message to print.
- */
-OpeningHours.prototype.printError = function (message) {
-  var error = '<span class="error">Error: ' + message + '</span>';
-  this.print(this._current, error);
-};
-
-OpeningHours.prototype.calendarEvents = function (element, settings) {
-  var self = this;
+OpeningHours.prototype.calendarEvents = function (item) {
+  var element = item.element;
+  var openingHours = this;
 
   element.querySelector('.openinghours--prev').addEventListener('click', function () {
-    var month = new Date(element.dataset.date);
-    month.setMonth(month.getMonth() - 1, 5);
-    element.dataset.date = self.formattedDate(month);
-
-    new OpeningHours([element], settings);
+    item.getDate().previousMonth();
+    openingHours.renderItemWidget(item);
   });
 
   element.querySelector('.openinghours--next').addEventListener('click', function () {
-    var month = new Date(element.dataset.date);
-    month.setMonth(month.getMonth() + 1, 5);
-    element.dataset.date = self.formattedDate(month);
-
-    new OpeningHours([element], settings);
+    item.getDate().nextMonth();
+    openingHours.renderItemWidget(item);
   });
 
   var days = element.querySelectorAll('.openinghours--day:not([aria-hidden])');
-  for (let i = 0; i < days.length; i++) {
-    days[i].addEventListener('keydown', function(e) {
-      self.handleKeyboardInput(e, element);
+  for (var i = 0; i < days.length; i++) {
+    days[i].addEventListener('keydown', function (e) {
+      openingHours.handleKeyboardInput(e, element);
     });
 
-    days[i].addEventListener('click', function (e) {
-      for (let x = 0; x < days.length; x++) {
+    days[i].addEventListener('click', function () {
+      for (var x = 0; x < days.length; x++) {
         days[x].setAttribute('tabindex', -1);
-        // IE fix: trigger repaint
+        // IE fix: trigger repaint.
         days[x].classList.add('inactive');
       }
+
       this.setAttribute('tabindex', 0);
-      // IE fix: trigger repaint
+
+      // IE fix: trigger repaint.
       this.classList.remove('inactive');
       this.focus();
     });
@@ -353,59 +718,76 @@ OpeningHours.prototype.calendarEvents = function (element, settings) {
 /**
  * Handle keyboard input to move to other dates.
  *
- * @param {Event} e
+ * @param {KeyboardEvent} event
  *   The keydown event.
- * @param {HTMLElement} elem
+ * @param {HTMLElement} element
  *   Wrapper element which contains the days.
  */
-OpeningHours.prototype.handleKeyboardInput = function (e, elem) {
-  let keyCode = e.keyCode || e.which;
-  let current = e.target;
-  let currentPosition = +current.getAttribute('aria-posinset');
+OpeningHours.prototype.handleKeyboardInput = function (event, element) {
+  var key = event.key;
+  var current = event.target;
+  var currentPosition = +current.getAttribute('aria-posinset');
 
-  const changeFocus = function () {
-    let nextElem;
-    let i = 0;
+  console.log(key);
+
+  var changeFocus = function () {
+    var nextElem;
+    var i = 0;
 
     while (!nextElem && i < arguments.length) {
-      nextElem = elem.querySelector('[aria-posinset="' + arguments[i] + '"]');
+      nextElem = element.querySelector('[aria-posinset="' + arguments[i] + '"]');
       i++;
     }
 
     if (nextElem) {
-      e.preventDefault();
+      event.preventDefault();
       nextElem.click();
     }
   };
 
-  switch (keyCode) {
-    case 37: // previous (left arrow)
+  switch (key) {
+    case 'ArrowLeft':
       changeFocus(--currentPosition, 31, 30, 29, 28);
       break;
-    case 38: // up (up arrow)
+
+    case 'ArrowRight':
       changeFocus(currentPosition - 7, currentPosition + 4 * 7, currentPosition + 3 * 7);
       break;
-    case 40: // down (down arrow)
+
+    case 'ArrowDown':
       changeFocus(currentPosition + 7, currentPosition - 4 * 7, currentPosition - 3 * 7);
       break;
-    case 39: // next (right arrow)
+
+    case 'ArrowUp':
       changeFocus(++currentPosition, 1);
       break;
-    case 36: // home
+
+    case 'Home':
       changeFocus(1);
       break;
-    case 35: // end
+
+    case 'End':
       changeFocus(31, 30, 29, 28);
       break;
   }
 };
 
-OpeningHours.prototype.getTitle = function (service, channel) {
-  var titleElem = document.querySelector('.openinghours-channel-title[data-service="' + service + '"][data-channel="' + channel + '"]');
+/**
+ * Set the title for the given OpeningHours item.
+ *
+ * @param {OpeningHoursItem} item
+ *   The item to update the title for.
+ */
+OpeningHours.prototype.getTitle = function (item) {
+  var titleElem = document.querySelector(
+    '.openinghours-channel-title[data-service="' + item.getService() + '"][data-channel="' + item.getChannel() + '"]'
+  );
   if (titleElem && titleElem.innerHTML === '') {
-    this.ohw.fetchChannel(service, channel, 'json')
-        .then(function(data) {
-          titleElem.innerHTML = data.label
-        })
+    this
+      .ohw
+      .fetchChannel(item.getService(), item.getChannel(), 'json')
+      .then(function (data) {
+        titleElem.innerHTML = data.label
+      })
   }
 };
