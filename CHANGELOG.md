@@ -2,6 +2,18 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0-beta1]
+
+### Added
+
+* VG-1476: Added support to limit fetching the opening hours with an optional
+  from-until period.
+
+### Changed
+
+* SGD8-709: Moved generic javascript code to the 
+  '@digipolis-gent/opening-hours-widget' npm package.
+
 ## [8.x-1.0-alpha16]
 
 ### Changed
@@ -122,6 +134,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0-beta1]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha16...8.x-1.0-beta1
 [8.x-1.0-alpha16]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha15...8.x-1.0-alpha16
 [8.x-1.0-alpha15]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha14...8.x-1.0-alpha15
 [8.x-1.0-alpha14]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha13...8.x-1.0-alpha14

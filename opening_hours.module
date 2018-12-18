@@ -17,8 +17,12 @@ function opening_hours_theme($existing, $type, $theme, $path) {
         'preview_widget' => NULL,
         'widgets' => NULL,
         'service_id' => NULL,
+        'display_title' => NULL,
         'channel_id' => NULL,
+        'single_widget' => NULL,
         'date' => NULL,
+        'from' => NULL,
+        'until' => NULL,
       ],
     ],
   ];

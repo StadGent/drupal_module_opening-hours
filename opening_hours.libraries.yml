@@ -1,8 +1,18 @@
+library:
+  version: 0.0.3
+  js:
+    /libraries/opening-hours-widget/dist/opening-hours-widget.min.js: { preprocess: false, minified: true }
+
 widget:
   version: 1.x
   js:
     js/opening-hours.functions.js: {}
+    js/opening-hours.item.js: {}
+    js/opening-hours.period.js: {}
+    js/opening-hours.widget-date.js: {}
+    js/opening-hours.opening-hours.js: {}
     js/opening-hours.binding.js: {}
   dependencies:
     - core/jquery
     - core/drupalSettings
+    - opening_hours/library

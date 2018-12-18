@@ -3,3 +3,4 @@
 
 # Ignore the vendor directory.
 /vendor
+/node_modules

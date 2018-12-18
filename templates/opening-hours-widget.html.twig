@@ -9,20 +9,29 @@
  * - service_id : The opening hours Service ID.
  * - channel_id : The opening hours Channel ID.
  * - date : The date to show the widget for.
+ * - from : The start date of the period that should be considered open.
+ * - until : The end (last) date of the period that should be considered open.
  *
- * @see template_preprocess_vg_social_link()
+ * @see template_preprocess_opening_hours_widget()
  *
  * @ingroup themeable
  */
 #}
+
 <div class="openinghours-wrapper">
+  {% if display_title %}
+    <h3 class="openinghours-channel-title" data-service="{{ service_id }}"{% if not single_widget %} data-channel="{{ channel_id }}"{% endif %}></h3>
+  {% endif %}
+
   {% if preview_widget %}
     <div
       class="openinghours-widget"
-      data-service="{{ service_id }}"
-      data-channel="{{ channel_id }}"
       data-type="{{ preview_widget.type }}"
+      data-service="{{ service_id }}"
+      {% if not single_widget %}data-channel="{{ channel_id }}"{% endif %}
       {% if date %} data-date="{{ date }}"{% endif %}
+      {% if from %} data-from="{{ from }}"{% endif %}
+      {% if until %} data-until="{{ until }}"{% endif %}
     ></div>
   {% endif %}
 
@@ -36,9 +45,11 @@
 
   <div
     class="openinghours openinghours-widget"
-    data-service="{{ service_id }}"
-    data-channel="{{ channel_id }}"
     data-type="{{ widgets[0].type }}"
+    data-service="{{ service_id }}"
+    {% if not single_widget %}data-channel="{{ channel_id }}"{% endif %}
     {% if date %} data-date="{{ date }}"{% endif %}
+    {% if from %} data-from="{{ from }}"{% endif %}
+    {% if until %} data-until="{{ until }}"{% endif %}
   ></div>
 </div>
