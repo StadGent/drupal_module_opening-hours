@@ -80,9 +80,12 @@ class OpeningHoursWidget extends RenderElement implements ContainerFactoryPlugin
     return [
       '#theme' => 'opening_hours_widget',
       '#type' => NULL,
+      '#endpoint' => $this->openingHoursConfig->get('endpoint'),
       '#service_id' => NULL,
       '#channel_id' => NULL,
-      '#endpoint' => $this->openingHoursConfig->get('endpoint'),
+      '#date' => NULL,
+      '#from' => NULL,
+      '#until' => NULL,
       '#pre_render' => [
         [$class, 'preRenderMyElement'],
       ],
