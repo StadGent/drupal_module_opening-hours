@@ -49,7 +49,7 @@
       return function (e) {
         e.preventDefault();
 
-        var elements = getClosest(this, '.openinghours-navigation').querySelectorAll('a');
+        var elements = getClosest(this, '[role=tablist]').querySelectorAll('[role=tab]');
         for (var x = 0; x < elements.length; x++) {
           elements[x].setAttribute('aria-selected', 'false');
         }
