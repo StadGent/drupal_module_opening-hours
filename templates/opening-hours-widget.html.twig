@@ -18,6 +18,8 @@
  */
 #}
 
+{% set widgetId = 'openinghours' ~ service_id ~ (channel_id ? '-' ~ channel_id)  %}
+
 <div class="openinghours-wrapper">
   {% if display_title %}
     <h3 class="openinghours-channel-title" data-service="{{ service_id }}"{% if not single_widget %} data-channel="{{ channel_id }}"{% endif %}></h3>
@@ -43,8 +45,9 @@
           <a
               href="#"
               role="tab"
+              aria-controls="{{ widgetId }}"
+              aria-selected="{{ loop.first ? 'true' : 'false' }}"
               data-widget="{{ widget.type }}"
-              class="{% if loop.first %}openinghours-active{% endif %}"
           >
             {{ widget.label }}</a>
         </li>
@@ -53,6 +56,7 @@
   {% endif %}
 
     <div
+      id="{{ widgetId }}"
       class="openinghours openinghours-widget"
       role="tabpanel"
       data-type="{{ widgets[0].type }}"
