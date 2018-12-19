@@ -51,9 +51,9 @@
 
         var elements = getClosest(this, '.openinghours-navigation').querySelectorAll('a');
         for (var x = 0; x < elements.length; x++) {
-          elements[x].classList.remove('openinghours-active')
+          elements[x].setAttribute('aria-selected', 'false');
         }
-        this.classList.add('openinghours-active');
+        this.setAttribute('aria-selected', 'true');
 
         // Get new widget type and the widget itself.
         var type = this.getAttribute('data-widget');
