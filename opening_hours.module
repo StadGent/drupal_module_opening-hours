@@ -23,6 +23,7 @@ function opening_hours_theme($existing, $type, $theme, $path) {
         'date' => NULL,
         'from' => NULL,
         'until' => NULL,
+        'widget_id' => NULL,
       ],
     ],
   ];

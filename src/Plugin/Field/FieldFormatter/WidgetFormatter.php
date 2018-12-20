@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Component\Utility\Html;
 
 /**
  * Open Now formatter for the opening_hours field item.
@@ -135,6 +136,7 @@ class WidgetFormatter extends FormatterBase implements ContainerFactoryPluginInt
           '#widgets' => $widgets,
           '#service_id' => $item->service,
           '#channel_id' => $item->channel,
+          '#widget_id' => Html::getUniqueId('widget'),
         ];
       }
     }
