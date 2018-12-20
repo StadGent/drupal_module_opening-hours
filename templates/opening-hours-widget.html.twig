@@ -36,20 +36,36 @@
   {% endif %}
 
   {% if widgets|length > 1 %}
-    <ul class="openinghours-navigation">
-    {% for widget in widgets %}
-      <li><a href="#" data-widget="{{ widget.type }}" class="{% if loop.first %}openinghours-active{% endif %}">{{ widget.label }}</a></li>
-    {% endfor %}
-    </ul>
+    <div class="tabs">
+      <ul class="openinghours-navigation" role="tablist">
+      {% for widget in widgets %}
+        <li role="presentation">
+          <a
+              href="#"
+              role="tab"
+              aria-controls="{{ widget_id }}"
+              aria-selected="{{ loop.first ? 'true' : 'false' }}"
+              data-widget="{{ widget.type }}"
+          >
+            {{ widget.label }}</a>
+        </li>
+      {% endfor %}
+      </ul>
   {% endif %}
 
-  <div
-    class="openinghours openinghours-widget"
-    data-type="{{ widgets[0].type }}"
-    data-service="{{ service_id }}"
-    {% if not single_widget %}data-channel="{{ channel_id }}"{% endif %}
-    {% if date %} data-date="{{ date }}"{% endif %}
-    {% if from %} data-from="{{ from }}"{% endif %}
-    {% if until %} data-until="{{ until }}"{% endif %}
-  ></div>
+    <div
+      id="{{ widget_id }}"
+      class="openinghours openinghours-widget"
+      role="tabpanel"
+      data-type="{{ widgets[0].type }}"
+      data-service="{{ service_id }}"
+      {% if not single_widget %}data-channel="{{ channel_id }}"{% endif %}
+      {% if date %} data-date="{{ date }}"{% endif %}
+      {% if from %} data-from="{{ from }}"{% endif %}
+      {% if until %} data-until="{{ until }}"{% endif %}
+    ></div>
+
+  {% if widgets|length > 1 %}
+  </div>
+  {% endif %}
 </div>
