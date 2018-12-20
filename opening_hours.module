@@ -5,6 +5,8 @@
  * Module hooks.
  */
 
+use Drupal\Component\Utility\Html;
+
 /**
  * Implements hook_theme().
  */
@@ -27,4 +29,11 @@ function opening_hours_theme($existing, $type, $theme, $path) {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function template_preprocess_opening_hours_widget(&$variables) {
+  $variables['widget_id'] = Html::getUniqueId('opening_hours');
 }
