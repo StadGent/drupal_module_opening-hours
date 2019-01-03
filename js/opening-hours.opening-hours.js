@@ -372,7 +372,7 @@ OpeningHours.prototype.handleKeyboardInput = function (event, element) {
       nextElem.click();
     }
   };
-
+  
   switch (key) {
     case 'Left':
     case 'ArrowLeft':
@@ -381,7 +381,7 @@ OpeningHours.prototype.handleKeyboardInput = function (event, element) {
 
     case 'Right':
     case 'ArrowRight':
-      changeFocus(currentPosition - 7, currentPosition + 4 * 7, currentPosition + 3 * 7);
+      changeFocus(++currentPosition, 1);
       break;
 
     case 'Down':
@@ -391,7 +391,7 @@ OpeningHours.prototype.handleKeyboardInput = function (event, element) {
 
     case 'Up':
     case 'ArrowUp':
-      changeFocus(++currentPosition, 1);
+      changeFocus(currentPosition - 7, currentPosition + 4 * 7, currentPosition + 3 * 7);
       break;
 
     case 'Home':
