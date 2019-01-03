@@ -218,7 +218,14 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
         $service = $this->getServiceFromValueString($data['opening_hours']['service']);
       }
       $values[$delta]['service'] = $service ? $service->getId() : NULL;
-      $values[$delta]['channel'] = (int) $data['opening_hours']['channel'];
+      $values[$delta]['service_name'] = $service ? $service->getLabel() : NULL;
+
+      $channel = NULL;
+      if ($service && !empty($data['opening_hours']['channel'])) {
+        $channel = $this->getChannelById($service, $data['opening_hours']['channel']);
+      }
+      $values[$delta]['channel'] = $channel ? $channel->getId() : NULL;
+      $values[$delta]['channel_name'] = $channel ? $channel->getLabel() : NULL;
 
       unset($values[$delta]['opening_hours']);
     }
