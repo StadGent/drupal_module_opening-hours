@@ -147,7 +147,7 @@ final class SyncService implements SyncServiceInterface {
     }
 
     if ($count) {
-      $entity->save();
+      $this->syncEntitySave($entity);
     }
 
     return $count;
@@ -159,10 +159,6 @@ final class SyncService implements SyncServiceInterface {
   public function syncEntityField(ContentEntityInterface $entity, $fieldName) {
     if (!$entity->hasField($fieldName)) {
       return 0;
-    }
-
-    if ($entity instanceof RevisionableInterface) {
-      $entity->setNewRevision(FALSE);
     }
 
     $count = 0;
@@ -209,6 +205,20 @@ final class SyncService implements SyncServiceInterface {
     if ($value['broken']) {
       $this->fieldLinkIsBroken($entity, $fieldName, $delta);
     }
+  }
+
+  /**
+   * Save a synchronized entity.
+   *
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The entity to save.
+   */
+  protected function syncEntitySave(ContentEntityInterface $entity) {
+    if ($entity instanceof RevisionableInterface) {
+      $entity->setNewRevision(FALSE);
+    }
+
+    $entity->save();
   }
 
   /**
