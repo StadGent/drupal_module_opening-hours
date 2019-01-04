@@ -15,22 +15,22 @@ Add the git source to the composer by editing the `composer.json` in the project
 root and add following lines in the `repositories section:
 
 ```json
-        {
-            "type": "package",
-            "package": {
-                "name": "drupal/opening-hours-widget",
-                "version": "0.0.3",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "https://github.com/StadGent/npm_package_opening-hours-widget/releases/download/v0.0.3/opening-hours-widget.zip",
-                    "type": "zip"
-                }
+    {
+        "type": "package",
+        "package": {
+            "name": "drupal/opening-hours-widget",
+            "version": "0.0.3",
+            "type": "drupal-library",
+            "dist": {
+                "url": "https://github.com/StadGent/npm_package_opening-hours-widget/releases/download/v0.0.3/opening-hours-widget.zip",
+                "type": "zip"
             }
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:StadGent/drupal_module_opening-hours.git"
         }
+    },
+    {
+        "type": "vcs",
+        "url": "git@github.com:StadGent/drupal_module_opening-hours.git"
+    }
 ```
 
 Install the module using composer:
@@ -39,11 +39,43 @@ Install the module using composer:
 composer require drupal/opening_hours
 ```
 
+Enable the module:
+
+```bash
+drush -y en opening_hours
+```
+
+Configure the opening hours module and set the Opening Hours API url via
+`admin/admin/config/services/opening-hours`. 
+
 ## Usage
 
-> TODO!
+Adding opening hours information to an entity is done by adding an opening hours
+field.
 
-## Change log
+The opening hours information is loaded via ajax requests to the opening hours
+backend.
+
+## Synchronization
+
+The opening hours information could be changed (service and channel label) or
+could be removed from the opening hours backend. A drush command is available to 
+synchronization the data and to flag opening hours fields with broken links.
+
+- `drush opening-hours:sync all` : Synchronize all opening hours fields of all
+  entities where they are used.
+- `drush opening-hours:sync node_type` : Synchonize all opening hours fields of
+  all entities of the provided entity type.
+- `drush opening-hours:sync node_type:123` : Synchronize all opening hours
+  fields of the provided entity type and entity id.
+  
+Broken links will be logged in the log.
+
+There is an event that is triggered if a broken field is detected.
+See `\Drupal\opening_hours\Event\FieldBrokenLinkEvent`
+and `\Drupal\opening_hours\EventSubscriber\FieldSubscriber`.
+
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed
 recently.

@@ -49,9 +49,9 @@ class FieldSubscriber implements EventSubscriberInterface {
     $this
       ->logger
       ->error(
-        'Entity @entity_label (@entity_type:@entity_id) has an Opening Hours value (@field:@field_delta) which no longer exists in the Opening Hours backend.',
+        'Entity "@entity_label" (@entity_type:@entity_id) has an Opening Hours value (@field:@field_delta) which no longer exists in the Opening Hours backend.',
         [
-          '@entity_label' => $entity->label(),
+          '@entity_label' => trim($entity->label()),
           '@entity_type' => $entity->getEntityTypeId(),
           '@entity_id' => $entity->id(),
           '@field' => $event->getFieldName(),
