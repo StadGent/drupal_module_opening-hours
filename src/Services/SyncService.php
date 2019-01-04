@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Service to sync the opening_hours fields with the service/channel data.
  */
-class SyncService implements SyncServiceInterface {
+final class SyncService implements SyncServiceInterface {
 
   /**
    * The entity type manager.

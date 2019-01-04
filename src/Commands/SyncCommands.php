@@ -9,7 +9,7 @@ use Drush\Commands\DrushCommands;
 /**
  * Sync drush command.
  */
-class SyncCommands extends DrushCommands {
+final class SyncCommands extends DrushCommands {
 
   /**
    * Sync service.
