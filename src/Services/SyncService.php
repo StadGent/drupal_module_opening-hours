@@ -167,26 +167,12 @@ class SyncService implements SyncServiceInterface {
 
     $count = 0;
     $values = $entity->get($fieldName)->getValue();
-
     foreach ($values as $delta => &$value) {
       if (empty($value['service'])) {
         continue;
       }
 
-      $service = $this->loadService($value['service']);
-      $channel = $this->loadChannel($service, $value['channel']);
-
-      if ($service) {
-        $value['service_label'] = $service->getLabel();
-      }
-      if ($channel) {
-        $value['channel_label'] = $channel->getLabel();
-      }
-
-      $value['broken'] = (int) (!$service || !$channel);
-      if ($value['broken']) {
-        $this->fieldLinkIsBroken($entity, $fieldName, $delta);
-      }
+      $this->syncEntityFieldValue($entity, $fieldName, $delta, $value);
       $count++;
 
       $this->throttle();
@@ -194,6 +180,35 @@ class SyncService implements SyncServiceInterface {
 
     $entity->set($fieldName, $values);
     return $count;
+  }
+
+  /**
+   * Synchronize a single entity field value.
+   *
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The entity to synchronize the value for.
+   * @param string $fieldName
+   *   The field name being synchronized.
+   * @param int $delta
+   *   The value delta.
+   * @param array $value
+   *   The value being synchronized.
+   */
+  protected function syncEntityFieldValue(ContentEntityInterface $entity, $fieldName, $delta, array &$value) {
+    $service = $this->loadService($value['service']);
+    $channel = $this->loadChannel($service, $value['channel']);
+
+    if ($service) {
+      $value['service_label'] = $service->getLabel();
+    }
+    if ($channel) {
+      $value['channel_label'] = $channel->getLabel();
+    }
+
+    $value['broken'] = (int) (!$service || !$channel);
+    if ($value['broken']) {
+      $this->fieldLinkIsBroken($entity, $fieldName, $delta);
+    }
   }
 
   /**

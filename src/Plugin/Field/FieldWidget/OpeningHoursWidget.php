@@ -212,27 +212,36 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    foreach ($values as $delta => $data) {
-      $service = NULL;
-      if (!empty($data['opening_hours']['service'])) {
-        $service = $this->getServiceFromValueString($data['opening_hours']['service']);
-      }
-      $values[$delta]['service'] = $service ? $service->getId() : NULL;
-      $values[$delta]['service_label'] = $service ? $service->getLabel() : NULL;
-
-      $channel = NULL;
-      if ($service && !empty($data['opening_hours']['channel'])) {
-        $channel = $this->getChannelById($service, $data['opening_hours']['channel']);
-      }
-      $values[$delta]['channel'] = $channel ? $channel->getId() : NULL;
-      $values[$delta]['channel_label'] = $channel ? $channel->getLabel() : NULL;
-
-      $values[$delta]['broken'] = 0;
-
+    foreach ($values as $delta => &$value) {
+      $this->massageFormValue($value);
       unset($values[$delta]['opening_hours']);
     }
 
     return $values;
+  }
+
+  /**
+   * Massage a single form value array.
+   *
+   * @param array $value
+   *   The value array.
+   */
+  protected function massageFormValue(array &$value) {
+    $service = NULL;
+    if (!empty($value['opening_hours']['service'])) {
+      $service = $this->getServiceFromValueString($value['opening_hours']['service']);
+    }
+    $value['service'] = $service ? $service->getId() : NULL;
+    $value['service_label'] = $service ? $service->getLabel() : NULL;
+
+    $channel = NULL;
+    if ($service && !empty($value['opening_hours']['channel'])) {
+      $channel = $this->getChannelById($service, $value['opening_hours']['channel']);
+    }
+    $value['channel'] = $channel ? $channel->getId() : NULL;
+    $value['channel_label'] = $channel ? $channel->getLabel() : NULL;
+
+    $value['broken'] = 0;
   }
 
   /**
