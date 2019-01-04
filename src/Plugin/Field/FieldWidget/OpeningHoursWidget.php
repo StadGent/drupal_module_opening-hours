@@ -227,6 +227,8 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
       $values[$delta]['channel'] = $channel ? $channel->getId() : NULL;
       $values[$delta]['channel_label'] = $channel ? $channel->getLabel() : NULL;
 
+      $values[$delta]['broken'] = 0;
+
       unset($values[$delta]['opening_hours']);
     }
 

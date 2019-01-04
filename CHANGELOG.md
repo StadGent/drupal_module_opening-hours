@@ -2,6 +2,15 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Added
+
+* VG-1466: Added the service and channel labels to the opening_hours field.
+* VG-1466: Added synchronization command that updates all channel and service
+  labels and checks if the service/channel combination still exists in the
+  backend.
+
 ## [8.x-1.0-beta1]
 
 ### Added
