@@ -6,10 +6,12 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\RevisionableInterface;
+use Drupal\opening_hours\Event\FieldBrokenLinkEvent;
 use StadGent\Services\OpeningHours\Exception\ServiceNotFoundException;
 use StadGent\Services\OpeningHours\Exception\ChannelNotFoundException;
 use StadGent\Services\OpeningHours\Service\Channel\ChannelService;
 use StadGent\Services\OpeningHours\Service\Service\ServiceService;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Service to sync the opening_hours fields with the service/channel data.
@@ -45,6 +47,13 @@ class SyncService implements SyncServiceInterface {
   private $channelService;
 
   /**
+   * The event dispatcher service.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  private $eventDispatcher;
+
+  /**
    * How much time, in seconds, between 2 fields being synced.
    *
    * The API does not allow more then 60 requests per minute.
@@ -64,17 +73,21 @@ class SyncService implements SyncServiceInterface {
    *   The Opening Hours Service service.
    * @param \StadGent\Services\OpeningHours\Service\Channel\ChannelService $channelService
    *   The Opening Hours Channel service.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+   *   The Event dispatcher service.
    */
   public function __construct(
     EntityTypeManagerInterface $entityTypeManager,
     EntityFieldManagerInterface $entityFieldManager,
     ServiceService $serviceService,
-    ChannelService $channelService
+    ChannelService $channelService,
+    EventDispatcherInterface $eventDispatcher
   ) {
     $this->entityTypeManager = $entityTypeManager;
     $this->entityFieldManager = $entityFieldManager;
     $this->serviceService = $serviceService;
     $this->channelService = $channelService;
+    $this->eventDispatcher = $eventDispatcher;
   }
 
   /**
@@ -154,6 +167,7 @@ class SyncService implements SyncServiceInterface {
 
     $count = 0;
     $values = $entity->get($fieldName)->getValue();
+
     foreach ($values as $delta => &$value) {
       if (empty($value['service'])) {
         continue;
@@ -170,6 +184,9 @@ class SyncService implements SyncServiceInterface {
       }
 
       $value['broken'] = (int) (!$service || !$channel);
+      if ($value['broken']) {
+        $this->fieldLinkIsBroken($entity, $fieldName, $delta);
+      }
       $count++;
 
       $this->throttle();
@@ -352,6 +369,18 @@ class SyncService implements SyncServiceInterface {
    */
   protected function throttle() {
     sleep($this->throttle);
+  }
+
+  /**
+   * Dispatch an event when the field link is broken.
+   */
+  protected function fieldLinkIsBroken(ContentEntityInterface $entity, $fieldName, $delta) {
+    $this
+      ->eventDispatcher
+      ->dispatch(
+        FieldBrokenLinkEvent::NAME,
+        new FieldBrokenLinkEvent($entity, $fieldName, $delta)
+      );
   }
 
 }

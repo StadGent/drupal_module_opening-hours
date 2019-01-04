@@ -102,11 +102,10 @@ class OpeningHoursItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    $broken = $this->get('broken')->getValue();
     $service = $this->get('service')->getValue();
     $channel = $this->get('channel')->getValue();
 
-    return !empty($broken) || empty($service) || empty($channel);
+    return empty($service) || empty($channel);
   }
 
 }
