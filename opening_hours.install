@@ -40,7 +40,7 @@ function opening_hours_requirements($phase) {
  * Update the openinghours field: add service & channel name + broken fields.
  */
 function opening_hours_update_8101() {
-  $columns_to_add = ['service_name', 'channel_name', 'broken'];
+  $columns_to_add = ['service_label', 'channel_label', 'broken'];
   $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
   $openinghours_definition = $field_type_manager->getDefinition('opening_hours');
   /** @var \Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem $openinghours_item_class */
@@ -111,10 +111,8 @@ function opening_hours_update_8101() {
         // Add the new column to the installed field schema.
         if ($field_schema_data) {
           $field_schema_data[$table]['fields'][$column] = $field_schema['columns'][$column_id];
-          $field_schema_data[$table]['fields'][$column]['not null'] = FALSE;
           if ($revision_table) {
             $field_schema_data[$revision_table]['fields'][$column] = $field_schema['columns'][$column_id];
-            $field_schema_data[$revision_table]['fields'][$column]['not null'] = FALSE;
           }
         }
       }

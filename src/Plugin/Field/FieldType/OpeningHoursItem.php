@@ -22,16 +22,16 @@ use Drupal\Core\TypedData\DataDefinition;
  *       "label" = @Translation("Service"),
  *       "translatable" = TRUE
  *     },
- *     "service_name" = {
- *       "label" = @Translation("Service name"),
+ *     "service_label" = {
+ *       "label" = @Translation("Service label"),
  *       "translatable" = TRUE
  *     },
  *     "channel" = {
  *       "label" = @Translation("Channel"),
  *       "translatable" = TRUE
  *     },
- *     "channel_name" = {
- *       "label" = @Translation("Channel name"),
+ *     "channel_label" = {
+ *       "label" = @Translation("Channel label"),
  *       "translatable" = TRUE
  *     },
  *     "broken" = {
@@ -55,8 +55,8 @@ class OpeningHoursItem extends FieldItemBase {
           'unsigned' => TRUE,
           'not null' => FALSE,
         ],
-        'service_name' => [
-          'description' => 'The service name.',
+        'service_label' => [
+          'description' => 'The service label.',
           'type' => 'varchar',
           'length' => 255,
           'not null' => FALSE,
@@ -67,8 +67,8 @@ class OpeningHoursItem extends FieldItemBase {
           'unsigned' => TRUE,
           'not null' => FALSE,
         ],
-        'channel_name' => [
-          'description' => 'The channel name.',
+        'channel_label' => [
+          'description' => 'The channel label.',
           'type' => 'varchar',
           'length' => 255,
           'not null' => FALSE,
@@ -91,9 +91,9 @@ class OpeningHoursItem extends FieldItemBase {
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = [];
     $properties['service'] = DataDefinition::create('string');
-    $properties['service_name'] = DataDefinition::create('string');
+    $properties['service_label'] = DataDefinition::create('string');
     $properties['channel'] = DataDefinition::create('string');
-    $properties['channel_name'] = DataDefinition::create('string');
+    $properties['channel_label'] = DataDefinition::create('string');
     $properties['broken'] = DataDefinition::create('integer');
     return $properties;
   }
@@ -102,11 +102,11 @@ class OpeningHoursItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    // TODO: empty when broken?
+    $broken = $this->get('broken')->getValue();
     $service = $this->get('service')->getValue();
     $channel = $this->get('channel')->getValue();
 
-    return empty($service) || empty($channel);
+    return !empty($broken) || empty($service) || empty($channel);
   }
 
 }
