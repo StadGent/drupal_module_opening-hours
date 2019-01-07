@@ -22,9 +22,21 @@ use Drupal\Core\TypedData\DataDefinition;
  *       "label" = @Translation("Service"),
  *       "translatable" = TRUE
  *     },
+ *     "service_label" = {
+ *       "label" = @Translation("Service label"),
+ *       "translatable" = TRUE
+ *     },
  *     "channel" = {
  *       "label" = @Translation("Channel"),
  *       "translatable" = TRUE
+ *     },
+ *     "channel_label" = {
+ *       "label" = @Translation("Channel label"),
+ *       "translatable" = TRUE
+ *     },
+ *     "broken" = {
+ *       "label" = @Translation("Broken"),
+ *       "translatable" = FALSE
  *     },
  *   },
  * )
@@ -43,11 +55,31 @@ class OpeningHoursItem extends FieldItemBase {
           'unsigned' => TRUE,
           'not null' => FALSE,
         ],
+        'service_label' => [
+          'description' => 'The service label.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ],
         'channel' => [
           'description' => 'The channel record ID.',
           'type' => 'int',
           'unsigned' => TRUE,
           'not null' => FALSE,
+        ],
+        'channel_label' => [
+          'description' => 'The channel label.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ],
+        'broken' => [
+          'description' => 'Indicates if the service/channel link no longer exists in the Opening Hours platform.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
         ],
       ],
     ];
@@ -59,7 +91,10 @@ class OpeningHoursItem extends FieldItemBase {
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = [];
     $properties['service'] = DataDefinition::create('string');
+    $properties['service_label'] = DataDefinition::create('string');
     $properties['channel'] = DataDefinition::create('string');
+    $properties['channel_label'] = DataDefinition::create('string');
+    $properties['broken'] = DataDefinition::create('integer');
     return $properties;
   }
 

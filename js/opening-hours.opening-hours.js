@@ -372,7 +372,7 @@ OpeningHours.prototype.handleKeyboardInput = function (event, element) {
       nextElem.click();
     }
   };
-  
+
   switch (key) {
     case 'Left':
     case 'ArrowLeft':
