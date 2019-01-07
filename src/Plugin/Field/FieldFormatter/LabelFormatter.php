@@ -104,9 +104,8 @@ class LabelFormatter extends FormatterBase implements ContainerFactoryPluginInte
     $element = [];
 
     foreach ($items as $delta => $item) {
-      $label = $this->createItemLabel($item);
       $element[$delta] = [
-        '#markup' => $label,
+        '#markup' => $this->createItemLabel($item),
       ];
     }
 
@@ -162,8 +161,6 @@ class LabelFormatter extends FormatterBase implements ContainerFactoryPluginInte
     ];
 
     $element['label_placeholders'] = [
-      '#title' => $this->t('Placeholders'),
-      '#description' => $this->t('Create the label by combining the available placeholders.'),
       'placeholders' => [
         '#theme' => 'item_list',
         '#items' => [
