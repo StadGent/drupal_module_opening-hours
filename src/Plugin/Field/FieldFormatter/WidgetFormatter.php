@@ -11,7 +11,7 @@ use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Open Now formatter for the opening_hours field item.
+ * Display the openinghours field as an ajax widget.
  *
  * @FieldFormatter(
  *   id = "opening_hours_widget",

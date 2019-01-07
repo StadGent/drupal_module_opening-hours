@@ -13,6 +13,7 @@
 #  modules/contrib/opening_hours/config/schema/opening_hours.schema.yml: n/a
 #  modules/contrib/opening_hours/src/EventSubscriber/FieldSubscriber.php: n/a
 #  modules/contrib/opening_hours/src/Form/ConfigForm.php: n/a
+#  modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php: n/a
 #  modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php: n/a
 #  modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetTypes.php: n/a
 #
@@ -20,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2019-01-04 14:13+0100\n"
+"POT-Creation-Date: 2019-01-07 12:05+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -99,6 +100,50 @@ msgstr ""
 
 #: modules/contrib/opening_hours/src/Form/ConfigForm.php:78
 msgid "Provide an absolute URL."
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:131 modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
+msgid "Broken"
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:131
+msgid "OK"
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:157
+msgid "Format"
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:158
+msgid "Create a label by combining the available data."
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:167
+msgid "The service ID"
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:168
+msgid "The service label"
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:169
+msgid "The channel ID"
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:170
+msgid "The channel label"
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:171
+msgid "Is the link between the field and the backend broken."
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:184
+msgid "Format: %format"
+msgstr ""
+
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/LabelFormatter.php:14
+msgid "Labels"
 msgstr ""
 
 #: modules/contrib/opening_hours/src/Plugin/Field/FieldFormatter/WidgetFormatter.php:167
@@ -217,10 +262,6 @@ msgstr ""
 msgid "Channel label"
 msgstr ""
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
-msgid "Broken"
-msgstr ""
-
 #: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:152
 msgid "Opening hours"
 msgstr ""
@@ -237,23 +278,23 @@ msgstr ""
 msgid "- Select -"
 msgstr ""
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:263
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:272
 msgid "Service does not exists."
 msgstr ""
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:272
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:281
 msgid "Service is required when Channel is set."
 msgstr ""
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:280
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:289
 msgid "Channel is required when Service is set."
 msgstr ""
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:289
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:298
 msgid "Channel does not exists for this Service."
 msgstr ""
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:396;423
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:405;432
 msgid "API returned : @message"
 msgstr ""
 
