@@ -12,6 +12,7 @@ All Notable changes to `drupal/opening-hours` module.
   backend.
 * VG-1519: Added new OpeningHours formatter to display the service & channel
   labels.
+* VG-1519: Added new "Broken" views filter for the opening_hours:broken field.
 
 ## [8.x-1.0-beta1]
 
