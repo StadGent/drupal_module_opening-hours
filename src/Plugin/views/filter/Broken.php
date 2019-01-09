@@ -21,7 +21,7 @@ class Broken extends BooleanOperator {
     $fieldName = sprintf('%s.%s', $this->tableAlias, $this->realField);
 
     if (empty($this->value)) {
-      $where = sprintf('(%s = 0  OR %s IS NULL)', $fieldName, $fieldName);
+      $where = sprintf('(%s = 0 OR %s IS NULL)', $fieldName, $fieldName);
     }
     else {
       $where = sprintf('%s <> 0', $fieldName);
