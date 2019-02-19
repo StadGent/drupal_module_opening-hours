@@ -131,7 +131,7 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $item = $items[$delta];
+    $item = $items->get($delta);
     $formValues = $this->extractFormStateValues($delta, $form_state);
 
     $currentService = $this->getCurrentService($item, $formValues);
@@ -167,6 +167,7 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
         'callback' => [get_class($this), 'channelsDropdownCallback'],
         'wrapper' => $wrapperId,
         'disable-refocus' => TRUE,
+        'event' => 'autocompleteclose',
       ],
     ];
 
