@@ -2,6 +2,25 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.0]
+
+### Added
+
+* VG-1466: Added the service and channel labels to the opening_hours field.
+* VG-1466: Added synchronization command that updates all channel and service
+  labels and checks if the service/channel combination still exists in the
+  backend.
+* VG-1519: Added new OpeningHours formatter to display the service & channel
+  labels.
+* VG-1519: Added new "Broken" views filter for the opening_hours:broken field.
+
+### Fixed
+
+* DMOH-51: Fixed loading the channels once a service is selected from the
+  autocomplete suggestions.
+* DMOH-52: Fixed supporting usage of the field widget within paragraphs (fixed
+  extracting the form submit values for Ajax callbacks).
+
 ## [8.x-1.0-beta1]
 
 ### Added
@@ -134,6 +153,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-beta1...8.x-1.0
 [8.x-1.0-beta1]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha16...8.x-1.0-beta1
 [8.x-1.0-alpha16]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha15...8.x-1.0-alpha16
 [8.x-1.0-alpha15]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha14...8.x-1.0-alpha15

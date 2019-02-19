@@ -131,8 +131,9 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $item = $items[$delta];
-    $formValues = $this->extractFormStateValues($delta, $form_state);
+    /* @var $item \Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem */
+    $item = $items->get($delta);
+    $formValues = $this->extractFormStateValues($delta, $form, $form_state);
 
     $currentService = $this->getCurrentService($item, $formValues);
     $currentChannel = $currentService
@@ -167,6 +168,7 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
         'callback' => [get_class($this), 'channelsDropdownCallback'],
         'wrapper' => $wrapperId,
         'disable-refocus' => TRUE,
+        'event' => 'autocompleteclose',
       ],
     ];
 
@@ -212,18 +214,36 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    foreach ($values as $delta => $data) {
-      $service = NULL;
-      if (!empty($data['opening_hours']['service'])) {
-        $service = $this->getServiceFromValueString($data['opening_hours']['service']);
-      }
-      $values[$delta]['service'] = $service ? $service->getId() : NULL;
-      $values[$delta]['channel'] = (int) $data['opening_hours']['channel'];
-
+    foreach ($values as $delta => &$value) {
+      $this->massageFormValue($value);
       unset($values[$delta]['opening_hours']);
     }
 
     return $values;
+  }
+
+  /**
+   * Massage a single form value array.
+   *
+   * @param array $value
+   *   The value array.
+   */
+  protected function massageFormValue(array &$value) {
+    $service = NULL;
+    if (!empty($value['opening_hours']['service'])) {
+      $service = $this->getServiceFromValueString($value['opening_hours']['service']);
+    }
+    $value['service'] = $service ? $service->getId() : NULL;
+    $value['service_label'] = $service ? $service->getLabel() : NULL;
+
+    $channel = NULL;
+    if ($service && !empty($value['opening_hours']['channel'])) {
+      $channel = $this->getChannelById($service, $value['opening_hours']['channel']);
+    }
+    $value['channel'] = $channel ? $channel->getId() : NULL;
+    $value['channel_label'] = $channel ? $channel->getLabel() : NULL;
+
+    $value['broken'] = 0;
   }
 
   /**
@@ -445,6 +465,8 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    *
    * @param int $delta
    *   The form field element delta.
+   * @param array $form
+   *   The form structure.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    *
@@ -453,7 +475,7 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    *   - service : The service value from the form state.
    *   - channel : The channel value from the form state.
    */
-  protected function extractFormStateValues($delta, FormStateInterface $form_state) {
+  protected function extractFormStateValues($delta, array $form, FormStateInterface $form_state) {
     $values = [
       'is_submitted' => !empty($form_state->getValues()),
       'service' => NULL,
@@ -465,11 +487,9 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
     }
 
     $fieldName = $this->fieldDefinition->getName();
-    if (!$form_state->hasValue($fieldName)) {
-      return $values;
-    }
+    $parents = array_merge($form['#parents'], [$fieldName]);
+    $openingHours = $form_state->getValue($parents);
 
-    $openingHours = $form_state->getValue($fieldName);
     if (empty($openingHours[$delta]['opening_hours'])) {
       return $values;
     }

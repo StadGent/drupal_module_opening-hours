@@ -5,6 +5,8 @@
  * Installation file for Opening Hours module.
  */
 
+use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
+
 /**
  * Implements hook_requirements().
  */
@@ -32,4 +34,100 @@ function opening_hours_requirements($phase) {
   }
 
   return $requirements;
+}
+
+/**
+ * Update the openinghours field: add service & channel name + broken fields.
+ */
+function opening_hours_update_8101() {
+  $columns_to_add = ['service_label', 'channel_label', 'broken'];
+  $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
+  $openinghours_definition = $field_type_manager->getDefinition('opening_hours');
+  /** @var \Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem $openinghours_item_class */
+  $openinghours_item_class = $openinghours_definition['class'];
+
+  $schema = \Drupal::database()->schema();
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $entity_field_map = $entity_field_manager->getFieldMapByFieldType('opening_hours');
+  // The key-value collection for tracking installed storage schema.
+  $entity_storage_schema_sql = \Drupal::keyValue('entity.storage_schema.sql');
+  $entity_definitions_installed = \Drupal::keyValue('entity.definitions.installed');
+
+  foreach ($entity_field_map as $entity_type_id => $field_map) {
+    $entity_storage = $entity_type_manager->getStorage($entity_type_id);
+    // Only SQL storage based entities are supported / throw known exception.
+    if (!($entity_storage instanceof SqlContentEntityStorage)) {
+      continue;
+    }
+
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    $field_storage_definitions = $entity_field_manager->getFieldStorageDefinitions($entity_type_id);
+    /** @var Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
+    $table_mapping = $entity_storage->getTableMapping($field_storage_definitions);
+
+    // Only need field storage definitions of opening_hours fields.
+    /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $field_storage_definition */
+    foreach (array_intersect_key($field_storage_definitions, $field_map) as $field_storage_definition) {
+      $field_name = $field_storage_definition->getName();
+      try {
+        $table = $table_mapping->getFieldTableName($field_name);
+      }
+      catch (SqlContentEntityStorageException $e) {
+        // Custom storage? Broken site? No matter what, if there is no table
+        // or column, there's little we can do.
+        continue;
+      }
+
+      // See if the field has a revision table.
+      $revision_table = NULL;
+      if ($entity_type->isRevisionable() && $field_storage_definition->isRevisionable()) {
+        if ($table_mapping->requiresDedicatedTableStorage($field_storage_definition)) {
+          $revision_table = $table_mapping->getDedicatedRevisionTableName($field_storage_definition);
+        }
+        elseif ($table_mapping->allowsSharedTableStorage($field_storage_definition)) {
+          $revision_table = $entity_type->getRevisionDataTable() ?: $entity_type->getRevisionTable();
+        }
+      }
+
+      // Load the installed field schema so that it can be updated.
+      $schema_key = "$entity_type_id.field_schema_data.$field_name";
+      $field_schema_data = $entity_storage_schema_sql->get($schema_key);
+
+      // Loop over each new column and add it as a schema column change.
+      foreach ($columns_to_add as $column_id) {
+        $column = $table_mapping->getFieldColumnName($field_storage_definition, $column_id);
+        // Add `initial_from_field` to the new spec, as this will copy over
+        // the entire data.
+        $field_schema = $openinghours_item_class::schema($field_storage_definition);
+        $spec = $field_schema['columns'][$column_id];
+
+        // Add the new column.
+        $schema->addField($table, $column, $spec);
+        if ($revision_table) {
+          $schema->addField($revision_table, $column, $spec);
+        }
+
+        // Add the new column to the installed field schema.
+        if ($field_schema_data) {
+          $field_schema_data[$table]['fields'][$column] = $field_schema['columns'][$column_id];
+          if ($revision_table) {
+            $field_schema_data[$revision_table]['fields'][$column] = $field_schema['columns'][$column_id];
+          }
+        }
+      }
+
+      // Save changes to the installed field schema.
+      if ($field_schema_data) {
+        $entity_storage_schema_sql->set($schema_key, $field_schema_data);
+      }
+      if ($table_mapping->allowsSharedTableStorage($field_storage_definition)) {
+        $key = "$entity_type_id.field_storage_definitions";
+        if ($definitions = $entity_definitions_installed->get($key)) {
+          $definitions[$field_name] = $field_storage_definition;
+          $entity_definitions_installed->set($key, $definitions);
+        }
+      }
+    }
+  }
 }

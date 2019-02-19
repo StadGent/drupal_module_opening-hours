@@ -14,5 +14,6 @@ widget:
     js/opening-hours.binding.js: {}
   dependencies:
     - core/jquery
+    - core/jquery.once
     - core/drupalSettings
     - opening_hours/library
