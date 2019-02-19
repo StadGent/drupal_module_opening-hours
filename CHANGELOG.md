@@ -14,6 +14,13 @@ All Notable changes to `drupal/opening-hours` module.
   labels.
 * VG-1519: Added new "Broken" views filter for the opening_hours:broken field.
 
+### Fixed
+
+* DMOH-51: Fixed loading the channels once a service is selected from the
+  autocomplete suggestions.
+* DMOH-52: Fixed supporting usage of the field widget within paragraphs (fixed
+  extracting the form submit values for Ajax callbacks).
+
 ## [8.x-1.0-beta1]
 
 ### Added
