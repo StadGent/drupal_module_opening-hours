@@ -2,6 +2,7 @@
 
 namespace Drupal\opening_hours\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -143,10 +144,9 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
       ? $this->getChannelOptionsForService($currentService)
       : [];
 
-    $wrapperId = sprintf(
-      'form-item-wrapper-%s-%d-opening-hours-channel',
-      $this->fieldDefinition->getName(),
-      $delta
+    // Unique channel wrapper id to update using ajax callback.
+    $wrapperId = Html::getUniqueId(
+      sprintf('%s-wrapper', $this->fieldDefinition->getName())
     );
 
     $element['opening_hours'] = [
@@ -477,7 +477,7 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    */
   protected function extractFormStateValues($delta, array $form, FormStateInterface $form_state) {
     $values = [
-      'is_submitted' => !empty($form_state->getValues()),
+      'is_submitted' => $this->isFormSubmitted($form_state),
       'service' => NULL,
       'channel' => NULL,
     ];
@@ -502,6 +502,23 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
     }
 
     return $values;
+  }
+
+  /**
+   * Check if the form was submitted by changing the service.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state to get the triggering element from.
+   *
+   * @return bool
+   *   Is submitted.
+   */
+  protected function isFormSubmitted(FormStateInterface $form_state) {
+    $trigger = $form_state->getTriggeringElement();
+
+    return
+      !empty($trigger['#autocomplete_route_name'])
+      && $trigger['#autocomplete_route_name'] === 'opening_hours.service.autocomplete';
   }
 
 }
