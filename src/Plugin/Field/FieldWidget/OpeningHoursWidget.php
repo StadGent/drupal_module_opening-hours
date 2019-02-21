@@ -476,8 +476,14 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    *   - channel : The channel value from the form state.
    */
   protected function extractFormStateValues($delta, array $form, FormStateInterface $form_state) {
+    $trigger = $form_state->getTriggeringElement();
+    $isSubmitted = (
+      !empty($trigger['#autocomplete_route_name'])
+      && $trigger['#autocomplete_route_name'] === 'opening_hours.service.autocomplete'
+    );
+
     $values = [
-      'is_submitted' => !empty($form_state->getValues()),
+      'is_submitted' => $isSubmitted,
       'service' => NULL,
       'channel' => NULL,
     ];
