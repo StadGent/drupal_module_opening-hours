@@ -2,6 +2,7 @@
 
 namespace Drupal\opening_hours\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -143,10 +144,9 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
       ? $this->getChannelOptionsForService($currentService)
       : [];
 
-    $wrapperId = sprintf(
-      'form-item-wrapper-%s-%d-opening-hours-channel',
-      $this->fieldDefinition->getName(),
-      $delta
+    // Unique channel wrapper id to update using ajax callback.
+    $wrapperId = Html::getUniqueId(
+      sprintf('%s-wrapper', $this->fieldDefinition->getName())
     );
 
     $element['opening_hours'] = [

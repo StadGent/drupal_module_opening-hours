@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Fixed
+
+* DMOH-53: Fixed not unique element wrapper.
+
 ## [8.x-1.0]
 
 ### Added
