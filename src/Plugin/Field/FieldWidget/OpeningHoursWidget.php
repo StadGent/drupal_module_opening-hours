@@ -516,8 +516,7 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
   protected function isFormSubmitted(FormStateInterface $form_state) {
     $trigger = $form_state->getTriggeringElement();
 
-    return
-      !empty($trigger['#autocomplete_route_name'])
+    return !empty($trigger['#autocomplete_route_name'])
       && $trigger['#autocomplete_route_name'] === 'opening_hours.service.autocomplete';
   }
 

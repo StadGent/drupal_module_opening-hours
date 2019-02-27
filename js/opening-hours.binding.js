@@ -20,6 +20,7 @@
 
         var options = {
           'endpoint': settings.openingHours.endpoint,
+          'endpoint_key': settings.openingHours.endpoint_key,
           'language': settings.openingHours.language,
           'error' : function (request) {
             var elem = getClosest(request.element, '.field');

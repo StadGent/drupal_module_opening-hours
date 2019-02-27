@@ -81,6 +81,7 @@ class OpeningHoursWidget extends RenderElement implements ContainerFactoryPlugin
       '#theme' => 'opening_hours_widget',
       '#type' => NULL,
       '#endpoint' => $this->openingHoursConfig->get('endpoint'),
+      '#endpoint_key' => $this->openingHoursConfig->get('key'),
       '#service_id' => NULL,
       '#channel_id' => NULL,
       '#date' => NULL,
@@ -101,6 +102,7 @@ class OpeningHoursWidget extends RenderElement implements ContainerFactoryPlugin
     // Attach widget + endpoint configuration.
     $element['#attached']['library'][] = 'opening_hours/widget';
     $element['#attached']['drupalSettings']['openingHours']['endpoint'] = $element['#endpoint'];
+    $element['#attached']['drupalSettings']['openingHours']['endpoint_key'] = $element['#endpoint_key'];
     $element['#attached']['drupalSettings']['openingHours']['language'] = $language;
 
     return $element;

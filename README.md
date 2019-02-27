@@ -19,10 +19,10 @@ root and add following lines in the `repositories section:
         "type": "package",
         "package": {
             "name": "drupal/opening-hours-widget",
-            "version": "0.0.3",
+            "version": "0.1.1",
             "type": "drupal-library",
             "dist": {
-                "url": "https://github.com/StadGent/npm_package_opening-hours-widget/releases/download/v0.0.3/opening-hours-widget.zip",
+                "url": "https://github.com/StadGent/npm_package_opening-hours-widget/releases/download/0.1.1/opening-hours-widget.zip",
                 "type": "zip"
             }
         }

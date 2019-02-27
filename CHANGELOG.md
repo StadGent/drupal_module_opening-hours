@@ -4,6 +4,20 @@ All Notable changes to `drupal/opening-hours` module.
 
 ## [Unreleased]
 
+**IMPORTANT : From now on, an API key is required due to a change in the API
+endpoint.**
+
+Change the API endpoint and set the API key value in the webservice
+configuration after updating the module to this version.
+
+See [service documentation](https://developer.gent.be/docs/dataset?service_id=openingsuren_service)
+for more information about the endpoint.
+
+### Changed
+
+* DMOH-55: Changed the way to access the endpoint: added support to set the
+  required API key.
+
 ### Fixed
 
 * DMOH-53: Fixed not unique element wrapper.
