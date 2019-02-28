@@ -21,6 +21,7 @@
 function OpeningHours(items, options) {
   var defaults = {
     endpoint: '',
+    endpoint_key: '',
     language: 'en',
     requestDate: this.getRequestDateFromUrl()
   };
@@ -31,14 +32,15 @@ function OpeningHours(items, options) {
   });
 
   this.settings = defaults;
-  this.ohw = new OpeningHoursWidget({
-    endpoint: this.settings.endpoint
-  });
-
   if (!this.settings.endpoint || !this.settings.endpoint.length) {
     console.error('OpeningHours : Please provide an API endpoint.');
     return this;
   }
+
+  this.ohw = new OpeningHoursWidget({
+    endpoint: this.settings.endpoint,
+    endpoint_key: this.settings.endpoint_key
+  });
 
   // Render the widgets for all found items.
   for (var i = 0; i < items.length; i++) {

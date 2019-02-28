@@ -17,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2019-01-07 12:05+0100\n"
-"PO-Revision-Date: 2019-01-07 12:05+0100\n"
+"POT-Creation-Date: 2019-02-28 08:43+0100\n"
+"PO-Revision-Date: 2019-02-28 08:44+0100\n"
 "Last-Translator: Peter Decuyper <peter.decuyper@digipolis.gent>\n"
 "Language-Team: Digipolis <tbweb@gent.be>\n"
 "Language: nl\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: modules/contrib/opening_hours/opening_hours.install:18
 msgid "Installed"
@@ -50,7 +50,7 @@ msgstr ""
 #: modules/contrib/opening_hours/opening_hours.links.menu.yml:0
 #: modules/contrib/opening_hours/opening_hours.routing.yml:0
 #: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:20
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:21
 msgid "Opening Hours"
 msgstr "Openingsuren"
 
@@ -106,14 +106,22 @@ msgid "Provide the endpoint URL including the API version number."
 msgstr "Voorzie de endpoint URL inclusief het API versie nummer."
 
 #: modules/contrib/opening_hours/src/Form/ConfigForm.php:63
+msgid "API key"
+msgstr "API key"
+
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:64
+msgid "Provide the API key if it is required to access the service."
+msgstr "Geef de API key indien deze vereist is om de service the gebruiken."
+
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:71
 msgid "Enable cache"
 msgstr "Caching inschakelen"
 
-#: modules/contrib/opening_hours/src/Form/ConfigForm.php:64
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:72
 msgid "This will enable caching of the responses from the API."
 msgstr "Dit zal de caching inschakelen op de resultaten van de API."
 
-#: modules/contrib/opening_hours/src/Form/ConfigForm.php:78
+#: modules/contrib/opening_hours/src/Form/ConfigForm.php:86
 msgid "Provide an absolute URL."
 msgstr "Voorzie een absolute URL."
 
@@ -267,7 +275,7 @@ msgstr ""
 "openingsuren hiervan te kunnen tonen."
 
 #: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:162
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:163
 msgid "Service"
 msgstr "Dienst"
 
@@ -276,7 +284,7 @@ msgid "Service label"
 msgstr "Service label"
 
 #: modules/contrib/opening_hours/src/Plugin/Field/FieldType/OpeningHoursItem.php:9
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:174
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:176
 msgid "Channel"
 msgstr "Kanaal"
 
@@ -284,11 +292,11 @@ msgstr "Kanaal"
 msgid "Channel label"
 msgstr "Kanaal label"
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:152
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:153
 msgid "Opening hours"
 msgstr "Openingsuren"
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:153
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:154
 msgid ""
 "Select a Service and one of its Channels to link this item with Opening "
 "Hours."
@@ -296,31 +304,31 @@ msgstr ""
 "Selecteer een dienst en één van zijn kanalen om deze te verbinden met zijn "
 "openingsuren."
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:177
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:179
 msgid "Select first a Service"
 msgstr "Selecteer eerst een Dienst"
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:183
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:185
 msgid "- Select -"
 msgstr "- Selecteer -"
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:272
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:274
 msgid "Service does not exists."
 msgstr "Dienst bestaat niet."
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:281
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:283
 msgid "Service is required when Channel is set."
 msgstr "Dienst is verplicht om een kanaal te selecteren."
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:289
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:291
 msgid "Channel is required when Service is set."
 msgstr "Kanaal is verplicht wanneer een Dienst is geselecteerd."
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:298
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:300
 msgid "Channel does not exists for this Service."
 msgstr "Kanaal bastaat niet voor deze Dienst."
 
-#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:405;432
+#: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:407;434
 msgid "API returned : @message"
 msgstr "API retourneerde ; @message"
 

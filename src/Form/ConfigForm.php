@@ -58,6 +58,14 @@ class ConfigForm extends ConfigFormBase {
       '#required' => TRUE,
     ];
 
+    $form['key'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('API key'),
+      '#description' => $this->t('Provide the API key if it is required to access the service.'),
+      '#default_value' => $config->get('key'),
+      '#required' => FALSE,
+    ];
+
     $form['cache_enabled'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable cache'),
@@ -92,6 +100,7 @@ class ConfigForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('opening_hours.settings')
       ->set('endpoint', $form_state->getValue('endpoint'))
+      ->set('key', $form_state->getValue('key'))
       ->set('cache_enabled', (int) $form_state->getValue('cache_enabled'))
       ->save();
 

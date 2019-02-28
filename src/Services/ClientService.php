@@ -23,12 +23,12 @@ class ClientService extends StadGentClient {
   public function __construct(ConfigFactoryInterface $config_factory) {
     $config = $config_factory->get('opening_hours.settings');
 
-    $configuration = new Configuration($config->get('endpoint'));
-    $guzzleClient = new GuzzleClient(
-      [
-        'base_uri' => $configuration->getUri(),
-      ]
+    $configuration = new Configuration(
+      $config->get('endpoint'),
+      $config->get('key')
     );
+
+    $guzzleClient = new GuzzleClient(['base_uri' => $configuration->getUri()]);
 
     parent::__construct($guzzleClient, $configuration);
   }
