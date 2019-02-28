@@ -2,6 +2,27 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.1]
+
+**IMPORTANT : From now on, an API key is required due to a change in the API
+endpoint.**
+
+Change the API endpoint and set the API key value in the webservice
+configuration after updating the module to this version.
+
+See [service documentation](https://developer.gent.be/docs/dataset?service_id=openingsuren_service)
+for more information about the endpoint.
+
+### Changed
+
+* DMOH-55: Changed the way to access the endpoint: added support to set the
+  required API key.
+
+### Fixed
+
+* DMOH-53: Fixed not unique element wrapper.
+* DMOH-53: Fixed detecting if the element was submitted.
+
 ## [8.x-1.0]
 
 ### Added
@@ -153,6 +174,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.1]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0...8.x-1.1
 [8.x-1.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-beta1...8.x-1.0
 [8.x-1.0-beta1]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha16...8.x-1.0-beta1
 [8.x-1.0-alpha16]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha15...8.x-1.0-alpha16

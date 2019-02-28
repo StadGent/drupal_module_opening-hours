@@ -1,7 +1,7 @@
 library:
-  version: 0.0.3
+  version: 0.1.1
   js:
-    /libraries/opening-hours-widget/dist/opening-hours-widget.min.js: { preprocess: false, minified: true }
+    /libraries/opening-hours-widget/dist/opening-hours-widget.min.js: { preprocess: false }
 
 widget:
   version: 1.x
