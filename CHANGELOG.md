@@ -2,6 +2,10 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+* DMOH-56 : Added missing tokens.
+
 ## [8.x-1.1]
 
 **IMPORTANT : From now on, an API key is required due to a change in the API
