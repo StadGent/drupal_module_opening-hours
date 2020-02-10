@@ -36,3 +36,42 @@ function opening_hours_theme($existing, $type, $theme, $path) {
 function template_preprocess_opening_hours_widget(&$variables) {
   $variables['widget_id'] = Html::getUniqueId('opening_hours');
 }
+
+/**
+ * Implements hook_token_info_alter().
+ *
+ * Add the missing token info for automatically detected tokens.
+ */
+function opening_hours_token_info_alter(&$info) {
+  $entities = \Drupal::service('entity_field.manager')->getFieldMap();
+  foreach ($entities as $entity_key => $entity) {
+    foreach ($entity as $field_key => $field) {
+      if ($field['type'] !== 'opening_hours' ) {
+        continue;
+      }
+
+      $token_key = sprintf('%s-%s', $entity_key, $field_key);
+      $info['tokens'][$token_key]['service'] = [
+        'name' => t('Opening Hours: Service ID'),
+        'description' => t('The service record ID.'),
+      ];
+      $info['tokens'][$token_key]['service_label'] = [
+        'name' => t('Opening Hours: Service label'),
+        'description' => t('The service label.'),
+      ];
+      $info['tokens'][$token_key]['channel'] = [
+        'name' => t('Opening Hours: Channel ID'),
+        'description' => t('The channel record ID.'),
+      ];
+      $info['tokens'][$token_key]['channel_label'] = [
+        'name' => t('Opening Hours: Channel label'),
+        'description' => t('The channel label.'),
+      ];
+      $info['tokens'][$token_key]['broken'] = [
+        'name' => t('Opening Hours: Broken link'),
+        'description' => t('Indicates if the service/channel link no longer exists in the Opening Hours platform.'),
+      ];
+    }
+  }
+}
+
