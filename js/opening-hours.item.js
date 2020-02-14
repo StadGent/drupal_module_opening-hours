@@ -178,13 +178,14 @@ OpeningHoursItem.prototype.print = function (data) {
 };
 
 /**
- * Print an error to the page.
+ * Print an error to the console and optionally execute the error option.
  *
  * @param {string} message
  *   The error message to print.
  */
 OpeningHoursItem.prototype.printError = function (message) {
   console.error(message);
-  var error = '<span class="error">Error: ' + message + '</span>';
-  this.print(this.element, error);
+  if (this.options.error) {
+    this.options.error(this.element);
+  }
 };
