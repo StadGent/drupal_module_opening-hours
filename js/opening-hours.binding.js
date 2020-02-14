@@ -24,7 +24,8 @@
           'language': settings.openingHours.language,
           'error' : function (item) {
             var elem = getClosest(item, '.openinghours-wrapper');
-            if (elem) {
+            console.debug('hidden', item, elem);
+            if (elem && elem.parentNode) {
               elem.parentNode.removeChild(elem);
             }
           }
