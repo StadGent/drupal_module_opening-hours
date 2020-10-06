@@ -19,25 +19,18 @@
   },
   "require": {
     "php": "^7.2",
-    "drupal/core": "^8.5",
     "stadgent/services-opening-hours": "^1.1"
   },
   "require-dev": {
-    "brainmaestro/composer-git-hooks": "^2.4",
-    "drupal/coder": "~8.2"
+    "digipolisgent/qa-drupal": "^1"
   },
   "scripts": {
-    "check-style": [
-      "vendor/bin/phpcs"
-    ],
-    "post-install-cmd": [
-      "vendor/bin/cghooks update"
-    ]
-  },
-  "hooks": {
-    "pre-commit": [
-      "vendor/bin/phpcs"
-    ]
+    "coverage": "vendor/bin/phpunit --configuration=phpunit-coverage.xml",
+    "grumphp": "vendor/bin/grumphp run --ansi",
+    "phpcs": "vendor/bin/phpcs -p --colors",
+    "phpstan": "vendor/bin/phpstan analyse --level=7 ./src",
+    "test": "vendor/bin/phpunit",
+    "post-install-cmd": "vendor/bin/grumphp git:init"
   },
   "extra": {
     "drush": {

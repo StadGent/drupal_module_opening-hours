@@ -8,8 +8,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem;
 use Psr\Log\LoggerInterface;
 use StadGent\Services\OpeningHours\Exception\ServiceNotFoundException;
@@ -21,6 +20,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * A widget bar.
  *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ *
  * @FieldWidget(
  *   id = "opening_hours",
  *   label = @Translation("Opening Hours"),
@@ -29,7 +31,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInterface {
+class OpeningHoursWidget extends WidgetBase {
+
+  use LoggerChannelTrait;
 
   /**
    * The ServiceService.
@@ -44,13 +48,6 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    * @var \StadGent\Services\OpeningHours\Service\Channel\ChannelService
    */
   protected $channelService;
-
-  /**
-   * The logger.
-   *
-   * @var \Psr\Log\LoggerInterface
-   */
-  protected $logger;
 
   /**
    * Constructs a Opening Hours widget object.
@@ -69,10 +66,6 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    *   The Service service.
    * @param \StadGent\Services\OpeningHours\Service\Channel\ChannelService $channelService
    *   The Channel service.
-   * @param \Psr\Log\LoggerInterface $logger
-   *   Used to log service errors.
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation
-   *   The String translation.
    */
   public function __construct(
     $plugin_id,
@@ -81,9 +74,7 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
     array $settings,
     array $third_party_settings,
     ServiceService $serviceService,
-    ChannelService $channelService,
-    LoggerInterface $logger,
-    TranslationInterface $translation
+    ChannelService $channelService
   ) {
     parent::__construct(
       $plugin_id,
@@ -95,36 +86,20 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
 
     $this->serviceService = $serviceService;
     $this->channelService = $channelService;
-    $this->logger = $logger;
-    $this->setStringTranslation($translation);
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    /* @var $stringTranslation TranslationInterface */
-    $stringTranslation = $container->get('string_translation');
-
-    /* @var $serviceService \StadGent\Services\OpeningHours\Service\Service\ServiceService */
-    $serviceService = $container->get('opening_hours.service');
-
-    /* @var $channelService \StadGent\Services\OpeningHours\Service\Channel\ChannelService */
-    $channelService = $container->get('opening_hours.channel');
-
-    /* @var $logger \Psr\Log\LoggerInterface */
-    $logger = $container->get('logger.factory')->get('opening_hours');
-
     return new static(
       $plugin_id,
       $plugin_definition,
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['third_party_settings'],
-      $serviceService,
-      $channelService,
-      $logger,
-      $stringTranslation
+      $container->get('opening_hours.service'),
+      $container->get('opening_hours.channel')
     );
   }
 
@@ -255,6 +230,8 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    *   The form values container.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
    */
   public function validate(array $element, FormStateInterface $form_state) {
     $serviceElement = $element['service'];
@@ -390,21 +367,21 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
   /**
    * Get a Service by its ID.
    *
-   * @param int $id
+   * @param int $serviceId
    *   The Service ID.
    *
    * @return \StadGent\Services\OpeningHours\Value\Service|null
    *   The Service (if any).
    */
-  protected function getServiceById($id) {
+  protected function getServiceById($serviceId) {
     try {
-      return $this->serviceService->getById($id);
+      return $this->serviceService->getById($serviceId);
     }
     catch (ServiceNotFoundException $exception) {
       return NULL;
     }
     catch (\Exception $exception) {
-      $this->logger->error(
+      $this->getOpeningHoursLogger()->error(
         'API returned : @message',
         ['@message' => $exception->getMessage()]
       );
@@ -417,21 +394,21 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
    *
    * @param \StadGent\Services\OpeningHours\Value\Service $service
    *   The Service to get the channel for.
-   * @param int $id
+   * @param int $channelId
    *   The Channel ID.
    *
    * @return \StadGent\Services\OpeningHours\Value\Channel|null
    *   The Service (if any).
    */
-  protected function getChannelById(Service $service, $id) {
+  protected function getChannelById(Service $service, $channelId) {
     try {
-      return $this->channelService->getById($service->getId(), $id);
+      return $this->channelService->getById($service->getId(), $channelId);
     }
     catch (ServiceNotFoundException $exception) {
       return NULL;
     }
     catch (\Exception $exception) {
-      $this->logger->error(
+      $this->getOpeningHoursLogger()->error(
         'API returned : @message',
         ['@message' => $exception->getMessage()]
       );
@@ -518,6 +495,16 @@ class OpeningHoursWidget extends WidgetBase implements ContainerFactoryPluginInt
 
     return !empty($trigger['#autocomplete_route_name'])
       && $trigger['#autocomplete_route_name'] === 'opening_hours.service.autocomplete';
+  }
+
+  /**
+   * Get the logger.
+   *
+   * @return \Psr\Log\LoggerInterface
+   *   The opening hours channel logger.
+   */
+  private function getOpeningHoursLogger(): LoggerInterface {
+    return $this->getLogger('opening_hours');
   }
 
 }

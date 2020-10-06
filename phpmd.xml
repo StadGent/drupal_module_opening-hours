@@ -13,9 +13,7 @@
     in a typical Drupal codebase.
   </description>
 
-  <rule ref="rulesets/codesize.xml">
-    <exclude name="ExcessiveMethodLength" />
-  </rule>
+  <rule ref="rulesets/codesize.xml"/>
   <rule ref="rulesets/controversial.xml/Superglobals" />
   <rule ref="rulesets/design.xml" />
   <rule ref="rulesets/naming.xml" />

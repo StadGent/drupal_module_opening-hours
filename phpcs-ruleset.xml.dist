@@ -14,6 +14,7 @@
     <exclude-pattern>*.min.js</exclude-pattern>
 
     <rule ref="./vendor/drupal/coder/coder_sniffer/Drupal" />
+    <rule ref="./vendor/drupal/coder/coder_sniffer/DrupalPractice"></rule>
 
     <!-- PSR-12 sniffs -->
     <rule ref="PSR12.Files.DeclareStatement" />
