@@ -1,0 +1,72 @@
+language: php
+
+php:
+  - 7.2
+  - 7.3
+  - 7.4
+
+env:
+  global:
+    - MODULE_NAME=opening_hours
+    - COMPOSER_MEMORY_LIMIT=-1
+  matrix:
+    - TEST_SUITE=8.8.x
+    - TEST_SUITE=8.9.x
+    - TEST_SUITE=9.0.x
+    - TEST_SUITE=9.1.x
+
+matrix:
+  exclude:
+    - php: 7.4
+      env: TEST_SUITE=8.8.x
+    - php: 7.3
+      env: TEST_SUITE=8.8.x
+    - php: 7.2
+      env: TEST_SUITE=9.0.x
+    - php: 7.2
+      env: TEST_SUITE=9.1.x
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_install:
+  # Configure composer.
+  - composer config github-oauth.github.com ${GITHUB_TOKEN}
+  - composer global require "hirak/prestissimo:^0.3"
+
+  # Remember directories for later use.
+  - export DRUPAL_DIR="$TRAVIS_BUILD_DIR/../drupal"
+  - export MODULE_DIR="$DRUPAL_DIR/web/modules/$MODULE_NAME"
+
+  # Get the CodeClimate test reporter.
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+install:
+  # Install Module.
+  - travis_retry composer install --no-interaction
+
+  # Install Drupal.
+  - travis_retry composer create-project drupal/recommended-project:$TEST_SUITE-dev "$DRUPAL_DIR" --no-interaction --dev
+
+  # Install Drupal Check.
+  - composer require mglaman/drupal-check --dev --working-dir="$DRUPAL_DIR"
+
+before_script:
+  # Link to module from within Drupal.
+  - ln -s . "$MODULE_DIR"
+
+script:
+  # Run GrumPHP checks.
+  - vendor/bin/grumphp run
+
+  # Test for deprecations.
+  - cd "$DRUPAL_DIR"
+  - phpenv config-rm xdebug.ini
+  - ./vendor/bin/drupal-check -ad "$MODULE_DIR"
+
+after_script:
+  - cd "$TRAVIS_BUILD_DIR"
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
