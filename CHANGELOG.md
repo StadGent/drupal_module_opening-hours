@@ -63,7 +63,7 @@ for more information about the endpoint.
 
 ### Changed
 
-* SGD8-709: Moved generic javascript code to the 
+* SGD8-709: Moved generic javascript code to the
   '@digipolis-gent/opening-hours-widget' npm package.
 
 ## [8.x-1.0-alpha16]
@@ -134,7 +134,8 @@ for more information about the endpoint.
 ## [8.x-1.0-alpha6]
 
 ### Added
-* DMOH-38: Added optional error callback function to OpeningHours. 
+
+* DMOH-38: Added optional error callback function to OpeningHours.
 
 ## [8.x-1.0-alpha5]
 
@@ -158,7 +159,7 @@ for more information about the endpoint.
   required to render the widget tag.
 * DMOH-29: Added support to set the date to get the opening hours for.
 * DMOH-31: Added option to switch between 2 widget types.
-  
+
 ### Fixed
 
 * DMOH-32: Removed double .openinghours-widget loop to prevent multiple requests
