@@ -18,6 +18,8 @@
     "source": "https://github.com/StadGent/drupal_module_opening-hours"
   },
   "require": {
+    "php": "^7.2",
+    "drupal/core": "^8.5",
     "stadgent/services-opening-hours": "^1.1"
   },
   "require-dev": {
