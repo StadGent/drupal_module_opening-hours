@@ -20,7 +20,7 @@ parameters:
         phpunit:
             config_file: "phpunit-coverage.xml"
         phpversion:
-            project: '7.2'
+            project: '7.3'
         securitychecker: ~
         xmllint: ~
         yamllint: ~
