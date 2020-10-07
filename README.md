@@ -46,7 +46,7 @@ drush -y en opening_hours
 ```
 
 Configure the opening hours module and set the Opening Hours API url via
-`admin/admin/config/services/opening-hours`. 
+`admin/admin/config/services/opening-hours`.
 
 ## Usage
 
@@ -59,7 +59,7 @@ backend.
 ## Synchronization
 
 The opening hours information could be changed (service and channel label) or
-could be removed from the opening hours backend. A drush command is available to 
+could be removed from the opening hours backend. A drush command is available to
 synchronization the data and to flag opening hours fields with broken links.
 
 - `drush opening-hours:sync all` : Synchronize all opening hours fields of all
@@ -68,7 +68,7 @@ synchronization the data and to flag opening hours fields with broken links.
   all entities of the provided entity type.
 - `drush opening-hours:sync node_type:123` : Synchronize all opening hours
   fields of the provided entity type and entity id.
-  
+
 Broken links will be logged in the log.
 
 There is an event that is triggered if a broken field is detected.

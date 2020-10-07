@@ -2,6 +2,20 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [8.x-1.3]
+
+### Added
+
+* Added GrumPHP + code quality tools configuration.
+* Added TravisCI script to automatically validate the code quality.
+* Added the Drupal 9 compatibility check.
+
+### Fixed
+
+* DMOH-57: Fixed broken entity form serialization due to manually injecting the
+  Logger instance into the OpeningHoursWidget.
+  Is now replaced by `use LoggerChannelTrait;`.
+
 ## [8.x-1.2]
 
 ### Changed
@@ -63,7 +77,7 @@ for more information about the endpoint.
 
 ### Changed
 
-* SGD8-709: Moved generic javascript code to the 
+* SGD8-709: Moved generic javascript code to the
   '@digipolis-gent/opening-hours-widget' npm package.
 
 ## [8.x-1.0-alpha16]
@@ -134,7 +148,8 @@ for more information about the endpoint.
 ## [8.x-1.0-alpha6]
 
 ### Added
-* DMOH-38: Added optional error callback function to OpeningHours. 
+
+* DMOH-38: Added optional error callback function to OpeningHours.
 
 ## [8.x-1.0-alpha5]
 
@@ -158,7 +173,7 @@ for more information about the endpoint.
   required to render the widget tag.
 * DMOH-29: Added support to set the date to get the opening hours for.
 * DMOH-31: Added option to switch between 2 widget types.
-  
+
 ### Fixed
 
 * DMOH-32: Removed double .openinghours-widget loop to prevent multiple requests
@@ -186,6 +201,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[8.x-1.3]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.2...8.x-1.3
 [8.x-1.2]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.1...8.x-1.2
 [8.x-1.1]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0...8.x-1.1
 [8.x-1.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-beta1...8.x-1.0

@@ -59,7 +59,7 @@ class OpeningHoursWidget extends RenderElement implements ContainerFactoryPlugin
    * @return static
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    /* @var $openingHoursConfig \Drupal\Core\Config\ImmutableConfig */
+    /** @var \Drupal\Core\Config\ImmutableConfig $openingHoursConfig */
     $openingHoursConfig = $container
       ->get('config.factory')
       ->get('opening_hours.settings');

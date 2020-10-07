@@ -119,12 +119,12 @@ final class SyncCommands extends DrushCommands {
    *   The type:id string.
    */
   protected function syncEntity($what) {
-    list($entityType, $id) = explode(':', $what, 2);
+    list($entityType, $entityId) = explode(':', $what, 2);
 
     $storage = $this->entityTypeManager->getStorage($entityType);
-    $entity = $storage->load($id);
+    $entity = $storage->load($entityId);
     if (!$entity) {
-      $message = sprintf('No entity of type %s with id %d', $entityType, $id);
+      $message = sprintf('No entity of type %s with id %d', $entityType, $entityId);
       $this->writeError($message);
       return;
     }
@@ -133,7 +133,7 @@ final class SyncCommands extends DrushCommands {
       'Synchronizing all opening hours fields of %s %s (%d)...',
       $entity->label(),
       $entityType,
-      $id
+      $entityId
     );
     $this->writeWhat($message);
 

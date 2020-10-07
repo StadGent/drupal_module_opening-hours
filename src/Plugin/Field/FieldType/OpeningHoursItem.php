@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\opening_hours\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
@@ -41,12 +43,12 @@ use Drupal\Core\TypedData\DataDefinition;
  *   },
  * )
  */
-class OpeningHoursItem extends FieldItemBase {
+class OpeningHoursItem extends FieldItemBase implements OpeningHoursItemInterface {
 
   /**
    * {@inheritdoc}
    */
-  public static function schema(FieldStorageDefinitionInterface $field_definition) {
+  public static function schema(FieldStorageDefinitionInterface $field_definition): array {
     return [
       'columns' => [
         'service' => [
@@ -88,7 +90,7 @@ class OpeningHoursItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
+  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
     $properties = [];
     $properties['service'] = DataDefinition::create('string');
     $properties['service_label'] = DataDefinition::create('string');
@@ -101,11 +103,46 @@ class OpeningHoursItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function isEmpty() {
-    $service = $this->get('service')->getValue();
-    $channel = $this->get('channel')->getValue();
+  public function getServiceId(): ?int {
+    $serviceId = (int) $this->get('service')->getString();
+    return $serviceId ?: NULL;
+  }
 
-    return empty($service) || empty($channel);
+  /**
+   * {@inheritdoc}
+   */
+  public function getServiceLabel(): ?string {
+    return $this->get('service_label')->getString() ?? NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getChannelId(): ?int {
+    $channelId = (int) $this->get('channel')->getString();
+    return $channelId ?: NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getChannelLabel(): ?string {
+    return $this->get('channel_label')->getString() ?? NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isBroken(): bool {
+    return (bool) (int) $this->get('broken')->getString();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isEmpty(): bool {
+    return $this->getServiceId() === NULL
+      || $this->getChannelId() === NULL;
   }
 
 }
