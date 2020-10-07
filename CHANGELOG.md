@@ -2,6 +2,20 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Added
+
+* Added GrumPHP + code quality tools configuration.
+* Added TravisCI script to automatically validate the code quality.
+* Added the Drupal 9 compatibility check.
+
+### Fixed
+
+* DMOH-57: Fixed broken entity form serialization due to manually injecting the
+  Logger instance into the OpeningHoursWidget.
+  Is now replaced by `use LoggerChannelTrait;`.
+
 ## [8.x-1.2]
 
 ### Changed

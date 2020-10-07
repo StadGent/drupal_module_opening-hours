@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 7.2
   - 7.3
   - 7.4
 
@@ -10,21 +9,9 @@ env:
     - MODULE_NAME=opening_hours
     - COMPOSER_MEMORY_LIMIT=-1
   matrix:
-    - TEST_SUITE=8.8.x
     - TEST_SUITE=8.9.x
     - TEST_SUITE=9.0.x
     - TEST_SUITE=9.1.x
-
-matrix:
-  exclude:
-    - php: 7.4
-      env: TEST_SUITE=8.8.x
-    - php: 7.3
-      env: TEST_SUITE=8.8.x
-    - php: 7.2
-      env: TEST_SUITE=9.0.x
-    - php: 7.2
-      env: TEST_SUITE=9.1.x
 
 cache:
   directories:
