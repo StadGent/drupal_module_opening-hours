@@ -6,7 +6,8 @@
     <arg name="report" value="full"/>
     <arg value="p"/>
     <file>.</file>
-    <exclude-pattern>./build</exclude-pattern>
-    <exclude-pattern>./vendor</exclude-pattern>
+    <exclude-pattern>*/build/coverage/*</exclude-pattern>
+    <exclude-pattern>*/build/logs/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*.md</exclude-pattern>
 </ruleset>

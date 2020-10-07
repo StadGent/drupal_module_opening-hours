@@ -39,10 +39,10 @@ class ServiceController extends ControllerBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    /* @var $stringTranslation \Drupal\Core\StringTranslation\TranslationInterface */
+    /** @var \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation */
     $stringTranslation = $container->get('string_translation');
 
-    /* @var $serviceService \StadGent\Services\OpeningHours\Service\Service\ServiceService */
+    /** @var \StadGent\Services\OpeningHours\Service\Service\ServiceService $serviceService */
     $serviceService = $container->get('opening_hours.service');
 
     return new static($stringTranslation, $serviceService);
@@ -62,8 +62,8 @@ class ServiceController extends ControllerBase {
 
     $search = $request->query->get('q');
     $services = $this->serviceService->searchByLabel($search);
-    /* @var $service \StadGent\Services\OpeningHours\Value\Service */
     foreach ($services as $service) {
+      /** @var \StadGent\Services\OpeningHours\Value\Service $service */
       $value = sprintf('%s [%d]', $service->getLabel(), $service->getId());
 
       $matches[] = [

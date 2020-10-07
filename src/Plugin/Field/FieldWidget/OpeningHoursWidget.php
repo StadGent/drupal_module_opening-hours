@@ -108,7 +108,7 @@ class OpeningHoursWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
-    /* @var $item \Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem */
+    /** @var \Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem $item */
     $item = $items->get($delta);
     $formValues = $this->extractFormStateValues((int) $delta, $form, $form_state);
 
@@ -430,8 +430,8 @@ class OpeningHoursWidget extends WidgetBase {
     $options = [];
 
     $channels = $this->channelService->getAll($service->getId());
-    /* @var $channel \StadGent\Services\OpeningHours\Value\Channel */
     foreach ($channels as $channel) {
+      /** @var \StadGent\Services\OpeningHours\Value\Channel $channel */
       $options[$channel->getId()] = $channel->getLabel();
     }
 

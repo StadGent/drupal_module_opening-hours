@@ -2,14 +2,10 @@
 
 namespace Drupal\opening_hours\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Display the opening hours info by its field values.

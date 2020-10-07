@@ -55,7 +55,7 @@ plugins:
         - inc
         - module
         - install
-      rulesets: ".phpmd.xml"
+      rulesets: "phpmd.xml"
   csslint:
     enabled: true
   eslint:
