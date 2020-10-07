@@ -46,7 +46,7 @@ function opening_hours_token_info_alter(&$info) {
   $entities = \Drupal::service('entity_field.manager')->getFieldMap();
   foreach ($entities as $entity_key => $entity) {
     foreach ($entity as $field_key => $field) {
-      if ($field['type'] !== 'opening_hours' ) {
+      if ($field['type'] !== 'opening_hours') {
         continue;
       }
 
@@ -74,4 +74,3 @@ function opening_hours_token_info_alter(&$info) {
     }
   }
 }
-

@@ -22,7 +22,7 @@ function opening_hours_field_views_data(FieldStorageConfigInterface $field_stora
   }
 
   $fieldName = sprintf('%s_broken', $field_storage->getName());
-  foreach ($data as $tableName => &$tableData) {
+  foreach ($data as &$tableData) {
     if (!isset($tableData[$fieldName]['filter'])) {
       continue;
     }

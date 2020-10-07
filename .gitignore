@@ -4,3 +4,6 @@
 # Ignore the vendor directory.
 /vendor
 /node_modules
+
+# Ignore build artifacts
+/build

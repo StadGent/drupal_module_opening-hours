@@ -15,6 +15,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Service to sync the opening_hours fields with the service/channel data.
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 final class SyncService implements SyncServiceInterface {
 
