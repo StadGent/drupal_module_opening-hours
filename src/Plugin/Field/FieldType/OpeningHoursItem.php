@@ -104,43 +104,45 @@ class OpeningHoursItem extends FieldItemBase implements OpeningHoursItemInterfac
    * {@inheritdoc}
    */
   public function getServiceId(): ?int {
-    return $this->get('service')->getValue() ?? NULL;
+    $serviceId = (int) $this->get('service')->getString();
+    return $serviceId ?: NULL;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getServiceLabel(): ?string {
-    return $this->get('service_label')->getValue() ?? NULL;
+    return $this->get('service_label')->getString() ?? NULL;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getChannelId(): ?int {
-    return $this->get('channel')->getValue() ?? NULL;
+    $channelId = (int) $this->get('channel')->getString();
+    return $channelId ?: NULL;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getChannelLabel(): ?string {
-    return $this->get('channel_label')->getValue() ?? NULL;
+    return $this->get('channel_label')->getString() ?? NULL;
   }
 
   /**
    * {@inheritdoc}
    */
   public function isBroken(): bool {
-    return (bool) (int) $this->get('broken')->getValue();
+    return (bool) (int) $this->get('broken')->getString();
   }
 
   /**
    * {@inheritdoc}
    */
   public function isEmpty(): bool {
-    return empty($this->getServiceId())
-      || empty($this->getChannelId());
+    return $this->getServiceId() === NULL
+      || $this->getChannelId() === NULL;
   }
 
 }

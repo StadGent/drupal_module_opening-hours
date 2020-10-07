@@ -14,6 +14,7 @@ use Psr\Log\LoggerInterface;
 use StadGent\Services\OpeningHours\Exception\ServiceNotFoundException;
 use StadGent\Services\OpeningHours\Service\Channel\ChannelService;
 use StadGent\Services\OpeningHours\Service\Service\ServiceService;
+use StadGent\Services\OpeningHours\Value\Channel;
 use StadGent\Services\OpeningHours\Value\Service;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -68,7 +69,7 @@ class OpeningHoursWidget extends WidgetBase {
    *   The Channel service.
    */
   public function __construct(
-    $plugin_id,
+    string $plugin_id,
     $plugin_definition,
     FieldDefinitionInterface $field_definition,
     array $settings,
@@ -106,10 +107,10 @@ class OpeningHoursWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
     /* @var $item \Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem */
     $item = $items->get($delta);
-    $formValues = $this->extractFormStateValues($delta, $form, $form_state);
+    $formValues = $this->extractFormStateValues((int) $delta, $form, $form_state);
 
     $currentService = $this->getCurrentService($item, $formValues);
     $currentChannel = $currentService
@@ -175,7 +176,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @return array
    *   The Channel form element.
    */
-  public static function channelsDropdownCallback(array $form, FormStateInterface $form_state) {
+  public static function channelsDropdownCallback(array $form, FormStateInterface $form_state): array {
     $serviceElement = $form_state->getTriggeringElement();
     $openingHours = NestedArray::getValue(
       $form,
@@ -188,7 +189,7 @@ class OpeningHoursWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state): array {
     foreach ($values as $delta => &$value) {
       $this->massageFormValue($value);
       unset($values[$delta]['opening_hours']);
@@ -203,7 +204,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @param array $value
    *   The value array.
    */
-  protected function massageFormValue(array &$value) {
+  protected function massageFormValue(array &$value): void {
     $service = NULL;
     if (!empty($value['opening_hours']['service'])) {
       $service = $this->getServiceFromValueString($value['opening_hours']['service']);
@@ -213,7 +214,7 @@ class OpeningHoursWidget extends WidgetBase {
 
     $channel = NULL;
     if ($service && !empty($value['opening_hours']['channel'])) {
-      $channel = $this->getChannelById($service, $value['opening_hours']['channel']);
+      $channel = $this->getChannelById($service, (int) $value['opening_hours']['channel']);
     }
     $value['channel'] = $channel ? $channel->getId() : NULL;
     $value['channel_label'] = $channel ? $channel->getLabel() : NULL;
@@ -233,7 +234,7 @@ class OpeningHoursWidget extends WidgetBase {
    *
    * @SuppressWarnings(PHPMD.CyclomaticComplexity)
    */
-  public function validate(array $element, FormStateInterface $form_state) {
+  public function validate(array $element, FormStateInterface $form_state): void {
     $serviceElement = $element['service'];
     $channelElement = $element['channel'];
     $service = NULL;
@@ -270,7 +271,7 @@ class OpeningHoursWidget extends WidgetBase {
       return;
     }
 
-    $channel = $this->getChannelById($service, $channelElement['#value']);
+    $channel = $this->getChannelById($service, (int) $channelElement['#value']);
     if (!$channel) {
       $form_state->setError(
         $serviceElement,
@@ -291,7 +292,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @return \StadGent\Services\OpeningHours\Value\Service|null
    *   The current Service (if any).
    */
-  protected function getCurrentService(OpeningHoursItem $item, array $form_values) {
+  protected function getCurrentService(OpeningHoursItem $item, array $form_values): ?Service {
     if ($form_values['is_submitted']) {
       return $this->getServiceFromValueString($form_values['service']);
     }
@@ -316,13 +317,13 @@ class OpeningHoursWidget extends WidgetBase {
    * @return \StadGent\Services\OpeningHours\Value\Channel
    *   The current Channel ID.
    */
-  protected function getCurrentChannel(Service $service, OpeningHoursItem $item, array $form_values) {
+  protected function getCurrentChannel(Service $service, OpeningHoursItem $item, array $form_values): ?Channel {
     if ($form_values['is_submitted']) {
-      return $this->getChannelById($service, $form_values['channel']);
+      return $this->getChannelById($service, (int) $form_values['channel']);
     }
 
-    if (!empty($item->channel)) {
-      return $this->getChannelById($service, $item->channel);
+    if ($item->getChannelId()) {
+      return $this->getChannelById($service, $item->getChannelId());
     }
 
     return NULL;
@@ -337,7 +338,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @return string
    *   This wil contain "service label [ID]".
    */
-  protected function getServiceValueString(Service $service) {
+  protected function getServiceValueString(Service $service): string {
     return sprintf('%s [%d]', $service->getLabel(), $service->getId());
   }
 
@@ -350,13 +351,13 @@ class OpeningHoursWidget extends WidgetBase {
    * @return \StadGent\Services\OpeningHours\Value\Service|null
    *   The Service (if any).
    */
-  protected function getServiceFromValueString($value) {
+  protected function getServiceFromValueString(string $value): ?Service {
     if (empty($value)) {
       return NULL;
     }
 
     $matches = [];
-    preg_match('/\[(\d+)\]$/', $value, $matches);
+    preg_match('/\[(\d+)]$/', $value, $matches);
     if (empty($matches[1])) {
       return NULL;
     }
@@ -373,7 +374,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @return \StadGent\Services\OpeningHours\Value\Service|null
    *   The Service (if any).
    */
-  protected function getServiceById($serviceId) {
+  protected function getServiceById(int $serviceId): ?Service {
     try {
       return $this->serviceService->getById($serviceId);
     }
@@ -400,7 +401,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @return \StadGent\Services\OpeningHours\Value\Channel|null
    *   The Service (if any).
    */
-  protected function getChannelById(Service $service, $channelId) {
+  protected function getChannelById(Service $service, int $channelId): ?Channel {
     try {
       return $this->channelService->getById($service->getId(), $channelId);
     }
@@ -425,7 +426,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @return array
    *   The found Channels as ID => Label.
    */
-  protected function getChannelOptionsForService(Service $service) {
+  protected function getChannelOptionsForService(Service $service): array {
     $options = [];
 
     $channels = $this->channelService->getAll($service->getId());
@@ -452,7 +453,7 @@ class OpeningHoursWidget extends WidgetBase {
    *   - service : The service value from the form state.
    *   - channel : The channel value from the form state.
    */
-  protected function extractFormStateValues($delta, array $form, FormStateInterface $form_state) {
+  protected function extractFormStateValues(int $delta, array $form, FormStateInterface $form_state): array {
     $values = [
       'is_submitted' => $this->isFormSubmitted($form_state),
       'service' => NULL,
@@ -490,7 +491,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @return bool
    *   Is submitted.
    */
-  protected function isFormSubmitted(FormStateInterface $form_state) {
+  protected function isFormSubmitted(FormStateInterface $form_state): bool {
     $trigger = $form_state->getTriggeringElement();
 
     return !empty($trigger['#autocomplete_route_name'])
