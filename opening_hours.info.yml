@@ -1,8 +1,11 @@
 name: 'Opening Hours'
 type: module
 description: 'Integrates the Opening Hours platform functionality.'
+package: 'Digipolis'
 configure: opening_hours.admin_config
-package: 'Web services'
+
 core: '8.x'
+core_version_requirement: ^8 || ^9
+
 'interface translation project': opening_hours
 'interface translation server pattern': modules/contrib/%project/translations/%language.po

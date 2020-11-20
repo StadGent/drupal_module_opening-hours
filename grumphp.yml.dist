@@ -27,4 +27,4 @@ parameters:
         git_commit_message: ~
         git_branch_name:
             whitelist:
-                Git-flow: /(8.x-1.x|8.x-1.x-dev|feature\/(\w+-)?|(release|hotfix)\/8.x-\d+.\d+(-(alpha|beta)\d+)?)/
+                Git-flow: /(master|develop|8.x-1.x|8.x-1.x-dev|feature\/(\w+-)?|(release|hotfix)\/\d+.\d+.\d+(-(alpha|beta)\d+)?)/
