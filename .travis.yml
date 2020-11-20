@@ -9,18 +9,20 @@ env:
     - MODULE_NAME=opening_hours
     - COMPOSER_MEMORY_LIMIT=-1
   matrix:
-    - TEST_SUITE=8.9.x
-    - TEST_SUITE=9.0.x
-    - TEST_SUITE=9.1.x
+    - DRUPAL=8.9
+    - DRUPAL=9.0
+    - DRUPAL=9.1
 
 cache:
   directories:
     - $HOME/.composer/cache
 
 before_install:
-  # Configure composer.
+  # Update & configure composer.
+  - composer self-update --2
+  - composer --version
   - composer config github-oauth.github.com ${GITHUB_TOKEN}
-  - composer global require "hirak/prestissimo:^0.3"
+  - composer config --global --auth http-basic.digipolis.repo.repman.io token ${REPMAN_TOKEN}
 
   # Remember directories for later use.
   - export DRUPAL_DIR="$TRAVIS_BUILD_DIR/../drupal"
@@ -33,13 +35,13 @@ before_install:
 
 install:
   # Install Module.
-  - travis_retry composer install --no-interaction
+  - composer install --no-interaction --no-progress
 
   # Install Drupal.
-  - travis_retry composer create-project drupal/recommended-project:$TEST_SUITE-dev "$DRUPAL_DIR" --no-interaction --dev
+  - composer create-project "drupal/recommended-project:$DRUPAL.x-dev" "$DRUPAL_DIR" --prefer-dist --no-interaction --no-progress
 
   # Install Drupal Check.
-  - composer require mglaman/drupal-check --dev --working-dir="$DRUPAL_DIR"
+  - composer require mglaman/drupal-check:1.1.3 --working-dir="$DRUPAL_DIR" --no-interaction --no-progress
 
 before_script:
   # Link to module from within Drupal.

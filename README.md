@@ -1,11 +1,17 @@
-# Drupal 8 : Opening Hours module
+# Drupal Opening Hours module
 
-[![License][ico-license]][link-license]
-
-Drupal 8 module that integrates the Opening Hours platform functionality.
+Drupal 8+ module that integrates the Opening Hours platform functionality.
 
 This module allows to consume the [Opening Hours Platform] API to lookup
 services, their channels and their opening hours data.
+
+[![Github][github-badge]][github-link]
+[![License][license-badge]][license-link]
+
+[![Build Status Master][travis-master-badge]][travis-master-link]
+[![Build Status Develop][travis-develop-badge]][travis-develop-link]
+[![Maintainability][codeclimate-maint-badge]][codeclimate-maint-link]
+[![Test Coverage][codeclimate-cover-badge]][codeclimate-cover-link]
 
 ## Install
 
@@ -115,10 +121,23 @@ with open arms! We are committed to creating and maintaining open source
 projects. Questions about our approach can be asked through the issue queue
 (except for security issues).
 
-[ico-license]: https://img.shields.io/github/license/StadGent/drupal_module_opening-hours.svg?style=flat-square
 
-[link-license]: LICENSE.md
 [link-author-stadgent]: https://github.com/stadgent
 [link-author-digipolisgent]: https://github.com/digipolisgent
 [link-contributors]: ../../contributors
 [Opening Hours platform]: https://github.com/StadGent/laravel_site_opening-hours
+
+[github-badge]: https://img.shields.io/badge/github-StadGent_Opening_Hours-blue.svg?logo=github
+[github-link]: https://github.com/StadGent/drupal_module_opening-hours
+[license-badge]: https://img.shields.io/github/license/StadGent/drupal_module_opening-hours.svg?style=flat-square
+[license-link]: LICENSE.md
+
+[travis-master-badge]: https://api.travis-ci.com/StadGent/drupal_module_opening-hours.svg?branch=8.x-1.x "Travis build master"
+[travis-master-link]: https://travis-ci.com/github/StadGent/drupal_module_opening-hours/branches
+[travis-develop-badge]: https://api.travis-ci.com/StadGent/drupal_module_opening-hours.svg?branch=8.x-1.x-dev "Travis build develop"
+[travis-develop-link]: https://travis-ci.com/github/StadGent/drupal_module_opening-hours/branches
+
+[codeclimate-maint-badge]: https://api.codeclimate.com/v1/badges/b91a9d4708dae2596c04/maintainability
+[codeclimate-maint-link]: https://codeclimate.com/github/StadGent/drupal_module_opening-hours/maintainability
+[codeclimate-cover-badge]: https://api.codeclimate.com/v1/badges/b91a9d4708dae2596c04/test_coverage
+[codeclimate-cover-link]: https://codeclimate.com/github/StadGent/drupal_module_opening-hours/test_coverage
