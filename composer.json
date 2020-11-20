@@ -34,7 +34,7 @@
         "grumphp": "vendor/bin/grumphp run --ansi",
         "phpcs": "vendor/bin/phpcs -p --colors",
         "phpstan": "vendor/bin/phpstan analyse --level=7 ./src",
-        "test": "vendor/bin/phpunit",
+        "phpunit": "vendor/bin/phpunit",
         "post-install-cmd": "vendor/bin/grumphp git:init"
     },
     "extra": {
