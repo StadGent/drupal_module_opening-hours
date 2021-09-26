@@ -15,25 +15,24 @@
     attach: function (context, settings) {
       var self = this;
 
-      var items = document.querySelectorAll('.openinghours-widget');
+      var items = $('.openinghours-widget', context).once('openingHoursWidget');
 
-      var options = {
-        'endpoint': settings.openingHours.endpoint,
-        'endpoint_key': settings.openingHours.endpoint_key,
-        'language': settings.openingHours.language,
-        'error' : function (item) {
-          var elem = getClosest(item, '.openinghours-wrapper');
-          if (elem && elem.parentNode) {
-            elem.parentNode.removeChild(elem);
+      if (items.length) {
+        var options = {
+          'endpoint': settings.openingHours.endpoint,
+          'endpoint_key': settings.openingHours.endpoint_key,
+          'language': settings.openingHours.language,
+          'error' : function (item) {
+            var elem = getClosest(item, '.openinghours-wrapper');
+            if (elem && elem.parentNode) {
+              elem.parentNode.removeChild(elem);
+            }
           }
-        }
-      };
+        };
 
-      new OpeningHours(items, options);
+        new OpeningHours(items, options);
 
-      var navLinks = document.querySelectorAll('.openinghours-navigation a');
-      for (var y = 0; y < navLinks.length; y++) {
-        navLinks[y].addEventListener('click', self.switchViewMode(options));
+        $('.openinghours-navigation a', context).click(self.switchViewMode(options));
       }
     },
 
