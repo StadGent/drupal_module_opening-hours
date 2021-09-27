@@ -15,9 +15,9 @@
     attach: function (context, settings) {
       var self = this;
 
-      $(document).once('openingHoursWidget').each(function () {
-        var items = document.querySelectorAll('.openinghours-widget');
+      var items = $('.openinghours-widget', context).once('openingHoursWidget');
 
+      if (items.length) {
         var options = {
           'endpoint': settings.openingHours.endpoint,
           'endpoint_key': settings.openingHours.endpoint_key,
@@ -32,11 +32,8 @@
 
         new OpeningHours(items, options);
 
-        var navLinks = document.querySelectorAll('.openinghours-navigation a');
-        for (var y = 0; y < navLinks.length; y++) {
-          navLinks[y].addEventListener('click', self.switchViewMode(options));
-        }
-      });
+        $('.openinghours-navigation a', context).click(self.switchViewMode(options));
+      }
     },
 
     /**
