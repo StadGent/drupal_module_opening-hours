@@ -1,31 +1,32 @@
+dist: bionic
 language: php
 
 php:
-  - 7.4
   - 8.1
-
-env:
-  global:
-    - MODULE_NAME=opening_hours
-    - COMPOSER_MEMORY_LIMIT=-1
-  matrix:
-    - DRUPAL=9.3
-    - DRUPAL=9.4
 
 cache:
   directories:
     - $HOME/.composer/cache
 
+jobs:
+  fast_finish: true
+
 before_install:
-  # Update & configure composer.
+  # Update composer to latest v2.
   - composer self-update --2
   - composer --version
-  - composer config github-oauth.github.com ${GITHUB_TOKEN}
-  - composer config --global --auth http-basic.digipolis.repo.repman.io token ${REPMAN_TOKEN}
 
-  # Remember directories for later use.
-  - export DRUPAL_DIR="$TRAVIS_BUILD_DIR/../drupal"
-  - export MODULE_DIR="$DRUPAL_DIR/web/modules/$MODULE_NAME"
+  # Update SQLite.
+  - sudo echo "deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse" >> /etc/apt/sources.list
+  - sudo apt-get update
+  - sudo apt-get -y install sqlite3/focal
+
+  # Disable sending out e-mails.
+  - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+  # Configure the repository authentication mechanisms.
+  - if [ "${GITHUB_TOKEN}" != "" ]; then composer config github-oauth.github.com ${GITHUB_TOKEN}; fi
+  - if [ "${REPMAN_TOKEN}" != "" ]; then composer config --global --auth http-basic.digipolis.repo.repman.io token ${REPMAN_TOKEN}; fi
 
   # Get the CodeClimate test reporter.
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -33,28 +34,28 @@ before_install:
   - ./cc-test-reporter before-build
 
 install:
-  # Install Module.
-  - composer install --no-interaction --no-progress
-
-  # Install Drupal.
-  - composer create-project "drupal/recommended-project:$DRUPAL.x-dev" "$DRUPAL_DIR" --prefer-dist --no-interaction --no-progress
-
-  # Install Drupal Check.
-  - composer require mglaman/drupal-check:1.1.3 --working-dir="$DRUPAL_DIR" --no-interaction --no-progress
-
-before_script:
-  # Link to module from within Drupal.
-  - ln -s . "$MODULE_DIR"
+  - touch .env.local
+  - composer install -n --no-progress
 
 script:
-  # Run GrumPHP checks.
-  - vendor/bin/grumphp run
-
-  # Test for deprecations.
-  - cd "$DRUPAL_DIR"
-  - phpenv config-rm xdebug.ini
-  - ./vendor/bin/drupal-check -ad "$MODULE_DIR"
+  # Add the following again when the issues are fixed: phpcpd,phpmd,phpstan,phpunit,twigcs
+  - vendor/bin/grumphp run -n --tasks=composer,composer_normalize,phpcs,yamllint
 
 after_script:
-  - cd "$TRAVIS_BUILD_DIR"
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  # Send the coverage report to the CodeClimate test reporter.
+  - ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
+
+  # Get and run the SonarQube scanner.
+  - SONAR_PROJECT_NAME="Drupal $(composer config name | cut -d / -f 2)"
+  - SONAR_PROJECT_KEY=web:$(echo "$TRAVIS_REPO_SLUG" | cut -d / -f 2)
+  - curl -L https://repo1.maven.org/maven2/org/sonarsource/scanner/cli/sonar-scanner-cli/4.3.0.2102/sonar-scanner-cli-4.3.0.2102.jar > sonar-scanner.jar
+  - "[ -d tests ] || mkdir tests"
+  - >
+    java -jar sonar-scanner.jar
+    -Dsonar.host.url=https://sonarqube.stad.gent
+    -Dsonar.login=$SONAR_LOGIN
+    -Dsonar.projectKey=$SONAR_PROJECT_KEY
+    -Dsonar.projectName="$SONAR_PROJECT_NAME"
+    -Dsonar.tests=tests
+    -Dsonar.exclusions=**/tests/**/*
+    -Dsonar.php.coverage.reportPaths=build/logs/clover.xml
