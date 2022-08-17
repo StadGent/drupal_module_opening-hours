@@ -1,17 +1,16 @@
 language: php
 
 php:
-  - 7.3
   - 7.4
+  - 8.1
 
 env:
   global:
     - MODULE_NAME=opening_hours
     - COMPOSER_MEMORY_LIMIT=-1
   matrix:
-    - DRUPAL=8.9
-    - DRUPAL=9.0
-    - DRUPAL=9.1
+    - DRUPAL=9.3
+    - DRUPAL=9.4
 
 cache:
   directories:
