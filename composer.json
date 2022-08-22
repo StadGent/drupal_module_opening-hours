@@ -1,23 +1,21 @@
 {
     "name": "drupal/opening_hours",
-    "type": "drupal-module",
     "description": "Integrates the Opening Hours platform functionality.",
+    "license": "GPL-2.0+",
+    "type": "drupal-module",
     "keywords": [
         "Drupal",
         "gent",
         "services",
         "opening hours"
     ],
-    "license": "GPL-2.0+",
-    "homepage": "https://github.com/StadGent/drupal_module_opening-hours",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "authors": [
         {
             "name": "Peter Decuyper",
             "email": "peter.decuyper@digipolis.gent"
         }
     ],
+    "homepage": "https://github.com/StadGent/drupal_module_opening-hours",
     "support": {
         "issues": "https://github.com/StadGent/drupal_module_opening-hours/issues",
         "source": "https://github.com/StadGent/drupal_module_opening-hours"
@@ -29,13 +27,14 @@
     "require-dev": {
         "digipolisgent/qa-drupal": "^1"
     },
-    "scripts": {
-        "coverage": "vendor/bin/phpunit --configuration=phpunit-coverage.xml",
-        "grumphp": "vendor/bin/grumphp run --ansi",
-        "phpcs": "vendor/bin/phpcs -p --colors",
-        "phpstan": "vendor/bin/phpstan analyse --level=7 ./src",
-        "phpunit": "vendor/bin/phpunit",
-        "post-install-cmd": "vendor/bin/grumphp git:init"
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp-shim": true,
+            "ergebnis/composer-normalize": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "extra": {
         "drush": {
@@ -44,11 +43,12 @@
             }
         }
     },
-    "config": {
-        "allow-plugins": {
-            "phpro/grumphp-shim": true,
-            "ergebnis/composer-normalize": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
+    "scripts": {
+        "post-install-cmd": "vendor/bin/grumphp git:init",
+        "coverage": "vendor/bin/phpunit --configuration=phpunit-coverage.xml",
+        "grumphp": "vendor/bin/grumphp run --ansi",
+        "phpcs": "vendor/bin/phpcs -p --colors",
+        "phpstan": "vendor/bin/phpstan analyse --level=7 ./src",
+        "phpunit": "vendor/bin/phpunit"
     }
 }
