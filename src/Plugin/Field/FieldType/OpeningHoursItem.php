@@ -112,7 +112,7 @@ class OpeningHoursItem extends FieldItemBase implements OpeningHoursItemInterfac
    * {@inheritdoc}
    */
   public function getServiceLabel(): ?string {
-    return $this->get('service_label')->getString() ?? NULL;
+    return $this->get('service_label')->getString();
   }
 
   /**
@@ -127,7 +127,7 @@ class OpeningHoursItem extends FieldItemBase implements OpeningHoursItemInterfac
    * {@inheritdoc}
    */
   public function getChannelLabel(): ?string {
-    return $this->get('channel_label')->getString() ?? NULL;
+    return $this->get('channel_label')->getString();
   }
 
   /**

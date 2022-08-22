@@ -119,7 +119,7 @@ final class SyncCommands extends DrushCommands {
    *   The type:id string.
    */
   protected function syncEntity($what) {
-    list($entityType, $entityId) = explode(':', $what, 2);
+    [$entityType, $entityId] = explode(':', $what, 2);
 
     $storage = $this->entityTypeManager->getStorage($entityType);
     $entity = $storage->load($entityId);
