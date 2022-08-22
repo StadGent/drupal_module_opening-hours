@@ -24,7 +24,7 @@
     },
     "require": {
         "php": "^7.4 || ^8.1",
-        "stadgent/services-opening-hours": "^1.1"
+        "stadgent/services-opening-hours": "^1.3"
     },
     "require-dev": {
         "digipolisgent/qa-drupal": "^1"
