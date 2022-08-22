@@ -43,5 +43,12 @@
                 "drush.services.yml": "^9"
             }
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp-shim": true,
+            "ergebnis/composer-normalize": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
