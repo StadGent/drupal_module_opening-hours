@@ -38,8 +38,7 @@ install:
   - composer install -n --no-progress
 
 script:
-  # Add the following again when the issues are fixed: phpcpd,phpmd,phpstan,phpunit,twigcs
-  - vendor/bin/grumphp run -n --tasks=composer,composer_normalize,phpcs,yamllint
+  - vendor/bin/grumphp run -n
 
 after_script:
   # Send the coverage report to the CodeClimate test reporter.

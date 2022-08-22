@@ -3,7 +3,7 @@
 namespace Drupal\opening_hours\Event;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Event when a link between an Opening Hours field and the backend is broken.

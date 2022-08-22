@@ -12,4 +12,5 @@ opening_hours.service.autocomplete:
     _controller: Drupal\opening_hours\Controller\ServiceController::autocomplete
     _title: 'Lookup services'
   requirements:
+    # The autocomplete route is accessible to the public.
     _access: 'TRUE'
