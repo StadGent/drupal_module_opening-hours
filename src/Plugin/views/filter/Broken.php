@@ -27,7 +27,9 @@ class Broken extends BooleanOperator {
       $where = sprintf('%s <> 0', $fieldName);
     }
 
-    $this->query->addWhereExpression($this->options['group'], $where);
+    /** @var \Drupal\views\Plugin\views\query\Sql $query */
+    $query = $this->query();
+    $query->addWhereExpression($this->options['group'], $where);
   }
 
 }

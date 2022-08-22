@@ -402,6 +402,7 @@ final class SyncService implements SyncServiceInterface {
    * Dispatch an event when the field link is broken.
    */
   protected function fieldLinkIsBroken(ContentEntityInterface $entity, $fieldName, $delta) {
+    // @phpstan-ignore-next-line
     $this
       ->eventDispatcher
       ->dispatch(

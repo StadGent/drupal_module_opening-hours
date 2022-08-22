@@ -7,3 +7,8 @@
 
 # Ignore build artifacts
 /build
+
+# QA Drupal.
+/*.local.*
+/*.qa-drupal.*
+/.phpunit.result.cache

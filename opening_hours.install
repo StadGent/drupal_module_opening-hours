@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
+use Drupal\Core\Entity\Sql\SqlContentEntityStorageException;
 
 /**
  * Implements hook_requirements().
@@ -27,7 +28,7 @@ function opening_hours_requirements($phase) {
       // Provide a download link to the opening_hours jQuery plugin.
       $requirements['opening_hours']['description'] = t('The <a href="@opening_hours" target="_blank">opening hours widget</a> plugin is missing. See <a href="@readme">README.md</a> for instructions on how to download and extract it.', [
         '@opening_hours' => 'https://github.com/StadGent/npm_package_opening-hours-widget',
-        '@readme' => '/' . drupal_get_path('module', 'opening_hours') . '/README.md',
+        '@readme' => '/' . \Drupal::service('extension.list.module')->getPath('opening_hours') . '/README.md',
       ]);
       $requirements['opening_hours']['severity'] = REQUIREMENT_ERROR;
     }

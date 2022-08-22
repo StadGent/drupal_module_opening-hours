@@ -95,9 +95,7 @@ class WidgetTypes {
    */
   public function getLabelByType($type) {
     $types = $this->getList();
-    return isset($types[$type])
-      ? $types[$type]
-      : NULL;
+    return $types[$type] ?? NULL;
   }
 
   /**
@@ -111,9 +109,7 @@ class WidgetTypes {
    */
   public function getToggleLabelByType($type) {
     $types = $this->getToggleList();
-    return isset($types[$type])
-      ? $types[$type]
-      : NULL;
+    return $types[$type] ?? NULL;
   }
 
 }
