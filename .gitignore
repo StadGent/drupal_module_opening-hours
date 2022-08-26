@@ -1,14 +1,15 @@
 # Ignore the module lock file.
 /composer.lock
 
-# Ignore the vendor directory.
+# Ignore vendor directories.
 /vendor
 /node_modules
 
-# Ignore build artifacts
+# Ignore build artifacts.
 /build
-
-# QA Drupal.
+/.phpunit.result.cache
 /*.local.*
 /*.qa-drupal.*
-/.phpunit.result.cache
+
+# Ignore binary translation files.
+*.mo

@@ -1,47 +1,48 @@
-dist: bionic
 language: php
+sudo: false
 
 php:
+  - 7.4
+  - 8.0
   - 8.1
 
 cache:
   directories:
     - $HOME/.composer/cache
 
+env:
+  matrix:
+    - DRUPAL=9.3
+    - DRUPAL=9.4
+
 jobs:
   fast_finish: true
 
 before_install:
-  # Update composer to latest v2.
+  # Update composer.
   - composer self-update --2
   - composer --version
 
-  # Update SQLite.
-  - sudo echo "deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse" >> /etc/apt/sources.list
-  - sudo apt-get update
-  - sudo apt-get -y install sqlite3/focal
+  # Configure the authentication mechanisms.
+  - composer config -ga github-oauth.github.com $GITHUB_TOKEN
+  - composer config -ga http-basic.digipolis.repo.repman.io token $REPMAN_TOKEN
 
-  # Disable sending out e-mails.
-  - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  # Require Drupal core.
+  - composer require -n --no-update --sort-packages --dev drupal/core:~$DRUPAL.0
 
-  # Configure the repository authentication mechanisms.
-  - if [ "${GITHUB_TOKEN}" != "" ]; then composer config github-oauth.github.com ${GITHUB_TOKEN}; fi
-  - if [ "${REPMAN_TOKEN}" != "" ]; then composer config --global --auth http-basic.digipolis.repo.repman.io token ${REPMAN_TOKEN}; fi
-
-  # Get the CodeClimate test reporter.
+  # Get and run the Code Climate test reporter.
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 
 install:
-  - touch .env.local
   - composer install -n --no-progress
 
 script:
   - vendor/bin/grumphp run -n
 
 after_script:
-  # Send the coverage report to the CodeClimate test reporter.
+  # Run the Code Climate test reporter.
   - ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
 
   # Get and run the SonarQube scanner.
@@ -55,6 +56,7 @@ after_script:
     -Dsonar.login=$SONAR_LOGIN
     -Dsonar.projectKey=$SONAR_PROJECT_KEY
     -Dsonar.projectName="$SONAR_PROJECT_NAME"
+    -Dsonar.sources=.
     -Dsonar.tests=tests
-    -Dsonar.exclusions=**/tests/**/*
+    -Dsonar.exclusions=**/build/**/*,**/vendor/**/*,**/tests/**/*
     -Dsonar.php.coverage.reportPaths=build/logs/clover.xml

@@ -80,13 +80,16 @@ class ConfigForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if (!UrlHelper::isValid($form_state->getValue('endpoint'), TRUE)) {
+    $endpointIsvalid = UrlHelper::isValid($form_state->getValue('endpoint'), TRUE);
+
+    if (!$endpointIsvalid) {
       $form_state->setErrorByName(
         'endpoint',
         $this->t('Provide an absolute URL.')
       );
     }
-    else {
+
+    if ($endpointIsvalid) {
       $form_state->setValue(
         'endpoint',
         rtrim($form_state->getValue('endpoint'), '/') . '/'
