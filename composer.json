@@ -23,7 +23,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "drupal/core": "^9.3",
-        "stadgent/services-opening-hours": "^1.3"
+        "stadgent/services-opening-hours": "^2.0"
     },
     "require-dev": {
         "digipolisgent/qa-drupal": "^1.7",

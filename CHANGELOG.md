@@ -4,10 +4,6 @@ All Notable changes to `drupal/opening-hours` module.
 
 ## [Unreleased]
 
-### Updated
-
-- Update qa-drupal.
-
 ### Fixed
 
 - Fix code issues.
@@ -15,6 +11,12 @@ All Notable changes to `drupal/opening-hours` module.
 ### Changed
 
 - Change minimal drupal version to 9.3.
+- Change Client service creation to a factory.
+
+### Updated
+
+- Update qa-drupal.
+- Update stadgent/services-opening-hours package to 2.x.
 
 ## [1.4.1]
 
