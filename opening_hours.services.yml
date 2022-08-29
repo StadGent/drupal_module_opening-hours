@@ -1,7 +1,8 @@
 services:
   opening_hours.client:
-    class: Drupal\opening_hours\Services\ClientService
+    factory: [ 'Drupal\opening_hours\Services\ClientFactory', 'create' ]
     arguments: [ '@config.factory' ]
+    class: StadGent\Services\OpeningHours\Client\Client
   opening_hours.service:
     class: StadGent\Services\OpeningHours\Service\Service\ServiceService
     factory: Drupal\opening_hours\Services\ServiceFactory::createServiceService

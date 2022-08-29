@@ -20,12 +20,9 @@ class Broken extends BooleanOperator {
     $this->ensureMyTable();
     $fieldName = sprintf('%s.%s', $this->tableAlias, $this->realField);
 
-    if (empty($this->value)) {
-      $where = sprintf('(%s = 0 OR %s IS NULL)', $fieldName, $fieldName);
-    }
-    else {
-      $where = sprintf('%s <> 0', $fieldName);
-    }
+    $where = empty($this->value)
+      ? sprintf('(%s = 0 OR %s IS NULL)', $fieldName, $fieldName)
+      : sprintf('%s <> 0', $fieldName);
 
     /** @var \Drupal\views\Plugin\views\query\Sql $query */
     $query = $this->query();

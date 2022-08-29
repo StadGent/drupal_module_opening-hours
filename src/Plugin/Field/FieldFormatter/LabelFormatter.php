@@ -76,6 +76,8 @@ class LabelFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
+    $element = [];
+
     $element['label_format'] = [
       '#title' => $this->t('Format'),
       '#description' => $this->t('Create a label by combining the available data.'),
