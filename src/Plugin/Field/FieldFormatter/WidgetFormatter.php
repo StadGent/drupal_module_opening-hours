@@ -24,10 +24,9 @@ class WidgetFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [];
-
-    $types = new WidgetTypes();
-
+    $widgets = [];
     $preview_widget = FALSE;
+    $types = new WidgetTypes();
 
     if ($this->getSetting('preview_widget_type')) {
       $preview_widget = [
@@ -86,6 +85,7 @@ class WidgetFormatter extends FormatterBase {
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $types = new WidgetTypes();
 
+    $element = [];
     $element['widget_type'] = [
       '#title' => $this->t('Type'),
       '#type' => 'select',

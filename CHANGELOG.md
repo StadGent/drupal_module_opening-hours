@@ -2,6 +2,22 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Fixed
+
+- Fix code issues.
+
+### Changed
+
+- Change minimal drupal version to 9.3.
+- Change Client service creation to a factory.
+
+### Updated
+
+- Update qa-drupal.
+- Update stadgent/services-opening-hours package to 2.x.
+
 ## [1.4.1]
 
 ### Changed
@@ -236,4 +252,4 @@ for the same widget.
 [8.x-1.0-alpha3]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha2...8.x-1.0-alpha3
 [8.x-1.0-alpha2]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.0-alpha1...8.x-1.0-alpha2
 [8.x-1.0-alpha1]: https://github.com/StadGent/drupal_module_opening-hours/releases/tag/8.x-1.0-alpha1
-[Unreleased]: https://github.com/StadGent/drupal_module_opening-hours/compare/master...develop
+[Unreleased]: https://github.com/StadGent/drupal_module_opening-hours/compare/main...develop

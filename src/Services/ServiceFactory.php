@@ -1,11 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\opening_hours\Services;
 
 use StadGent\Services\OpeningHours\Channel;
 use StadGent\Services\OpeningHours\ChannelOpeningHours;
 use StadGent\Services\OpeningHours\ChannelOpeningHoursHtml;
+use StadGent\Services\OpeningHours\Client\Client;
 use StadGent\Services\OpeningHours\Service;
+use StadGent\Services\OpeningHours\Service\Channel\ChannelServiceInterface;
+use StadGent\Services\OpeningHours\Service\Channel\OpeningHoursHtmlServiceInterface;
+use StadGent\Services\OpeningHours\Service\Channel\OpeningHoursServiceInterface;
+use StadGent\Services\OpeningHours\Service\Service\ServiceServiceInterface;
 
 /**
  * Factory to create the different Opening Hours Services.
@@ -17,52 +24,52 @@ class ServiceFactory {
   /**
    * Create the Service service.
    *
-   * @param \Drupal\opening_hours\Services\ClientService $client
+   * @param \StadGent\Services\OpeningHours\Client\Client $client
    *   The client service.
    *
-   * @return \StadGent\Services\OpeningHours\Service\Service\ServiceService
+   * @return \StadGent\Services\OpeningHours\Service\Service\ServiceServiceInterface
    *   The Service Service.
    */
-  public static function createServiceService(ClientService $client) {
+  public static function createServiceService(Client $client): ServiceServiceInterface {
     return Service::create($client);
   }
 
   /**
    * Create the Channel service.
    *
-   * @param \Drupal\opening_hours\Services\ClientService $client
+   * @param \StadGent\Services\OpeningHours\Client\Client $client
    *   The client service.
    *
-   * @return \StadGent\Services\OpeningHours\Service\Channel\ChannelService
+   * @return \StadGent\Services\OpeningHours\Service\Channel\ChannelServiceInterface
    *   The Channel service.
    */
-  public static function createChannelService(ClientService $client) {
+  public static function createChannelService(Client $client): ChannelServiceInterface {
     return Channel::create($client);
   }
 
   /**
    * Create the Channel OpeningHours service.
    *
-   * @param \Drupal\opening_hours\Services\ClientService $client
+   * @param \StadGent\Services\OpeningHours\Client\Client $client
    *   The client service.
    *
-   * @return \StadGent\Services\OpeningHours\Service\Channel\OpeningHoursService
+   * @return \StadGent\Services\OpeningHours\Service\Channel\OpeningHoursServiceInterface
    *   The Channel Opening Hours service.
    */
-  public static function createChannelOpeningHoursService(ClientService $client) {
+  public static function createChannelOpeningHoursService(Client $client): OpeningHoursServiceInterface {
     return ChannelOpeningHours::create($client);
   }
 
   /**
    * Create the Channel OpeningHours HTML service.
    *
-   * @param \Drupal\opening_hours\Services\ClientService $client
+   * @param \StadGent\Services\OpeningHours\Client\Client $client
    *   The client service.
    *
-   * @return \StadGent\Services\OpeningHours\Service\Channel\OpeningHoursHtmlService
+   * @return \StadGent\Services\OpeningHours\Service\Channel\OpeningHoursHtmlServiceInterface
    *   The Channel Opening Hours HTML service.
    */
-  public static function createChannelOpeningHoursHtmlService(ClientService $client) {
+  public static function createChannelOpeningHoursHtmlService(Client $client): OpeningHoursHtmlServiceInterface {
     return ChannelOpeningHoursHtml::create($client);
   }
 
