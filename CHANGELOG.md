@@ -2,7 +2,7 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
-## [Unreleased]
+## [2.0.0]
 
 ### Fixed
 
@@ -17,6 +17,12 @@ All Notable changes to `drupal/opening-hours` module.
 
 - Update qa-drupal.
 - Update stadgent/services-opening-hours package to 2.x.
+
+## [1.5.0]
+
+### Added
+
+- Add support for PHP 8.x.
 
 ## [1.4.1]
 
@@ -229,6 +235,8 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[2.0.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/1.5.0...2.0.0
+[1.5.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/1.4.1...1.5.0
 [1.4.1]: https://github.com/StadGent/drupal_module_opening-hours/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.3...1.4.0
 [8.x-1.3]: https://github.com/StadGent/drupal_module_opening-hours/compare/8.x-1.2...8.x-1.3
