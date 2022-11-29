@@ -75,12 +75,12 @@ class WidgetTypes {
    */
   public function getToggleList() {
     return [
-      self::OPEN_NOW => new TranslatableMarkup('now'),
-      self::DAY => new TranslatableMarkup('this day'),
-      self::WEEK => new TranslatableMarkup('week overview'),
-      self::WEEK_FROM_NOW => new TranslatableMarkup('week overview'),
-      self::MONTH => new TranslatableMarkup('month overview'),
-      self::YEAR => new TranslatableMarkup('this year'),
+      self::OPEN_NOW => new TranslatableMarkup('Now'),
+      self::DAY => new TranslatableMarkup('This day'),
+      self::WEEK => new TranslatableMarkup('Week overview'),
+      self::WEEK_FROM_NOW => new TranslatableMarkup('This week'),
+      self::MONTH => new TranslatableMarkup('This month'),
+      self::YEAR => new TranslatableMarkup('This year'),
     ];
   }
 
