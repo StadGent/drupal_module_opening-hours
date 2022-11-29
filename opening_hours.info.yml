@@ -1,7 +1,7 @@
 name: 'Opening Hours'
 type: module
 description: 'Integrates the Opening Hours platform functionality.'
-package: 'Digipolis'
+package: 'District09'
 configure: opening_hours.admin_config
 
 core_version_requirement: ^9.3
