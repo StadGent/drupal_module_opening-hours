@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Changed
+
+* Change widget tab labels.
+
 ## [2.0.0]
 
 ### Fixed
