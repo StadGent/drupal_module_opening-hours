@@ -1,6 +1,6 @@
 # Drupal Opening Hours module
 
-Drupal 8+ module that integrates the Opening Hours platform functionality.
+Drupal 9.4+ module that integrates the Opening Hours platform functionality.
 
 This module allows to consume the [Opening Hours Platform] API to lookup
 services, their channels and their opening hours data.
@@ -21,21 +21,21 @@ Add the git source to the composer by editing the `composer.json` in the project
 root and add following lines in the `repositories section:
 
 ```json
-    {
+    "repman-digipolis": {
+        "type": "composer",
+        "url": "https://digipolis.repo.repman.io"
+    },
+    "digipolis-gent/opening-hours-widget": {
         "type": "package",
         "package": {
             "name": "drupal/opening-hours-widget",
-            "version": "0.1.1",
             "type": "drupal-library",
+            "version": "0.1.1",
             "dist": {
-                "url": "https://github.com/StadGent/npm_package_opening-hours-widget/releases/download/0.1.1/opening-hours-widget.zip",
-                "type": "zip"
+                "type": "zip",
+                "url": "https://github.com/StadGent/npm_package_opening-hours-widget/releases/download/0.1.1/opening-hours-widget.zip"
             }
         }
-    },
-    {
-        "type": "vcs",
-        "url": "git@github.com:StadGent/drupal_module_opening-hours.git"
     }
 ```
 
