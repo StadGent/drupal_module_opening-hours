@@ -2,6 +2,17 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [2.2.0]
+
+### Added
+
+* DMOH-59: Add support for Drupal 10.
+
+### Changed
+
+* DMOH-59: Change minimal Drupal version to 9.4 or 10.0.
+* DMOH-59: Change minimal PHP version to 8.1.
+
 ## [2.1.0]
 
 ### Changed

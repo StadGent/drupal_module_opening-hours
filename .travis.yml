@@ -2,8 +2,6 @@ language: php
 sudo: false
 
 php:
-  - 7.4
-  - 8.0
   - 8.1
 
 cache:
@@ -12,8 +10,9 @@ cache:
 
 env:
   matrix:
-    - DRUPAL=9.3
     - DRUPAL=9.4
+    - DRUPAL=9.5
+    - DRUPAL=10.0
 
 jobs:
   fast_finish: true
@@ -44,19 +43,3 @@ script:
 after_script:
   # Run the Code Climate test reporter.
   - ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT
-
-  # Get and run the SonarQube scanner.
-  - SONAR_PROJECT_NAME="Drupal $(composer config name | cut -d / -f 2)"
-  - SONAR_PROJECT_KEY=web:$(echo "$TRAVIS_REPO_SLUG" | cut -d / -f 2)
-  - curl -L https://repo1.maven.org/maven2/org/sonarsource/scanner/cli/sonar-scanner-cli/4.3.0.2102/sonar-scanner-cli-4.3.0.2102.jar > sonar-scanner.jar
-  - "[ -d tests ] || mkdir tests"
-  - >
-    java -jar sonar-scanner.jar
-    -Dsonar.host.url=https://sonarqube.stad.gent
-    -Dsonar.login=$SONAR_LOGIN
-    -Dsonar.projectKey=$SONAR_PROJECT_KEY
-    -Dsonar.projectName="$SONAR_PROJECT_NAME"
-    -Dsonar.sources=.
-    -Dsonar.tests=tests
-    -Dsonar.exclusions=**/build/**/*,**/vendor/**/*,**/tests/**/*
-    -Dsonar.php.coverage.reportPaths=build/logs/clover.xml
