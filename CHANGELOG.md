@@ -2,6 +2,17 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [2.2.0]
+
+### Added
+
+* DMOH-59: Add support for Drupal 10.
+
+### Changed
+
+* DMOH-59: Change minimal Drupal version to 9.4 or 10.0.
+* DMOH-59: Change minimal PHP version to 8.1.
+
 ## [2.1.0]
 
 ### Changed
@@ -241,6 +252,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[2.2.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/1.5.0...2.0.0
 [1.5.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/1.4.1...1.5.0

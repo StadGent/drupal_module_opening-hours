@@ -21,12 +21,12 @@
         "source": "https://github.com/StadGent/drupal_module_opening-hours"
     },
     "require": {
-        "php": "^7.4 || ^8.0",
-        "drupal/core": "^9.3",
+        "php": "^8.1",
+        "drupal/core": "^9.4 || ^10.0",
         "stadgent/services-opening-hours": "^2.0"
     },
     "require-dev": {
-        "digipolisgent/qa-drupal": "^1.7.2",
+        "digipolisgent/qa-drupal": "^2.0",
         "drush/drush": "^11"
     },
     "minimum-stability": "dev",
@@ -56,6 +56,6 @@
         "phpcs": "vendor/bin/grumphp run --tasks=phpcs",
         "phpmd": "vendor/bin/grumphp run --tasks=phpmd",
         "phpstan": "vendor/bin/grumphp run --tasks=phpstan",
-        "phpunit": "vendor/bin/phpunit --configuration=phpunit.qa-drupal.xml"
+        "phpunit": "vendor/bin/phpunit --no-logging --no-coverage --configuration=phpunit.qa-drupal.xml"
     }
 }

@@ -15,7 +15,7 @@
     attach: function (context, settings) {
       var self = this;
 
-      var items = $('.openinghours-widget', context).once('openingHoursWidget');
+      var items = $(once('openingHoursWidget', '.openinghours-widget', context));
 
       if (items.length) {
         var options = {
