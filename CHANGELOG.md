@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [unreleased]
+
+### Fixed
+
+* VG-2540: Fix views Broken filter.
+
 ## [2.2.0]
 
 ### Added
