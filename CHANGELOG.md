@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Added
+
+* DMOH-60: Add Drupal 11 support.
+
 ## [2.2.1]
 
 ### Fixed

@@ -4,7 +4,7 @@ description: 'Integrates the Opening Hours platform functionality.'
 package: 'District09'
 configure: opening_hours.admin_config
 
-core_version_requirement: ^9.4 || ^10
+core_version_requirement: ^9.4 || ^10 || ^11
 
 'interface translation project': opening_hours
 'interface translation server pattern': modules/contrib/%project/translations/%language.po
