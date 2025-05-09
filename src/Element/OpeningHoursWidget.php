@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides the opening_hours_widget element.
  *
- * @RenderElementBase("opening_hours_widget")
+ * @RenderElement("opening_hours_widget")
  */
 class OpeningHoursWidget extends RenderElementBase implements ContainerFactoryPluginInterface {
 
