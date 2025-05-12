@@ -26,8 +26,8 @@
         "stadgent/services-opening-hours": "^2.0"
     },
     "require-dev": {
-        "digipolisgent/qa-drupal": "^2.0",
-        "drush/drush": "^11"
+        "digipolisgent/qa-drupal": "^2.0 || ^3.0 || ^4.0",
+        "drush/drush": "^11 || ^12"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -41,7 +41,7 @@
     "extra": {
         "drush": {
             "services": {
-                "drush.services.yml": "^11"
+                "drush.services.yml": "^11 || ^12"
             }
         },
         "grumphp": {
