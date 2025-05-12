@@ -75,7 +75,7 @@ class OpeningHoursWidget extends WidgetBase {
     array $settings,
     array $third_party_settings,
     ServiceService $serviceService,
-    ChannelService $channelService
+    ChannelService $channelService,
   ) {
     parent::__construct(
       $plugin_id,

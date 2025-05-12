@@ -83,7 +83,7 @@ final class SyncService implements SyncServiceInterface {
     EntityFieldManagerInterface $entityFieldManager,
     ServiceService $serviceService,
     ChannelService $channelService,
-    EventDispatcherInterface $eventDispatcher
+    EventDispatcherInterface $eventDispatcher,
   ) {
     $this->entityTypeManager = $entityTypeManager;
     $this->entityFieldManager = $entityFieldManager;
