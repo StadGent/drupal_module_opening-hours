@@ -12,7 +12,7 @@ cache:
 
 env:
   matrix:
-    - DRUPAL=10.0
+    - DRUPAL=10.3
     - DRUPAL=11.0
 
 jobs:
