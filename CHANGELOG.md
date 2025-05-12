@@ -7,6 +7,12 @@ All Notable changes to `drupal/opening-hours` module.
 ### Added
 
 * DMOH-60: Add Drupal 11 support.
+* Add distro to travis to prevent failing tests.
+
+### Changed
+
+* Change travis min php version to 8.3 and 8.4.
+* Change travis min drupal version to 10.3 and 11.0.
 
 ## [2.2.1]
 
