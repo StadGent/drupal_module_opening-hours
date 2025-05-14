@@ -21,8 +21,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * A widget bar.
  *
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings("PHPMD.ExcessiveClassComplexity")
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  *
  * @FieldWidget(
  *   id = "opening_hours",
@@ -75,7 +75,7 @@ class OpeningHoursWidget extends WidgetBase {
     array $settings,
     array $third_party_settings,
     ServiceService $serviceService,
-    ChannelService $channelService
+    ChannelService $channelService,
   ) {
     parent::__construct(
       $plugin_id,
@@ -232,7 +232,7 @@ class OpeningHoursWidget extends WidgetBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    *
-   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   * @SuppressWarnings("PHPMD.CyclomaticComplexity")
    */
   public function validate(array $element, FormStateInterface $form_state): void {
     $serviceElement = $element['service'];

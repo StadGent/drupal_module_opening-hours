@@ -9,7 +9,6 @@
  * @see phpunit.xml.dist
  */
 
-use Drupal\Component\Assertion\Handle;
 use Drupal\Core\Composer\Composer;
 use PHPUnit\Runner\Version;
 
@@ -154,12 +153,6 @@ setlocale(LC_ALL, 'C');
 // and DST). This choice is made to prevent timezone related regressions and
 // reduce the fragility of the testing system in general.
 date_default_timezone_set('Australia/Sydney');
-
-// Runtime assertions. PHPUnit follows the php.ini assert.active setting for
-// runtime assertions. By default this setting is on. Here we make a call to
-// make PHP 5 and 7 handle assertion failures the same way, but this call does
-// not turn runtime assertions on if they weren't on already.
-Handle::register();
 
 // PHPUnit 4 to PHPUnit 6 bridge. Tests written for PHPUnit 4 need to work on
 // PHPUnit 6 with a minimum of fuss.

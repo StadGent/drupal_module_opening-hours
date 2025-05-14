@@ -20,18 +20,16 @@ function opening_hours_requirements($phase) {
 
     if (file_exists(DRUPAL_ROOT . '/libraries/opening-hours-widget/dist/opening-hours-widget.min.js')) {
       $requirements['opening_hours']['severity'] = REQUIREMENT_OK;
+      return $requirements;
     }
-    else {
-      // Required opening_hours library wasn't found; abort installation.
-      $requirements['opening_hours']['value'] = t('Not found');
 
-      // Provide a download link to the opening_hours jQuery plugin.
-      $requirements['opening_hours']['description'] = t('The <a href="@opening_hours" target="_blank">opening hours widget</a> plugin is missing. See <a href="@readme">README.md</a> for instructions on how to download and extract it.', [
-        '@opening_hours' => 'https://github.com/StadGent/npm_package_opening-hours-widget',
-        '@readme' => '/' . \Drupal::service('extension.list.module')->getPath('opening_hours') . '/README.md',
-      ]);
-      $requirements['opening_hours']['severity'] = REQUIREMENT_ERROR;
-    }
+    // Required opening_hours library wasn't found; abort installation.
+    $requirements['opening_hours']['value'] = t('Not found');
+    $requirements['opening_hours']['description'] = t('The <a href="@opening_hours" target="_blank">opening hours widget</a> plugin is missing. See <a href="@readme">README.md</a> for instructions on how to download and extract it.', [
+      '@opening_hours' => 'https://github.com/StadGent/npm_package_opening-hours-widget',
+      '@readme' => '/' . \Drupal::service('extension.list.module')->getPath('opening_hours') . '/README.md',
+    ]);
+    $requirements['opening_hours']['severity'] = REQUIREMENT_ERROR;
   }
 
   return $requirements;
@@ -39,6 +37,10 @@ function opening_hours_requirements($phase) {
 
 /**
  * Update the openinghours field: add service & channel name + broken fields.
+ *
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ * @SuppressWarnings("PHPMD.NPathComplexity")
+ * @SuppressWarnings("PHPMD.LongVariable")
  */
 function opening_hours_update_8101() {
   $columns_to_add = ['service_label', 'channel_label', 'broken'];
@@ -124,7 +126,8 @@ function opening_hours_update_8101() {
       }
       if ($table_mapping->allowsSharedTableStorage($field_storage_definition)) {
         $key = "$entity_type_id.field_storage_definitions";
-        if ($definitions = $entity_definitions_installed->get($key)) {
+        $definitions = $entity_definitions_installed->get($key);
+        if ($definitions) {
           $definitions[$field_name] = $field_storage_definition;
           $entity_definitions_installed->set($key, $definitions);
         }
