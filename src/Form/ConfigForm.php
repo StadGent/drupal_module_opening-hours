@@ -6,6 +6,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -21,9 +22,11 @@ class ConfigForm extends ConfigFormBase {
    *   The factory for configuration objects.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation
    *   The String translations.
+   * @param \Drupal\Core\Config\TypedConfigManagerInterface $typedConfigManager
+   *   The Typed configuration manager.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, TranslationInterface $stringTranslation) {
-    parent::__construct($config_factory);
+  public function __construct(ConfigFactoryInterface $config_factory, TranslationInterface $stringTranslation, TypedConfigManagerInterface $typedConfigManager) {
+    parent::__construct($config_factory, $typedConfigManager);
     $this->setStringTranslation($stringTranslation);
   }
 
@@ -33,7 +36,8 @@ class ConfigForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('string_translation')
+      $container->get('string_translation'),
+      $container->get('config.typed')
     );
   }
 
