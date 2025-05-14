@@ -1,8 +1,10 @@
+dist: jammy
 language: php
 sudo: false
 
 php:
-  - 8.1
+  - 8.3
+  - 8.4
 
 cache:
   directories:
@@ -10,9 +12,10 @@ cache:
 
 env:
   matrix:
-    - DRUPAL=9.4
-    - DRUPAL=9.5
-    - DRUPAL=10.0
+    - DRUPAL=10.3
+    - DRUPAL=11.0
+  global:
+    - XDEBUG_MODE=coverage
 
 jobs:
   fast_finish: true

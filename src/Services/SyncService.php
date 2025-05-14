@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Service to sync the opening_hours fields with the service/channel data.
  *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 final class SyncService implements SyncServiceInterface {
 
@@ -83,7 +83,7 @@ final class SyncService implements SyncServiceInterface {
     EntityFieldManagerInterface $entityFieldManager,
     ServiceService $serviceService,
     ChannelService $channelService,
-    EventDispatcherInterface $eventDispatcher
+    EventDispatcherInterface $eventDispatcher,
   ) {
     $this->entityTypeManager = $entityTypeManager;
     $this->entityFieldManager = $entityFieldManager;
@@ -216,6 +216,7 @@ final class SyncService implements SyncServiceInterface {
    *   The entity to save.
    */
   protected function syncEntitySave(ContentEntityInterface $entity) {
+    // @phpstan-ignore-next-line
     if ($entity instanceof RevisionableInterface) {
       $entity->setNewRevision(FALSE);
     }

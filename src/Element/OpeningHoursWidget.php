@@ -4,7 +4,7 @@ namespace Drupal\opening_hours\Element;
 
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Render\Element\RenderElementBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @RenderElement("opening_hours_widget")
  */
-class OpeningHoursWidget extends RenderElement implements ContainerFactoryPluginInterface {
+class OpeningHoursWidget extends RenderElementBase implements ContainerFactoryPluginInterface {
 
   /**
    * The opening hours configuration.
@@ -37,7 +37,7 @@ class OpeningHoursWidget extends RenderElement implements ContainerFactoryPlugin
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ImmutableConfig $opening_hours_config
+    ImmutableConfig $opening_hours_config,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 

@@ -35,7 +35,7 @@ final class SyncCommands extends DrushCommands {
    */
   public function __construct(
     SyncService $syncService,
-    EntityTypeManagerInterface $entityTypeManager
+    EntityTypeManagerInterface $entityTypeManager,
   ) {
     parent::__construct();
 
