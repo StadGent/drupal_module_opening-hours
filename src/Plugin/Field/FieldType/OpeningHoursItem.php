@@ -6,6 +6,7 @@ namespace Drupal\opening_hours\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
@@ -92,11 +93,21 @@ class OpeningHoursItem extends FieldItemBase implements OpeningHoursItemInterfac
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
     $properties = [];
-    $properties['service'] = DataDefinition::create('string');
-    $properties['service_label'] = DataDefinition::create('string');
-    $properties['channel'] = DataDefinition::create('string');
-    $properties['channel_label'] = DataDefinition::create('string');
-    $properties['broken'] = DataDefinition::create('integer');
+    $properties['service'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Service'))
+      ->setDescription(new TranslatableMarkup('The service record ID.'));
+    $properties['service_label'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Service label'))
+      ->setDescription(new TranslatableMarkup('The service label.'));
+    $properties['channel'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Channel'))
+      ->setDescription(new TranslatableMarkup('The channel record ID.'));
+    $properties['channel_label'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Channel label'))
+      ->setDescription(new TranslatableMarkup('The channel label.'));
+    $properties['broken'] = DataDefinition::create('integer')
+      ->setLabel(new TranslatableMarkup('Broken'))
+      ->setDescription(new TranslatableMarkup('Indicates if the service/channel link no longer exists in the Opening Hours platform.'));
     return $properties;
   }
 
