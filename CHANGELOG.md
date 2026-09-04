@@ -2,6 +2,12 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [2.3.2]
+
+### Fixed
+
+* Fix missing category definition of the Opening Hour field.
+
 ## [2.3.1]
 
 ### Fixed
@@ -276,6 +282,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[2.3.2]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.2.0...2.2.1

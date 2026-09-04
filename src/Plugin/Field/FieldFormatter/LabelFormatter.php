@@ -2,22 +2,21 @@
 
 namespace Drupal\opening_hours\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem;
 
 /**
  * Display the opening hours info by its field values.
- *
- * @FieldFormatter(
- *   id = "opening_hours_labels",
- *   label = @Translation("Labels"),
- *   field_types = {
- *     "opening_hours"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'opening_hours_labels',
+  label: new TranslatableMarkup('Labels'),
+  field_types: ['opening_hours'],
+)]
 class LabelFormatter extends FormatterBase {
 
   /**
