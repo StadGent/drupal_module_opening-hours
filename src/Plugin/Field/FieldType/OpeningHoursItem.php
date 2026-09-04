@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\opening_hours\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -11,39 +12,37 @@ use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Provides a field type "Opening Hours".
- *
- * @FieldType(
- *   id = "opening_hours",
- *   label = @Translation("Opening Hours"),
- *   description = @Translation("Adds a field to select the Service and its Channel to show its opening hours for."),
- *   category = @Translation("Web services"),
- *   module = "opening_hours",
- *   default_formatter = "opening_hours_widget",
- *   default_widget = "opening_hours",
- *   column_groups = {
- *     "service" = {
- *       "label" = @Translation("Service"),
- *       "translatable" = TRUE
- *     },
- *     "service_label" = {
- *       "label" = @Translation("Service label"),
- *       "translatable" = TRUE
- *     },
- *     "channel" = {
- *       "label" = @Translation("Channel"),
- *       "translatable" = TRUE
- *     },
- *     "channel_label" = {
- *       "label" = @Translation("Channel label"),
- *       "translatable" = TRUE
- *     },
- *     "broken" = {
- *       "label" = @Translation("Broken"),
- *       "translatable" = FALSE
- *     },
- *   },
- * )
  */
+#[FieldType(
+  id: 'opening_hours',
+  label: new TranslatableMarkup('Opening hours'),
+  description: new TranslatableMarkup('Adds a field to select the Service and its Channel to show its opening hours for.'),
+  category: 'opening_hours',
+  default_widget: 'opening_hours',
+  default_formatter: 'opening_hours_widget',
+  column_groups: [
+    'service' => [
+      'label' => new TranslatableMarkup('Service'),
+      'translatable' => TRUE,
+    ],
+    'service_label' => [
+       'label' => new TranslatableMarkup('Service label'),
+      'translatable' => TRUE,
+    ],
+    'channel' => [
+      'label' => new TranslatableMarkup('Channel'),
+      'translatable' => TRUE,
+    ],
+    'channel_label' => [
+      'label' => new TranslatableMarkup('Channel label'),
+      'translatable' => TRUE,
+    ],
+    'broken' => [
+      'label' => new TranslatableMarkup('Broken'),
+      'translatable' => FALSE,
+    ],
+  ],
+)]
 class OpeningHoursItem extends FieldItemBase implements OpeningHoursItemInterface {
 
   /**
