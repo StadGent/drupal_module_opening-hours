@@ -1,10 +1,10 @@
 library:
-  version: 0.1.1
+  version: 2.3.0
   js:
     /libraries/opening-hours-widget/dist/opening-hours-widget.min.js: { preprocess: false }
 
 widget:
-  version: 1.x
+  version: 2.3.0
   js:
     js/opening-hours.functions.js: {}
     js/opening-hours.item.js: {}
@@ -17,3 +17,11 @@ widget:
     - core/once
     - core/drupalSettings
     - opening_hours/library
+
+drupal.opening_hours-icon:
+  version: 2.3.0
+  css:
+    theme:
+      css/opening_hours.icon.theme.css: {}
+  dependencies:
+    - field_ui/drupal.field_ui.manage_fields

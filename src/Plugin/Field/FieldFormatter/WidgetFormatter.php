@@ -2,21 +2,20 @@
 
 namespace Drupal\opening_hours\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
- * Display the openinghours field as an ajax widget.
- *
- * @FieldFormatter(
- *   id = "opening_hours_widget",
- *   label = @Translation("Widget"),
- *   field_types = {
- *     "opening_hours"
- *   }
- * )
+ * Display the opening hours field as an ajax widget.
  */
+#[FieldFormatter(
+  id: 'opening_hours_widget',
+  label: new TranslatableMarkup('Opening hours widget'),
+  field_types: ['opening_hours'],
+)]
 class WidgetFormatter extends FormatterBase {
 
   /**

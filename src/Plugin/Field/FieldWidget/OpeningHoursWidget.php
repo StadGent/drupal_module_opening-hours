@@ -4,11 +4,13 @@ namespace Drupal\opening_hours\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\opening_hours\Plugin\Field\FieldType\OpeningHoursItem;
 use Psr\Log\LoggerInterface;
 use StadGent\Services\OpeningHours\Exception\ServiceNotFoundException;
@@ -19,19 +21,16 @@ use StadGent\Services\OpeningHours\Value\Service;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * A widget bar.
+ * The opening hours field widget.
  *
  * @SuppressWarnings("PHPMD.ExcessiveClassComplexity")
  * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
- *
- * @FieldWidget(
- *   id = "opening_hours",
- *   label = @Translation("Opening Hours"),
- *   field_types = {
- *     "opening_hours"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'opening_hours',
+  label: new TranslatableMarkup('Opening hours'),
+  field_types: ['opening_hours'],
+)]
 class OpeningHoursWidget extends WidgetBase {
 
   use LoggerChannelTrait;

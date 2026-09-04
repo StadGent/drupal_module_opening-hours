@@ -1,0 +1,3 @@
+opening_hours:
+  label: "Opening hours"
+  description: "Field to retrieve and display opening hours from the opening hours platform."
