@@ -4,7 +4,7 @@ library:
     /libraries/opening-hours-widget/dist/opening-hours-widget.min.js: { preprocess: false }
 
 widget:
-  version: 2.3.0
+  version: 2.3.3
   js:
     js/opening-hours.functions.js: {}
     js/opening-hours.item.js: {}
