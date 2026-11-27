@@ -355,3 +355,7 @@ msgstr ""
 msgid "API returned : @message"
 msgstr ""
 
+#: modules/contrib/opening_hours/js/opening-hours.binding.js:25
+msgid "Opening hours temporarily unavailable"
+msgstr ""
+

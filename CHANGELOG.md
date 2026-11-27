@@ -2,6 +2,13 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [Unreleased]
+
+### Changed
+
+* Show "Opening hours temporarily unavailable" instead of "closed" when the
+  API has no opening hours data for a channel (all days "open: null").
+
 ## [2.3.2]
 
 ### Fixed

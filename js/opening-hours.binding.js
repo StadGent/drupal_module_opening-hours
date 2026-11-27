@@ -22,6 +22,7 @@
           'endpoint': settings.openingHours.endpoint,
           'endpoint_key': settings.openingHours.endpoint_key,
           'language': settings.openingHours.language,
+          'unavailable': Drupal.t('Opening hours temporarily unavailable'),
           'error' : function (item) {
             var elem = getClosest(item, '.openinghours-wrapper');
             if (elem && elem.parentNode) {
