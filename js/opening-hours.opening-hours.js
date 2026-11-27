@@ -23,6 +23,7 @@ function OpeningHours(items, options) {
     endpoint: '',
     endpoint_key: '',
     language: 'en',
+    unavailable: 'Opening hours temporarily unavailable',
     requestDate: this.getRequestDateFromUrl()
   };
 
@@ -98,19 +99,65 @@ OpeningHours.prototype.formattedDate = function (dateString) {
 /**
  * Render the widget for the given item.
  *
+ * The widget is only rendered when the API has opening hours data for the
+ * week of the item. Days without data are returned as "open: null" by the
+ * API, but the HTML output renders them as "closed". When none of the days
+ * have data (e.g. the source system is not synchronised), a "temporarily
+ * unavailable" message is shown instead of showing the channel as closed.
+ *
  * @param {OpeningHoursItem} item
  *   The item to render.
  */
 OpeningHours.prototype.renderItemWidget = function (item) {
+  var self = this;
+
   if (!item.isWidgetable()) {
     return false;
   }
 
-  this.getTitle(item);
-  this.constructRequest(
-    item,
-    this.constructWidget(item, this)
-  );
+  this.hasOpeningHoursData(item).then(function (hasData) {
+    self.getTitle(item);
+
+    if (!hasData) {
+      item.printUnavailable();
+      return;
+    }
+
+    self.constructRequest(
+      item,
+      self.constructWidget(item, self)
+    );
+  });
+};
+
+/**
+ * Check if the API has opening hours data for the week of the given item.
+ *
+ * @param {OpeningHoursItem} item
+ *   The item to check.
+ *
+ * @returns {Promise<boolean>}
+ *   Resolves to false when no day of the week has data. Resolves to true when
+ *   at least one day has data or when the check itself fails, so the default
+ *   behaviour is kept.
+ */
+OpeningHours.prototype.hasOpeningHoursData = function (item) {
+  return this.ohw.fetchOpeningHoursForWeek(
+    item.getService(),
+    item.getChannel(),
+    'json',
+    this.constructRequestPeriodOptions(item)
+  ).then(function (data) {
+    var channels = Array.isArray(data) ? data : [data];
+
+    return channels.some(function (channel) {
+      return ((channel && channel.openinghours) || []).some(function (day) {
+        return day.open !== null;
+      });
+    });
+  }).catch(function () {
+    return true;
+  });
 };
 
 /**

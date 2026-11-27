@@ -2,6 +2,13 @@
 
 All Notable changes to `drupal/opening-hours` module.
 
+## [2.3.3]
+
+### Changed
+
+* Show "Opening hours temporarily unavailable" instead of "closed" when the
+  API has no opening hours data for a channel (all days "open: null").
+
 ## [2.3.2]
 
 ### Fixed
@@ -282,6 +289,7 @@ for the same widget.
 * DMOH-20: Added the opening hours field type.
 * DMOH-21: Added the opening hours field widget.
 
+[2.3.3]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.3.2...2.3.3
 [2.3.2]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/StadGent/drupal_module_opening-hours/compare/2.2.1...2.3.0
