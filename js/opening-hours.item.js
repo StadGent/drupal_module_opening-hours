@@ -189,3 +189,34 @@ OpeningHoursItem.prototype.printError = function (message) {
     this.options.error(this.element);
   }
 };
+
+/**
+ * Show a "temporarily unavailable" message instead of the widget.
+ *
+ * Within an opening hours wrapper all widgets and toggles of the channel are
+ * replaced by a single message, only the channel title is kept.
+ */
+OpeningHoursItem.prototype.printUnavailable = function () {
+  var message = document.createElement('p');
+  message.className = 'openinghours--unavailable';
+  message.textContent = this.options.unavailable;
+
+  var wrapper = this.element.closest('.openinghours-wrapper');
+  if (!wrapper) {
+    this.element.innerHTML = '';
+    this.element.appendChild(message);
+    return;
+  }
+
+  if (wrapper.classList.contains('openinghours-wrapper--unavailable')) {
+    return;
+  }
+  wrapper.classList.add('openinghours-wrapper--unavailable');
+
+  [].slice.call(wrapper.children).forEach(function (child) {
+    if (!child.classList.contains('openinghours-channel-title')) {
+      wrapper.removeChild(child);
+    }
+  });
+  wrapper.appendChild(message);
+};

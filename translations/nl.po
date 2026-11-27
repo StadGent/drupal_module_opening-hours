@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2026-09-02 11:02+0200\n"
-"PO-Revision-Date: 2026-09-02 11:03+0200\n"
+"PO-Revision-Date: 2026-11-27 15:29+0100\n"
 "Last-Translator: Peter Decuyper <peter.decuyper@district09.gent>\n"
 "Language-Team: District09 <tbweb@gent.be>\n"
 "Language: nl\n"
@@ -387,6 +387,10 @@ msgstr "Kanaal bastaat niet voor deze Dienst."
 #: modules/contrib/opening_hours/src/Plugin/Field/FieldWidget/OpeningHoursWidget.php:385;412
 msgid "API returned : @message"
 msgstr "API retourneerde ; @message"
+
+#: modules/contrib/opening_hours/js/opening-hours.binding.js:25
+msgid "Opening hours temporarily unavailable"
+msgstr "Openingsuren tijdelijk niet beschikbaar"
 
 #~ msgid "month overview"
 #~ msgstr "maandoverzicht"
